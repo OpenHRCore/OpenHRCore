@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHRCore.Employee.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHRCore.Employee.Infrastructure", "Employee\OpenHRCore.Employee.Infrastructure\OpenHRCore.Employee.Infrastructure.csproj", "{39F41931-0813-48AE-BB02-A3B27D49ABE1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{D40CB839-FBAA-4F03-B730-60E5C33152B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
