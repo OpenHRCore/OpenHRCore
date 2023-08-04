@@ -3,46 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33513.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Employee", "Employee", "{E586D013-5533-422B-AFEB-788694F4C25F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AttendanceTracking", "AttendanceTracking", "{641BD22D-9BE3-4571-AEAC-F75E6A85D5F5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payroll", "Payroll", "{D5ED20DB-BA42-4930-8549-43F1304DA408}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHRCore.Employee.Application", "Employee\OpenHRCore.Employee.Application\OpenHRCore.Employee.Application.csproj", "{04EFDFB7-06FE-464E-91C2-6909A800B31F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHRCore.Employee.Domain", "Employee\OpenHRCore.Employee.Domain\OpenHRCore.Employee.Domain.csproj", "{D864563D-9CEA-4BA7-A53B-22EB1ED89D73}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHRCore.Employee.Infrastructure", "Employee\OpenHRCore.Employee.Infrastructure\OpenHRCore.Employee.Infrastructure.csproj", "{39F41931-0813-48AE-BB02-A3B27D49ABE1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{D40CB839-FBAA-4F03-B730-60E5C33152B5}"
-EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{04EFDFB7-06FE-464E-91C2-6909A800B31F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04EFDFB7-06FE-464E-91C2-6909A800B31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{04EFDFB7-06FE-464E-91C2-6909A800B31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04EFDFB7-06FE-464E-91C2-6909A800B31F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D864563D-9CEA-4BA7-A53B-22EB1ED89D73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D864563D-9CEA-4BA7-A53B-22EB1ED89D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D864563D-9CEA-4BA7-A53B-22EB1ED89D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D864563D-9CEA-4BA7-A53B-22EB1ED89D73}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39F41931-0813-48AE-BB02-A3B27D49ABE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39F41931-0813-48AE-BB02-A3B27D49ABE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39F41931-0813-48AE-BB02-A3B27D49ABE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39F41931-0813-48AE-BB02-A3B27D49ABE1}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{04EFDFB7-06FE-464E-91C2-6909A800B31F} = {E586D013-5533-422B-AFEB-788694F4C25F}
-		{D864563D-9CEA-4BA7-A53B-22EB1ED89D73} = {E586D013-5533-422B-AFEB-788694F4C25F}
-		{39F41931-0813-48AE-BB02-A3B27D49ABE1} = {E586D013-5533-422B-AFEB-788694F4C25F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {315C7B0E-BD02-4679-BEC3-87616E508D06}
