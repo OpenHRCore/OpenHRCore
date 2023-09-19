@@ -6,4 +6,9 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\Employees\Transaction\" />
+    <Folder Include="Interfaces\Employees\" />
+  </ItemGroup>
+
 </Project>
