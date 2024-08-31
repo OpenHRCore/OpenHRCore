@@ -1,6 +1,6 @@
 ﻿using OpenHRCore.SharedKernel.Domain.Entities;
 
-namespace OpenHRCore.SetupCentral.Domain.Entities
+namespace OpenHRCore.WorkForce.Domain.Entities
 {
     /// <summary>
     /// Represents an organizational unit (OU) within the organization.
