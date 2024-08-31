@@ -1,0 +1,6 @@
+@OpenHRCore.PayStream.WebAPI_HostAddress = http://localhost:5162
+
+GET {{OpenHRCore.PayStream.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

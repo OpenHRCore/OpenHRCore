@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenHRCore.CareerConnect.Application\OpenHRCore.CareerConnect.Application.csproj" />
+    <ProjectReference Include="..\OpenHRCore.CareerConnect.Domain\OpenHRCore.CareerConnect.Domain.csproj" />
+    <ProjectReference Include="..\OpenHRCore.CareerConnect.Infrastructure\OpenHRCore.CareerConnect.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

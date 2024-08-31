@@ -1,0 +1,6 @@
+@OpenHRCore.CareerConnect.WebAPI_HostAddress = http://localhost:5262
+
+GET {{OpenHRCore.CareerConnect.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

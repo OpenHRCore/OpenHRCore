@@ -1,0 +1,6 @@
+@OpenHRCore.FlexiLeave.WebAPI_HostAddress = http://localhost:5212
+
+GET {{OpenHRCore.FlexiLeave.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

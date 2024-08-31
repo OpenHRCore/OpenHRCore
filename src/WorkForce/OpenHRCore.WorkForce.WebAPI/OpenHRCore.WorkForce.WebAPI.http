@@ -1,0 +1,6 @@
+@OpenHRCore.WorkForce.WebAPI_HostAddress = http://localhost:5183
+
+GET {{OpenHRCore.WorkForce.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
