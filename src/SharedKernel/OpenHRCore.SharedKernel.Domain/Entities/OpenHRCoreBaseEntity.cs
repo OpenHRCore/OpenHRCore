@@ -13,7 +13,7 @@
         /// <summary>
         /// Gets or sets the date and time when the entity was created.
         /// </summary>
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         /// <summary>
         /// Gets or sets the date and time when the entity was last updated.
@@ -23,7 +23,7 @@
         /// <summary>
         /// Gets or sets the identifier of the user who created the entity.
         /// </summary>
-        public required string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the identifier of the user who last updated the entity.
