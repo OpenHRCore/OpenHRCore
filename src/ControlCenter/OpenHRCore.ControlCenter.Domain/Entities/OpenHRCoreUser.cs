@@ -38,6 +38,11 @@ namespace OpenHRCore.ControlCenter.Domain.Entities
         public bool IsPhoneNumberConfirmed { get; set; }
 
         /// <summary>
+        /// Indicates whether the user is built-in.
+        /// </summary>
+        public bool IsBuiltIn { get; set; } = false;
+
+        /// <summary>
         /// Navigation property for the roles assigned to the user.
         /// </summary>
         public ICollection<OpenHRCoreUserRole> UserRoles { get; set; } = new List<OpenHRCoreUserRole>();

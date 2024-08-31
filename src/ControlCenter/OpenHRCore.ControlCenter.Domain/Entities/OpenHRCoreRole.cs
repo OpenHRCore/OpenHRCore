@@ -18,6 +18,11 @@ namespace OpenHRCore.ControlCenter.Domain.Entities
         public string? Description { get; set; }
 
         /// <summary>
+        /// Indicates whether the role is built-in.
+        /// </summary>
+        public bool IsBuiltIn { get; set; } = false;
+
+        /// <summary>
         /// Navigation property for the user-role relationships.
         /// </summary>
         public ICollection<OpenHRCoreUserRole> UserRoles { get; set; } = new List<OpenHRCoreUserRole>();
