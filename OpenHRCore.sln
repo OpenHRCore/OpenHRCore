@@ -101,9 +101,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.SetupCentral.UI.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedKernel", "SharedKernel", "{2772AF87-183B-407A-B203-E7C8A888EE14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHRCore.SharedKernel.Domain", "src\SharedKernel\OpenHRCore.SharedKernel.Domain\OpenHRCore.SharedKernel.Domain.csproj", "{D2B4FF00-AD47-4F94-89E6-D1BF75465AE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.SharedKernel.Domain", "src\SharedKernel\OpenHRCore.SharedKernel.Domain\OpenHRCore.SharedKernel.Domain.csproj", "{D2B4FF00-AD47-4F94-89E6-D1BF75465AE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHRCore.SharedKernel.Application", "src\SharedKernel\OpenHRCore.SharedKernel.Application\OpenHRCore.SharedKernel.Application.csproj", "{3B88DBA3-F498-4FCB-B4E9-7D98ABFA5304}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.SharedKernel.Application", "src\SharedKernel\OpenHRCore.SharedKernel.Application\OpenHRCore.SharedKernel.Application.csproj", "{3B88DBA3-F498-4FCB-B4E9-7D98ABFA5304}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHRCore.SharedKernel.Infrastructure", "src\SharedKernel\OpenHRCore.SharedKernel.Infrastructure\OpenHRCore.SharedKernel.Infrastructure.csproj", "{97B4AA0A-4511-4A00-8CF2-6508AFA8F962}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -281,6 +283,10 @@ Global
 		{3B88DBA3-F498-4FCB-B4E9-7D98ABFA5304}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B88DBA3-F498-4FCB-B4E9-7D98ABFA5304}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B88DBA3-F498-4FCB-B4E9-7D98ABFA5304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97B4AA0A-4511-4A00-8CF2-6508AFA8F962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97B4AA0A-4511-4A00-8CF2-6508AFA8F962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97B4AA0A-4511-4A00-8CF2-6508AFA8F962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97B4AA0A-4511-4A00-8CF2-6508AFA8F962}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -328,6 +334,7 @@ Global
 		{6872950A-251B-43A8-A188-904B3CC7C356} = {6E2BB8E4-B2F3-4EDE-9F7E-38098CC446CD}
 		{D2B4FF00-AD47-4F94-89E6-D1BF75465AE4} = {2772AF87-183B-407A-B203-E7C8A888EE14}
 		{3B88DBA3-F498-4FCB-B4E9-7D98ABFA5304} = {2772AF87-183B-407A-B203-E7C8A888EE14}
+		{97B4AA0A-4511-4A00-8CF2-6508AFA8F962} = {2772AF87-183B-407A-B203-E7C8A888EE14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DA6C3F4-D8F3-41EF-9FE2-C59B37B56616}
