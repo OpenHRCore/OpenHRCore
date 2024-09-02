@@ -51,4 +51,4 @@ To get started with OpenHRCore, follow these steps:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/OpenHRCore.git
+   git clone https://github.com/OpenHRCore/OpenHRCore.git
