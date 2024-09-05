@@ -1,15 +1,22 @@
 ﻿using OpenHRCore.SharedKernel.Domain.Entities;
+using OpenHRCore.WorkForce.Domain.Enums;
 
 namespace OpenHRCore.WorkForce.Domain.Entities
 {
     /// <summary>
-    /// Represents a dependent of an employee.
+    /// Represents a dependent of an employee in the workforce management system.
+    /// This class encapsulates all relevant information about an employee's dependent,
+    /// including personal details, relationship to the employee, and additional metadata.
     /// </summary>
     public class EmployeeDependent : OpenHRCoreBaseEntity
     {
         /// <summary>
-        /// Gets or sets the ID of the employee associated with this dependent.
+        /// Gets or sets the unique identifier of the employee associated with this dependent.
         /// </summary>
+        /// <remarks>
+        /// This property establishes a relationship between the dependent and a specific employee.
+        /// It should correspond to the Id of an existing Employee entity.
+        /// </remarks>
         public required Guid EmployeeId { get; set; }
 
         /// <summary>
@@ -25,6 +32,10 @@ namespace OpenHRCore.WorkForce.Domain.Entities
         /// <summary>
         /// Gets or sets the relationship of the dependent to the employee.
         /// </summary>
+        /// <remarks>
+        /// Consider implementing this as an enum to ensure consistency and facilitate reporting.
+        /// Example values might include: Spouse, Child, Parent, Sibling, etc.
+        /// </remarks>
         public string? Relationship { get; set; }
 
         /// <summary>
@@ -35,12 +46,16 @@ namespace OpenHRCore.WorkForce.Domain.Entities
         /// <summary>
         /// Gets or sets the gender of the dependent.
         /// </summary>
-        public string? Gender { get; set; }
+        public Gender Gender { get; set; }
 
         /// <summary>
         /// Gets or sets the phone numbers of the dependent.
         /// </summary>
-        public List<string>? PhoneNumbers { get; set; } = new List<string>();
+        /// <remarks>
+        /// Consider using a structured format or a separate entity for multiple phone numbers.
+        /// This could improve searchability and data integrity.
+        /// </remarks>
+        public string? PhoneNumbers { get; set; }
 
         /// <summary>
         /// Gets or sets the occupation title of the dependent.

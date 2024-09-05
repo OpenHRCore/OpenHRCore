@@ -1,4 +1,5 @@
 ﻿using OpenHRCore.SharedKernel.Domain.Entities;
+using OpenHRCore.WorkForce.Domain.Enums;
 
 namespace OpenHRCore.WorkForce.Domain.Entities
 {
@@ -13,7 +14,7 @@ namespace OpenHRCore.WorkForce.Domain.Entities
         public required Guid EmployeeId { get; set; }
 
         /// <summary>
-        /// Gets or sets the primary address line, often the street address or P.O. Box.
+        /// Gets or sets the primary address line, typically the street address or P.O. Box.
         /// </summary>
         public required string AddressLine1 { get; set; }
 
@@ -53,25 +54,14 @@ namespace OpenHRCore.WorkForce.Domain.Entities
         public required string CountryCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of address (e.g., Home, Work).
+        /// Gets or sets the type of address.
         /// </summary>
-        public AddressType? AddressType { get; set; }
+        public AddressType AddressType { get; set; }
 
         /// <summary>
         /// Gets or sets any additional address details or notes.
         /// </summary>
         public string? AddressNotes { get; set; }
     }
-
-    /// <summary>
-    /// Enum for different types of addresses.
-    /// </summary>
-    public enum AddressType
-    {
-        Home,
-        Work,
-        Mailing,
-        Temporary,
-        Permanent
-    }
+ 
 }
