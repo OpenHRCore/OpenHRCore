@@ -41,5 +41,7 @@ namespace OpenHRCore.WorkForce.Domain.Entities
         /// Gets or sets the job grade associated with this position.
         /// </summary>
         public JobGrade JobGrade { get; set; } = null!;
+
+        public int SortOrder { get; set; }
     }
 }

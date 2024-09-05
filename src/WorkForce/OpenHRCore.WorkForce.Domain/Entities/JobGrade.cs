@@ -25,6 +25,6 @@ namespace OpenHRCore.WorkForce.Domain.Entities
         /// <summary>
         /// Gets or sets the rank or order of the job grade in the hierarchy.
         /// </summary>
-        public int Rank { get; set; }
+        public int SortOrder { get; set; }
     }
 }
