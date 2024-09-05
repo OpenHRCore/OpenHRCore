@@ -6,4 +6,19 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharedKernel\OpenHRCore.SharedKernel.Infrastructure\OpenHRCore.SharedKernel.Infrastructure.csproj" />
+    <ProjectReference Include="..\OpenHRCore.WorkForce.Application\OpenHRCore.WorkForce.Application.csproj" />
+    <ProjectReference Include="..\OpenHRCore.WorkForce.Domain\OpenHRCore.WorkForce.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Configurations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.8" />
+  </ItemGroup>
+
 </Project>
