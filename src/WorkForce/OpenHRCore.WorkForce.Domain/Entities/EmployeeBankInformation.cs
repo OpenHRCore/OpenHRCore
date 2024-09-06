@@ -1,6 +1,4 @@
-﻿using OpenHRCore.SharedKernel.Domain.Entities;
-
-namespace OpenHRCore.WorkForce.Domain.Entities
+﻿namespace OpenHRCore.WorkForce.Domain.Entities
 {
     /// <summary>
     /// Represents the bank information associated with an employee.

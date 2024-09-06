@@ -1,7 +1,4 @@
-﻿using OpenHRCore.SharedKernel.Domain.Entities;
-using System;
-
-namespace OpenHRCore.WorkForce.Domain.Entities
+﻿namespace OpenHRCore.WorkForce.Domain.Entities
 {
     /// <summary>
     /// Represents a document associated with an employee in the workforce management system.

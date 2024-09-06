@@ -1,7 +1,4 @@
-﻿using OpenHRCore.SharedKernel.Domain.Entities;
-using OpenHRCore.WorkForce.Domain.Enums;
-
-namespace OpenHRCore.WorkForce.Domain.Entities
+﻿namespace OpenHRCore.WorkForce.Domain.Entities
 {
     /// <summary>
     /// Represents an employee in the workforce, encapsulating all relevant personal and professional information.

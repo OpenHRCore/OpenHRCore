@@ -1,7 +1,4 @@
-﻿using OpenHRCore.SharedKernel.Domain.Entities;
-using OpenHRCore.WorkForce.Domain.Enums;
-
-namespace OpenHRCore.WorkForce.Domain.Entities
+﻿namespace OpenHRCore.WorkForce.Domain.Entities
 {
     /// <summary>
     /// Represents a work experience entry for an employee in the OpenHR Core system.

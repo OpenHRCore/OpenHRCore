@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OpenHRCore.WorkForce.Domain.Entities;
-
-namespace OpenHRCore.WorkForce.Infrastructure.Data
+﻿namespace OpenHRCore.WorkForce.Infrastructure.Data
 {
     /// <summary>
     /// Represents the database context for the WorkForce module in OpenHRCore.

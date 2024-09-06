@@ -1,7 +1,4 @@
-﻿using System;
-using OpenHRCore.SharedKernel.Domain.Entities;
-
-namespace OpenHRCore.WorkForce.Domain.Entities
+﻿namespace OpenHRCore.WorkForce.Domain.Entities
 {
     /// <summary>
     /// Represents the educational background of an employee in the OpenHR Core system.

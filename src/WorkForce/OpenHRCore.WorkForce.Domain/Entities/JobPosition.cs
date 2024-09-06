@@ -1,6 +1,4 @@
-﻿using OpenHRCore.SharedKernel.Domain.Entities;
-
-namespace OpenHRCore.WorkForce.Domain.Entities
+﻿namespace OpenHRCore.WorkForce.Domain.Entities
 {
     /// <summary>
     /// Represents a job position within the organization.
