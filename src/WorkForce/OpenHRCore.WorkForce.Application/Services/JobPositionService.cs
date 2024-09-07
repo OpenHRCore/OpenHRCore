@@ -43,7 +43,7 @@ namespace OpenHRCore.WorkForce.Application.Services
             {
                 var jobGrade = _mapper.Map<JobGrade>(request);
                 jobGrade.SortOrder = await GetNextSortOrderAsync();
-                
+
                 await _jobGradeRepository.AddAsync(jobGrade);
                 await _unitOfWork.SaveChangesAsync();
 
