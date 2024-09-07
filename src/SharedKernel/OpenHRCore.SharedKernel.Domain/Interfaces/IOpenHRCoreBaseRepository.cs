@@ -123,5 +123,25 @@ namespace OpenHRCore.SharedKernel.Domain.Interfaces
         void RemoveRange(IEnumerable<TEntity> entities);
 
         #endregion
+
+        #region Aggregate Operations
+
+        /// <summary>
+        /// Returns the maximum value of a property in the repository.
+        /// </summary>
+        /// <typeparam name="TResult">The type of the property to find the maximum value for.</typeparam>
+        /// <param name="selector">A function to extract the property to compare.</param>
+        /// <returns>The maximum value of the specified property.</returns>
+        TResult Max<TResult>(Expression<Func<TEntity, TResult>> selector);
+
+        /// <summary>
+        /// Asynchronously returns the maximum value of a property in the repository.
+        /// </summary>
+        /// <typeparam name="TResult">The type of the property to find the maximum value for.</typeparam>
+        /// <param name="selector">A function to extract the property to compare.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the maximum value of the specified property.</returns>
+        Task<TResult> MaxAsync<TResult>(Expression<Func<TEntity, TResult>> selector);
+
+        #endregion
     }
 }
