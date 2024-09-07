@@ -9,7 +9,7 @@ namespace OpenHRCore.WorkForce.Application
         public static IServiceCollection AddOpenHRCoreWorkForceApplication(this IServiceCollection services)
         {
 
-            services.AddScoped<ISetupService, JobPositionService>();
+            services.AddScoped<IJobPositionService, JobPositionService>();
             return services;
         }
     }
