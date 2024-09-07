@@ -13,6 +13,8 @@
         /// </summary>
         public required Guid EmployeeId { get; set; }
 
+        public required virtual Employee Employee { get; set; }
+
         /// <summary>
         /// Gets or sets the first name of the emergency contact.
         /// This property is required and should not be null or empty.

@@ -16,6 +16,8 @@
         /// </remarks>
         public required Guid EmployeeId { get; set; }
 
+        public required virtual Employee Employee { get; set; }
+
         /// <summary>
         /// Gets or sets the official name of the bank where the account is held.
         /// </summary>
@@ -68,7 +70,7 @@
         /// Only one account per employee should be set as the default.
         /// Consider implementing logic to ensure this constraint is maintained.
         /// </remarks>
-        public bool IsDefault { get; set; }
+        public bool IsDefault { get; set; } = false;
 
         /// <summary>
         /// Gets or sets any additional notes or comments related to the bank information.

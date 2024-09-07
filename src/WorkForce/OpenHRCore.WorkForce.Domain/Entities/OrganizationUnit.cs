@@ -83,7 +83,7 @@
         /// Lower values indicate higher precedence in sorting.
         /// It can be useful for displaying units in a specific order in user interfaces or reports.
         /// </remarks>
-        public int SortOrder { get; set; }
+        public required int SortOrder { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this organizational unit is the root of the hierarchy.

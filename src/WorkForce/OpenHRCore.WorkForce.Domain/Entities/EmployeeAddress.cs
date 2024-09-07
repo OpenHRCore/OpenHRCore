@@ -10,6 +10,8 @@
         /// </summary>
         public required Guid EmployeeId { get; set; }
 
+        public required virtual Employee Employee { get; set; }
+
         /// <summary>
         /// Gets or sets the primary address line, typically the street address or P.O. Box.
         /// </summary>

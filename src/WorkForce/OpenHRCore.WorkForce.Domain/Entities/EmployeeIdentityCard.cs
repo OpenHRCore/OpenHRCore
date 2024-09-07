@@ -15,6 +15,7 @@
         /// It should correspond to the Id of an existing Employee entity.
         /// </remarks>
         public required Guid EmployeeId { get; set; }
+        public required virtual Employee Employee { get; set; }
 
         /// <summary>
         /// Gets or sets the unique number or identifier of the identity card.

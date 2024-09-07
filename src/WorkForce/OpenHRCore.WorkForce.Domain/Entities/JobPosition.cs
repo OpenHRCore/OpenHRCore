@@ -83,6 +83,6 @@
         /// which may be useful for display purposes or organizational structure.
         /// Lower values indicate higher precedence in sorting.
         /// </remarks>
-        public int SortOrder { get; set; }
+        public required int SortOrder { get; set; }
     }
 }

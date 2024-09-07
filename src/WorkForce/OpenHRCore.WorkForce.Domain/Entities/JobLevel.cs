@@ -44,6 +44,6 @@
         /// Lower values indicate more junior positions, while higher values represent more senior roles.
         /// This field is useful for sorting and displaying job levels in a structured order.
         /// </remarks>
-        public int SortOrder { get; set; }
+        public required int SortOrder { get; set; }
     }
 }

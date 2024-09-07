@@ -44,7 +44,7 @@
         /// <summary>
         /// Gets or sets the employee's personal email address.
         /// </summary>
-        public string? PersonalEmail { get; set; }
+        public required string PersonalEmail { get; set; }
 
         /// <summary>
         /// Gets or sets the employee's work email address.
@@ -57,7 +57,7 @@
         /// <remarks>
         /// Consider using a structured format or separate properties for different types of phone numbers.
         /// </remarks>
-        public string? PhoneNumbers { get; set; }
+        public required string PhoneNumbers { get; set; }
 
         /// <summary>
         /// Gets or sets the employee's nationalities.

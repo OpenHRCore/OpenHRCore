@@ -16,6 +16,8 @@
         /// </remarks>
         public required Guid EmployeeId { get; set; }
 
+        public required virtual Employee Employee { get; set; }
+
         /// <summary>
         /// Gets or sets the title of the document.
         /// </summary>
