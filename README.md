@@ -52,3 +52,18 @@ To get started with OpenHRCore, follow these steps:
 
    ```bash
    git clone https://github.com/OpenHRCore/OpenHRCore.git
+
+2. **Database Migration**
+   - install dotnet ef cli tool
+   ```
+   dotnet tool install --global dotnet-ef
+   ```
+   - run ef migration script
+   ```
+    dotnet ef migrations add InitialMigration_WrokForce --context OpenHRCoreWorkForceDbContext --project .\WorkForce\OpenHRCore.WorkForce.Infrastructure\OpenHRCore.WorkForce.Infrastructure.csproj --startup-project .\WorkForce\OpenHRCore.WorkForce.WebAPI\OpenHRCore.WorkForce.WebAPI.csproj
+   ```
+   - run ef database update
+   ```
+   dotnet ef database update --context OpenHRCoreWorkForceDbContext --project .\WorkForce\OpenHRCore.WorkForce.Infrastructure\OpenHRCore.WorkForce.Infrastructure.csproj --startup-project .\WorkForce\OpenHRCore.WorkForce.WebAPI\OpenHRCore.WorkForce.WebAPI.csproj
+   ```
+   
