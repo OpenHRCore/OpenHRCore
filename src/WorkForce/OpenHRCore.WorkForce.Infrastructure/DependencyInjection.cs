@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OpenHRCore.SharedKernel.Domain;
 using OpenHRCore.WorkForce.Application.UnitOfWork;
+using OpenHRCore.WorkForce.Infrastructure.Repositories;
 using OpenHRCore.WorkForce.Infrastructure.UnitOfWork;
 
 namespace OpenHRCore.WorkForce.Infrastructure
@@ -17,6 +19,11 @@ namespace OpenHRCore.WorkForce.Infrastructure
         public static IServiceCollection AddOpenHRCoreWorkForceInfrastructure(this IServiceCollection services)
         {
             services.AddScoped<IWorkForceUnitOfWork, WorkForceUnitOfWork>();
+            services.AddScoped(typeof(IOpenHRCoreBaseRepository<>), typeof(OpenHRCoreEfBaseRepository<>));
+            services.AddTransient<IJobGradeRepository,JobGradeRepository>();
+            services.AddTransient<JobLevelRepository,JobLevelRepository>();
+            services.AddTransient<JobPositionRepository,JobPositionRepository>();
+
             return services;
         }
     }

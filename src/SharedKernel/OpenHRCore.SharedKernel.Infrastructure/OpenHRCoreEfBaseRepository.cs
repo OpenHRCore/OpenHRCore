@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OpenHRCore.SharedKernel.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace OpenHRCore.SharedKernel.Infrastructure
 {
@@ -13,20 +9,19 @@ namespace OpenHRCore.SharedKernel.Infrastructure
     /// </summary>
     /// <typeparam name="TDbContext">The type of the DbContext.</typeparam>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public class OpenHRCoreEfBaseRepository<TDbContext, TEntity> : IOpenHRCoreBaseRepository<TEntity>
-        where TDbContext : DbContext
+    public class OpenHRCoreEfBaseRepository<TEntity> : IOpenHRCoreBaseRepository<TEntity>
         where TEntity : OpenHRCoreBaseEntity
     {
-        protected readonly TDbContext DbContext;
+        protected DbContext _dbContext;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenHRCoreEfBaseRepository{TDbContext, TEntity}"/> class.
         /// </summary>
         /// <param name="dbContext">The database context.</param>
         /// <exception cref="ArgumentNullException">Thrown when dbContext is null.</exception>
-        public OpenHRCoreEfBaseRepository(TDbContext dbContext)
+        public OpenHRCoreEfBaseRepository(DbContext dbContext)
         {
-            DbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
         #region Create Operations
@@ -35,28 +30,28 @@ namespace OpenHRCore.SharedKernel.Infrastructure
         public void Add(TEntity entity)
         {
             ValidateEntity(entity);
-            DbContext.Set<TEntity>().Add(entity);
+            _dbContext.Set<TEntity>().Add(entity);
         }
 
         /// <inheritdoc />
         public void AddRange(IEnumerable<TEntity> entities)
         {
             ValidateEntities(entities);
-            DbContext.Set<TEntity>().AddRange(entities);
+            _dbContext.Set<TEntity>().AddRange(entities);
         }
 
         /// <inheritdoc />
         public async Task AddAsync(TEntity entity)
         {
             ValidateEntity(entity);
-            await DbContext.Set<TEntity>().AddAsync(entity);
+            await _dbContext.Set<TEntity>().AddAsync(entity);
         }
 
         /// <inheritdoc />
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             ValidateEntities(entities);
-            await DbContext.Set<TEntity>().AddRangeAsync(entities);
+            await _dbContext.Set<TEntity>().AddRangeAsync(entities);
         }
 
         #endregion
@@ -66,14 +61,14 @@ namespace OpenHRCore.SharedKernel.Infrastructure
         /// <inheritdoc />
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await DbContext.Set<TEntity>().ToListAsync();
+            return await _dbContext.Set<TEntity>().ToListAsync();
         }
 
         /// <inheritdoc />
         public async Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate)
         {
             ValidatePredicate(predicate);
-            return await DbContext.Set<TEntity>().Where(predicate).ToListAsync();
+            return await _dbContext.Set<TEntity>().Where(predicate).ToListAsync();
         }
 
         /// <inheritdoc />
@@ -88,7 +83,7 @@ namespace OpenHRCore.SharedKernel.Infrastructure
         public async Task<TEntity> GetByIdAsync(object id)
         {
             ValidateId(id);
-            return await DbContext.Set<TEntity>().FindAsync(id)
+            return await _dbContext.Set<TEntity>().FindAsync(id)
                 ?? throw new InvalidOperationException($"Entity with id {id} not found.");
         }
 
@@ -96,7 +91,7 @@ namespace OpenHRCore.SharedKernel.Infrastructure
         public async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
             ValidatePredicate(predicate);
-            return await DbContext.Set<TEntity>().FirstOrDefaultAsync(predicate)
+            return await _dbContext.Set<TEntity>().FirstOrDefaultAsync(predicate)
                 ?? throw new InvalidOperationException("Entity not found.");
         }
 
@@ -117,14 +112,14 @@ namespace OpenHRCore.SharedKernel.Infrastructure
         public void Update(TEntity entity)
         {
             ValidateEntity(entity);
-            DbContext.Set<TEntity>().Update(entity);
+            _dbContext.Set<TEntity>().Update(entity);
         }
 
         /// <inheritdoc />
         public void UpdateRange(IEnumerable<TEntity> entities)
         {
             ValidateEntities(entities);
-            DbContext.Set<TEntity>().UpdateRange(entities);
+            _dbContext.Set<TEntity>().UpdateRange(entities);
         }
 
         #endregion
@@ -135,14 +130,14 @@ namespace OpenHRCore.SharedKernel.Infrastructure
         public void Remove(TEntity entity)
         {
             ValidateEntity(entity);
-            DbContext.Set<TEntity>().Remove(entity);
+            _dbContext.Set<TEntity>().Remove(entity);
         }
 
         /// <inheritdoc />
         public void Remove(object id)
         {
             ValidateId(id);
-            var entity = DbContext.Set<TEntity>().Find(id);
+            var entity = _dbContext.Set<TEntity>().Find(id);
             if (entity != null)
             {
                 Remove(entity);
@@ -153,7 +148,7 @@ namespace OpenHRCore.SharedKernel.Infrastructure
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
             ValidateEntities(entities);
-            DbContext.Set<TEntity>().RemoveRange(entities);
+            _dbContext.Set<TEntity>().RemoveRange(entities);
         }
 
         #endregion
@@ -164,14 +159,35 @@ namespace OpenHRCore.SharedKernel.Infrastructure
         public TResult Max<TResult>(Expression<Func<TEntity, TResult>> selector)
         {
             ValidateSelector(selector);
-            return DbContext.Set<TEntity>().Max(selector) ?? default!;
+
+            var maxValue = default(TResult);
+
+            bool hasValues = _dbContext.Set<TEntity>().Select(selector).Any();
+
+            if (hasValues)
+            {
+                maxValue = _dbContext.Set<TEntity>().Select(selector).Max();
+            }
+
+            return maxValue ?? default!;
         }
 
         /// <inheritdoc />
         public async Task<TResult> MaxAsync<TResult>(Expression<Func<TEntity, TResult>> selector)
         {
             ValidateSelector(selector);
-            return await DbContext.Set<TEntity>().MaxAsync(selector);
+
+            var maxValue = default(TResult);
+
+            bool hasValues = await _dbContext.Set<TEntity>().Select(selector).AnyAsync();
+
+            if (hasValues)
+            {
+                maxValue = await _dbContext.Set<TEntity>().Select(selector).MaxAsync();
+            }
+
+            return maxValue!;
+
         }
 
         #endregion
@@ -236,7 +252,7 @@ namespace OpenHRCore.SharedKernel.Infrastructure
         /// <returns>An IQueryable with the specified includes.</returns>
         protected IQueryable<TEntity> BuildQueryWithIncludes(string includeProperties)
         {
-            var query = DbContext.Set<TEntity>().AsQueryable();
+            var query = _dbContext.Set<TEntity>().AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(includeProperties))
             {

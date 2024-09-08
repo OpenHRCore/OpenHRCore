@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using OpenHRCore.SharedKernel.Application;
 using OpenHRCore.WorkForce.Application.DTOs.JobGrade;
 using OpenHRCore.WorkForce.Application.Interfaces;
 using OpenHRCore.WorkForce.Application.UnitOfWork;

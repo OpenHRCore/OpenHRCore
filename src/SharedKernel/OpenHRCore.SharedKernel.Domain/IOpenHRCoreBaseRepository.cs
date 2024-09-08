@@ -6,7 +6,8 @@ namespace OpenHRCore.SharedKernel.Domain
     /// Defines a generic repository interface for CRUD operations on entities.
     /// </summary>
     /// <typeparam name="TEntity">The type of entity this repository handles.</typeparam>
-    public interface IOpenHRCoreBaseRepository<TEntity> where TEntity : OpenHRCoreBaseEntity
+    public interface IOpenHRCoreBaseRepository<TEntity>
+        where TEntity : OpenHRCoreBaseEntity
     {
         #region Create Operations
 
