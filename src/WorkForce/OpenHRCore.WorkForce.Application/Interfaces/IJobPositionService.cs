@@ -1,4 +1,5 @@
-﻿using OpenHRCore.WorkForce.Application.DTOs.JobGrade;
+﻿using OpenHRCore.SharedKernel.Application;
+using OpenHRCore.WorkForce.Application.DTOs.JobGrade;
 
 namespace OpenHRCore.WorkForce.Application.Interfaces
 {

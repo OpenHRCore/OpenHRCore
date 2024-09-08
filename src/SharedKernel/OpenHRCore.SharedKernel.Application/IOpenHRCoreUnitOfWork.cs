@@ -1,4 +1,4 @@
-﻿namespace OpenHRCore.SharedKernel.Application.Common
+﻿namespace OpenHRCore.SharedKernel.Application
 {
     /// <summary>
     /// Represents a unit of work for database operations in the OpenHR Core system.

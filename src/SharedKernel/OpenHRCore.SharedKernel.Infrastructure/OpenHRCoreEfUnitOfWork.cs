@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OpenHRCore.SharedKernel.Application.Common;
+using OpenHRCore.SharedKernel.Application;
 
-namespace OpenHRCore.SharedKernel.Infrastructure.Common
+namespace OpenHRCore.SharedKernel.Infrastructure
 {
     /// <summary>
     /// Implements the Unit of Work pattern for Entity Framework Core operations.

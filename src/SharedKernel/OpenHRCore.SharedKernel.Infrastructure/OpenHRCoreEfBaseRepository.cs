@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OpenHRCore.SharedKernel.Domain.Entities;
-using OpenHRCore.SharedKernel.Domain.Interfaces;
+using OpenHRCore.SharedKernel.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace OpenHRCore.SharedKernel.Infrastructure.Common
+namespace OpenHRCore.SharedKernel.Infrastructure
 {
     /// <summary>
     /// Generic repository implementation for handling CRUD operations using Entity Framework Core.

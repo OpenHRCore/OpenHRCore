@@ -1,4 +1,4 @@
-﻿using OpenHRCore.SharedKernel.Domain.Entities;
+﻿using OpenHRCore.SharedKernel.Domain;
 
 namespace OpenHRCore.ControlCenter.Domain.Entities
 {

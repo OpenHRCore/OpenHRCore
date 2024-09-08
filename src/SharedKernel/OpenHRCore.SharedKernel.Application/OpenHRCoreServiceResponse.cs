@@ -1,4 +1,4 @@
-﻿namespace OpenHRCore.SharedKernel.Application.Common
+﻿namespace OpenHRCore.SharedKernel.Application
 {
     /// <summary>
     /// Represents a standardized response for service operations in the OpenHRCore application.

@@ -1,4 +1,4 @@
-﻿namespace OpenHRCore.SharedKernel.Domain.Entities
+﻿namespace OpenHRCore.SharedKernel.Domain
 {
     /// <summary>
     /// Represents the base entity for all OpenHR Core entities.

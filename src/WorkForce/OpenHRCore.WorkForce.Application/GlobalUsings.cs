@@ -1,3 +1,3 @@
 ﻿global using OpenHRCore.WorkForce.Domain.Entities;
 global using OpenHRCore.WorkForce.Domain.Interfaces;
-global using OpenHRCore.SharedKernel.Application.Common;
+global using OpenHRCore.SharedKernel.Application;

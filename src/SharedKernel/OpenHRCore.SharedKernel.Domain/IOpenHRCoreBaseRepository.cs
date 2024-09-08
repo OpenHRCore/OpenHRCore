@@ -1,7 +1,6 @@
-﻿using OpenHRCore.SharedKernel.Domain.Entities;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
-namespace OpenHRCore.SharedKernel.Domain.Interfaces
+namespace OpenHRCore.SharedKernel.Domain
 {
     /// <summary>
     /// Defines a generic repository interface for CRUD operations on entities.

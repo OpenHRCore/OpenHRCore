@@ -1,4 +1,5 @@
-﻿using OpenHRCore.WorkForce.Application.UnitOfWork;
+﻿using OpenHRCore.SharedKernel.Infrastructure;
+using OpenHRCore.WorkForce.Application.UnitOfWork;
 
 namespace OpenHRCore.WorkForce.Infrastructure.UnitOfWork
 {

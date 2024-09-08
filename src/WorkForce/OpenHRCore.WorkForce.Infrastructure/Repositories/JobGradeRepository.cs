@@ -1,4 +1,6 @@
-﻿namespace OpenHRCore.WorkForce.Infrastructure.Repositories
+﻿using OpenHRCore.SharedKernel.Infrastructure;
+
+namespace OpenHRCore.WorkForce.Infrastructure.Repositories
 {
     public class JobGradeRepository : OpenHRCoreEfBaseRepository<OpenHRCoreWorkForceDbContext, JobGrade>, IJobGradeRepository
     {
