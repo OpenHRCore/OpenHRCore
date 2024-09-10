@@ -24,8 +24,12 @@ namespace OpenHRCore.WorkForce.Application.Mapping
             // Map CreateJobGradeRequest to JobGrade
             CreateMap<CreateJobGradeRequest, JobGrade>();
 
-            // Map JobGrade to CreateJobGradeResponse
+            // Map JobGrade to DTOs
             CreateMap<JobGrade, CreateJobGradeResponse>();
+            CreateMap<JobGrade, DeleteJobGradeResponse>();
+            CreateMap<JobGrade, UpdateJobGradeResponse>();
+            CreateMap<JobGrade, GetAllJobGradesResponse>();
+            CreateMap<JobGrade, GetJobGradeByIdResponse>();
         }
     }
 }

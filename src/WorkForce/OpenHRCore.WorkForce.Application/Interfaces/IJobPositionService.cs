@@ -1,5 +1,4 @@
-﻿using OpenHRCore.SharedKernel.Application;
-using OpenHRCore.WorkForce.Application.DTOs.JobGrade;
+﻿using OpenHRCore.WorkForce.Application.DTOs.JobGrade;
 
 namespace OpenHRCore.WorkForce.Application.Interfaces
 {
@@ -8,11 +7,14 @@ namespace OpenHRCore.WorkForce.Application.Interfaces
     /// </summary>
     public interface IJobPositionService
     {
-        /// <summary>
-        /// Asynchronously creates a new job grade.
-        /// </summary>
-        /// <param name="request">The request containing the details of the job grade to be created.</param>
-        /// <returns>A task that represents the asynchronous operation. The task result contains the response of the service operation.</returns>
         Task<OpenHRCoreServiceResponse<CreateJobGradeResponse>> CreateJobGradeAsync(CreateJobGradeRequest request);
+
+        Task<OpenHRCoreServiceResponse<UpdateJobGradeResponse>> UpdateJobGradeAsync(UpdateJobGradeRequest request);
+
+        Task<OpenHRCoreServiceResponse<DeleteJobGradeResponse>> DeleteJobGradeAsync(DeleteJobGradeRequest request);
+
+        Task<OpenHRCoreServiceResponse<GetJobGradeByIdResponse>> GetJobGradeByIdAsync(Guid id);
+
+        Task<OpenHRCoreServiceResponse<IEnumerable<GetAllJobGradesResponse>>> GetAllJobGradesAsync();
     }
 }

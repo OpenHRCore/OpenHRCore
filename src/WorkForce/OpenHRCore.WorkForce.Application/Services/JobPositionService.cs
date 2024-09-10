@@ -60,6 +60,106 @@ namespace OpenHRCore.WorkForce.Application.Services
             return response;
         }
 
+        public async Task<OpenHRCoreServiceResponse<DeleteJobGradeResponse>> DeleteJobGradeAsync(DeleteJobGradeRequest request)
+        {
+            var response = new OpenHRCoreServiceResponse<DeleteJobGradeResponse>();
+
+            try
+            {
+                var deleteJobGrade = await _jobGradeRepository.GetByIdAsync(request.Id);
+
+                if (deleteJobGrade == null)
+                    return new OpenHRCoreServiceResponse<DeleteJobGradeResponse>("Job grade not found.");
+
+                _jobGradeRepository.Remove(deleteJobGrade);
+                await _unitOfWork.SaveChangesAsync();
+                response.Data = _mapper.Map<DeleteJobGradeResponse>(deleteJobGrade);
+                response.UserMessage = "Job grade deleted successfully.";
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "An error occurred while creating the job grade.";
+                response.TechnicalMessage = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<OpenHRCoreServiceResponse<IEnumerable<GetAllJobGradesResponse>>> GetAllJobGradesAsync()
+        {
+            var response = new OpenHRCoreServiceResponse<IEnumerable<GetAllJobGradesResponse>>();
+
+            try
+            {
+                var jobGrades = await _jobGradeRepository.GetAllAsync();
+                var jobGradeResponses = _mapper.Map<IEnumerable<GetAllJobGradesResponse>>(jobGrades);
+
+                response.Data = jobGradeResponses;
+                response.UserMessage = "Retrieved all job grades successfully.";
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "An error occurred while retrieving job grades.";
+                response.TechnicalMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<OpenHRCoreServiceResponse<GetJobGradeByIdResponse>> GetJobGradeByIdAsync(Guid id)
+        {
+            var response = new OpenHRCoreServiceResponse<GetJobGradeByIdResponse>();
+
+            try
+            {
+                var jobGrade = await _jobGradeRepository.GetByIdAsync(id);
+
+                if (jobGrade == null)
+                    return new OpenHRCoreServiceResponse<GetJobGradeByIdResponse>("Job grade not found.");
+
+                var jobGradeResponse = _mapper.Map<GetJobGradeByIdResponse>(jobGrade);
+
+                response.Data = jobGradeResponse;
+                response.UserMessage = "Retrieved job grade successfully.";
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "An error occurred while retrieving the job grade.";
+                response.TechnicalMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<OpenHRCoreServiceResponse<UpdateJobGradeResponse>> UpdateJobGradeAsync(UpdateJobGradeRequest request)
+        {
+            var response = new OpenHRCoreServiceResponse<UpdateJobGradeResponse>();
+
+            try
+            {
+                var existingJobGrade = await _jobGradeRepository.GetByIdAsync(request.Id);
+
+                if (existingJobGrade == null)
+                    return new OpenHRCoreServiceResponse<UpdateJobGradeResponse>("Job grade not found.");
+
+                existingJobGrade.Code = request.Code;
+                existingJobGrade.Name = request.Name;
+                existingJobGrade.Description = request.Description;
+
+                _jobGradeRepository.Update(existingJobGrade);
+                await _unitOfWork.SaveChangesAsync();
+
+                response.Data = _mapper.Map<UpdateJobGradeResponse>(existingJobGrade);
+                response.UserMessage = "Job grade updated successfully.";
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "An error occurred while updating the job grade.";
+                response.TechnicalMessage = ex.Message;
+            }
+
+            return response;
+        }
+
         /// <summary>
         /// Gets the next available sort order for a new job grade.
         /// </summary>
