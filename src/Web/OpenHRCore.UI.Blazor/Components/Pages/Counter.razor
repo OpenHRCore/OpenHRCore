@@ -7,13 +7,20 @@
 
 <p role="status">Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<input type="text" @bind="text" />
+<p>@text</p>
+@* <button class="btn btn-primary"  @onclick="IncrementCount">Click me</button> *@
+<RadzenButton Click="IncrementCount" Text="Click Me" ButtonStyle="ButtonStyle.Dark" />
 
 @code {
     private int currentCount = 0;
+    string text = "";
+
+    [Parameter]
+    public int IncrementAmount { get; set; } = 1;
 
     private void IncrementCount()
     {
-        currentCount++;
+        currentCount += IncrementAmount;
     }
 }

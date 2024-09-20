@@ -93,7 +93,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.SharedKernel.Inf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{42109D34-132C-43F2-9FB1-FD35F15A9DD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHRCore.UI.Blazor", "src\Web\OpenHRCore.UI.Blazor\OpenHRCore.UI.Blazor.csproj", "{94A2936B-C71B-4C63-8C5A-01719BC2AC07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.UI.Blazor", "src\Web\OpenHRCore.UI.Blazor\OpenHRCore.UI.Blazor.csproj", "{94A2936B-C71B-4C63-8C5A-01719BC2AC07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

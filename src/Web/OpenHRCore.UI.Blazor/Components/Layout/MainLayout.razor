@@ -1,23 +1,103 @@
 ﻿@inherits LayoutComponentBase
+@inject CookieThemeService CookieThemeService
+@inject ThemeService ThemeService
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<RadzenComponents @rendermode="InteractiveServer" />
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
+<RadzenLayout>
+    <RadzenHeader>
+        <RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center">
+            <RadzenColumn Size="5">
+                <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center" Gap="0">
+                    <RadzenSidebarToggle Click="ToggleSidebar1" />
+                    <RadzenLabel Text="OpenHRCore" />
+                </RadzenStack>
+            </RadzenColumn>
+            <RadzenColumn Size="7">
+                <RadzenStack Orientation="Orientation.Horizontal"  JustifyContent="JustifyContent.End" AlignItems="AlignItems.Center"  Gap="0">
+                    <RadzenAppearanceToggle />
+                    <RadzenDropDown Name="ThemeDropDown" class="rz-mr-5" TValue="string" Value="@ThemeService.Theme" ValueChanged="@ChangeTheme" Data="@Themes.Free" TextProperty=@nameof(Theme.Text) ValueProperty=@nameof(Theme.Value)>
+                    </RadzenDropDown>
+                </RadzenStack>
+            </RadzenColumn>
+        </RadzenRow>
+      
+    </RadzenHeader>
+    <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
+        <RadzenPanelMenu Click="OnParentClicked" Multiple="@multiple">
+            <RadzenPanelMenuItem Text="Dashboard" Icon="dashboard" />
+            <RadzenPanelMenuItem Text="Organization" Icon="corporate_fare">
+                <RadzenPanelMenuItem Text="Company Profile" Icon="store"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Organization Units"  Icon="account_tree"></RadzenPanelMenuItem>
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Career Connect" Icon="person_add">
+                <RadzenPanelMenuItem Text="Jobs" Icon="work"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Candidates" Icon="person_search"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Stages" Icon="fact_check"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Job Offer" Icon="mail"></RadzenPanelMenuItem>
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Expanded="true" Text="WorkForce" Icon="groups">
+                <RadzenPanelMenuItem Text="Profile" Icon="account_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Employees" Icon="manage_accounts"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Workforce Transitions" Icon="contract_edit"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Policies" Icon="policy"></RadzenPanelMenuItem>
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Time Track" Icon="timer">
+                <RadzenPanelMenuItem Text="Attendances" Icon="check_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Shift Assign" Icon="check_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Biometric Devices" Icon="check_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="My Attendances" Icon="check_circle"></RadzenPanelMenuItem>
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="FlexiLeave" Icon="date_range">
+                <RadzenPanelMenuItem Text="Profile" Icon="check_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Employees" Icon="check_circle"></RadzenPanelMenuItem>
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Pay Stream" Icon="attach_money">
+                <RadzenPanelMenuItem Text="Profile" Icon="check_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Employees" Icon="check_circle"></RadzenPanelMenuItem>
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Setup" Icon="data_object">
+                <RadzenPanelMenuItem Text="Profile" Icon="check_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Employees" Icon="check_circle"></RadzenPanelMenuItem>
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Administration" Icon="settings">
+                <RadzenPanelMenuItem Text="Profile" Icon="check_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Employees" Icon="check_circle"></RadzenPanelMenuItem>
+            </RadzenPanelMenuItem>
+        </RadzenPanelMenu>
+    </RadzenSidebar>
+    <RadzenBody>
+        <div class="rz-p-4">
             @Body
-        </article>
-    </main>
-</div>
+        </div>
+    </RadzenBody>
+    <RadzenFooter>
+        <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" AlignItems="AlignItems.Center" Gap="0">
+            <RadzenLabel Text="© 2024 OpenHRCore. All rights reserved." />
+        </RadzenStack>
+    </RadzenFooter>
+</RadzenLayout>
 
-<div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div>
+@code {
+    bool sidebar1Expanded = true;
+
+    private void ToggleSidebar1()
+    {
+        sidebar1Expanded = !sidebar1Expanded;
+    }
+
+    void ChangeTheme(string value)
+    {
+        ThemeService.SetTheme(value);
+    }
+
+    bool multiple = true;
+
+    void OnParentClicked(MenuItemEventArgs args)
+    {
+    }
+
+    void OnChildClicked(MenuItemEventArgs args)
+    {
+    }
+}
