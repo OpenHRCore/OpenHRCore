@@ -1,0 +1,18 @@
+﻿@inject CookieThemeService CookieThemeService
+@inject ThemeService ThemeService
+
+<RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Normal">
+    <RadzenColumn Size="12">
+        <RadzenFormField Text="Change Themes" Style="width: 100%;">
+            <RadzenDropDown Name="ThemeDropDown" TValue="string" Value="@ThemeService.Theme" ValueChanged="@ChangeTheme" Data="@Themes.Free" TextProperty=@nameof(Theme.Text) ValueProperty=@nameof(Theme.Value)>
+            </RadzenDropDown>
+        </RadzenFormField>
+    </RadzenColumn>
+</RadzenRow>
+
+@code {
+    void ChangeTheme(string value)
+    {
+        ThemeService.SetTheme(value);
+    }
+}

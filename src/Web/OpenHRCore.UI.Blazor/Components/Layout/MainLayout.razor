@@ -1,6 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@inject CookieThemeService CookieThemeService
-@inject ThemeService ThemeService
+@inject DialogService DialogService
 
 <RadzenComponents @rendermode="InteractiveServer" />
 
@@ -14,21 +13,21 @@
                 </RadzenStack>
             </RadzenColumn>
             <RadzenColumn Size="7">
-                <RadzenStack Orientation="Orientation.Horizontal"  JustifyContent="JustifyContent.End" AlignItems="AlignItems.Center"  Gap="0">
-                    <RadzenAppearanceToggle />
-                    <RadzenDropDown Name="ThemeDropDown" class="rz-mr-5" TValue="string" Value="@ThemeService.Theme" ValueChanged="@ChangeTheme" Data="@Themes.Free" TextProperty=@nameof(Theme.Text) ValueProperty=@nameof(Theme.Value)>
-                    </RadzenDropDown>
+                <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" AlignItems="AlignItems.Center" Gap="2">
+                    <RadzenAppearanceToggle class="rz-mr-5 rz-border-radius-10 rz-shadow-10" />
+
+                    <RadzenToggleButton Icon="settings" class="rz-mr-5 rz-border-radius-10 rz-shadow-10" ToggleIcon="settings" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" Click="@OpenSideDialog" />
                 </RadzenStack>
             </RadzenColumn>
         </RadzenRow>
-      
+
     </RadzenHeader>
-    <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
+    <RadzenSidebar @bind-Expanded="@sidebarExpanded" Responsive="false" Style="width: max-content">
         <RadzenPanelMenu Click="OnParentClicked" Multiple="@multiple">
             <RadzenPanelMenuItem Text="Dashboard" Icon="dashboard" />
             <RadzenPanelMenuItem Text="Organization" Icon="corporate_fare">
                 <RadzenPanelMenuItem Text="Company Profile" Icon="store"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Organization Units"  Icon="account_tree"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Organization Units" Icon="account_tree"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="Career Connect" Icon="person_add">
                 <RadzenPanelMenuItem Text="Jobs" Icon="work"></RadzenPanelMenuItem>
@@ -79,25 +78,25 @@
 </RadzenLayout>
 
 @code {
-    bool sidebar1Expanded = true;
-
-    private void ToggleSidebar1()
-    {
-        sidebar1Expanded = !sidebar1Expanded;
-    }
-
-    void ChangeTheme(string value)
-    {
-        ThemeService.SetTheme(value);
-    }
-
+    bool sidebarExpanded = true;
     bool multiple = true;
 
-    void OnParentClicked(MenuItemEventArgs args)
-    {
-    }
+    private void ToggleSidebar1() => sidebarExpanded = !sidebarExpanded;
 
-    void OnChildClicked(MenuItemEventArgs args)
+    void OnParentClicked(MenuItemEventArgs args) { }
+
+    void OnChildClicked(MenuItemEventArgs args) { }
+
+    async Task OpenSideDialog()
     {
+
+        await DialogService.OpenSideAsync<SideSettingDialog>("Settings",
+            options: new SideDialogOptions
+                {
+                    CloseDialogOnOverlayClick = true,
+                    Position = DialogPosition.Right,
+                    ShowMask = true
+                }
+        );
     }
 }
