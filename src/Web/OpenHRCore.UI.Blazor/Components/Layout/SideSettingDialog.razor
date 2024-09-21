@@ -19,16 +19,11 @@
 </RadzenRow>
 
 @code {
-    void ChangeTheme(string value)
-    {
-        ThemeService.SetTheme(value);
-    }
+
     string culture = "English";
     List<string> langauges = new() { "English", "Thailand", "Myanmar" };
 
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
+    protected override async Task OnInitializedAsync() => await base.OnInitializedAsync();
 
-    }
+    void ChangeTheme(string value) => ThemeService.SetTheme(value);
 }

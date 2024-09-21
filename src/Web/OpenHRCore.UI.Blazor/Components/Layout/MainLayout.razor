@@ -4,7 +4,7 @@
 <RadzenComponents @rendermode="InteractiveServer" />
 
 <RadzenLayout>
-    <RadzenHeader>
+    <RadzenHeader Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
         <RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center">
             <RadzenColumn Size="5">
                 <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center" Gap="0">
@@ -15,13 +15,12 @@
             <RadzenColumn Size="7">
                 <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" AlignItems="AlignItems.Center" Gap="2">
                     <RadzenAppearanceToggle class="rz-mr-3 rz-border-radius-10 rz-shadow-10" />
-                    <RadzenProfileMenu  class="rz-my-0 rz-p-0">
-                        <Template >
+                    <RadzenProfileMenu class="rz-my-0 rz-p-0">
+                        <Template>
                             <RadzenStack class="rz-py-3" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" AlignItems="AlignItems.Center" Gap="3">
                                 <RadzenIcon Icon="account_circle" />
-                                <RadzenLabel Text="Stephen" />
+                                <RadzenLabel Text="Administrator" />
                             </RadzenStack>
-
                         </Template>
                         <ChildContent>
                             <RadzenProfileMenuItem Text="User Profile" Icon="account_circle"></RadzenProfileMenuItem>
@@ -34,14 +33,13 @@
                 </RadzenStack>
             </RadzenColumn>
         </RadzenRow>
-
     </RadzenHeader>
-    <RadzenSidebar @bind-Expanded="@sidebarExpanded" Responsive="true" Style="width: max-content">
+    <RadzenSidebar @bind-Expanded="@sidebarExpanded" Responsive="true">
         <RadzenPanelMenu Click="OnParentClicked" Multiple="@multiple">
-            <RadzenPanelMenuItem Text="Dashboard" Icon="dashboard" />
+            <RadzenPanelMenuItem Path="/" Text="Dashboard" Icon="dashboard" />
             <RadzenPanelMenuItem Text="Organization" Icon="home_app_logo">
-                <RadzenPanelMenuItem Text="Company Profile" Icon="manage_accounts"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Organization Units" Icon="account_tree"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Path="company-profile" Text="Company Profile" Icon="manage_accounts" />
+                <RadzenPanelMenuItem Path="organization-unit" Text="Organization Units" Icon="account_tree"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="Career Connect" Icon="person_add">
                 <RadzenPanelMenuItem Text="Jobs" Icon="work"></RadzenPanelMenuItem>
@@ -72,7 +70,7 @@
                 <RadzenPanelMenuItem Text="Deductions" Icon="assignment_add"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Taxes" Icon="receipt"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
-            <RadzenPanelMenuItem Text="Setup"  Icon="data_object">
+            <RadzenPanelMenuItem Text="Setup" Icon="data_object">
                 <RadzenPanelMenuItem Icon="deployed_code" Text="CareerConnect"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Icon="deployed_code" Text="WorkForce"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Icon="deployed_code" Text="TimeTrack"></RadzenPanelMenuItem>
@@ -87,10 +85,8 @@
             </RadzenPanelMenuItem>
         </RadzenPanelMenu>
     </RadzenSidebar>
-    <RadzenBody>
-        <div class="rz-p-4">
-            @Body
-        </div>
+    <RadzenBody class="rz-m-0 rz-p-0">
+        @Body
     </RadzenBody>
     <RadzenFooter>
         <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" AlignItems="AlignItems.Center" Gap="0">

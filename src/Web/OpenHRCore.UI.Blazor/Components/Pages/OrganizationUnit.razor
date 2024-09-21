@@ -1,0 +1,130 @@
+﻿@page "/organization-unit"
+<PageTitle>Organization Units</PageTitle>
+
+<RadzenCard class="rz-py-3 rz-px-5 rz-shadow-0 rz-border-0 rz-border-radius-0">
+    <RadzenBreadCrumb>
+        <RadzenBreadCrumbItem Path="/" Icon="home" />
+        <RadzenBreadCrumbItem Path="/" Text="Organizaiton" />
+        <RadzenBreadCrumbItem Text="Organization Units" />
+    </RadzenBreadCrumb>
+</RadzenCard>
+
+<RadzenCard class="rz-m-5">
+    <RadzenText class="rz-mb-3" TextStyle="TextStyle.Subtitle1">
+        Organization Units
+    </RadzenText>
+
+    <RadzenRow>
+        <RadzenColumn SizeLG="6" SizeMD="6" SizeSM="12" SizeXS="12">
+            <RadzenCard>
+                <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" Wrap="FlexWrap.Wrap" AlignItems="AlignItems.Center">
+                    <RadzenText class="rz-mb-3" TextStyle="TextStyle.Subtitle1">
+                        Organization Tree
+                    </RadzenText>
+                    <RadzenButton Text="Add" Icon="add" ButtonStyle="ButtonStyle.Primary" />
+                </RadzenStack>
+                <RadzenStack>
+                    <RadzenTree>
+                        <RadzenTreeItem Expanded="true" Text="OpenHrCore">
+                            <ChildContent>
+                                <RadzenTreeItem Text="Backend" />
+                                <RadzenTreeItem Text="Frontend" />
+                                <RadzenTreeItem Text="UI/UX" />
+                                <RadzenTreeItem Text="DevOps" />
+                                <RadzenTreeItem Text="Mobile" />
+                            </ChildContent>
+                            <Template>
+                                <RadzenIcon Icon="folder" />
+                                <b>@context.Text</b>
+                            </Template>
+                        </RadzenTreeItem>
+                        <RadzenTreeItem Expanded="true" Text="OpenHrCore Cloud">
+                            <ChildContent>
+                                <RadzenTreeItem Text="IT">
+                                    <ChildContent>
+                                        <RadzenTreeItem Text="Backend" />
+                                        <RadzenTreeItem Text="Frontend" />
+                                        <RadzenTreeItem Text="UI/UX" />
+                                        <RadzenTreeItem Text="DevOps" />
+                                        <RadzenTreeItem Text="Mobile" />
+                                    </ChildContent>
+                                    <Template>
+                                        <RadzenIcon Icon="folder" />
+                                        <b>@context.Text</b>
+                                    </Template>
+                                </RadzenTreeItem>
+                                <RadzenTreeItem Text="HR">
+                                    <ChildContent>
+                                        <RadzenTreeItem Text="Admin" />
+                                        <RadzenTreeItem Text="Workforce" />
+                                        <RadzenTreeItem Text="Payroll" />
+                                    </ChildContent>
+                                    <Template>
+                                        <RadzenIcon Icon="folder" />
+                                        <b>@context.Text</b>
+                                    </Template>
+                                </RadzenTreeItem>
+                                <RadzenTreeItem Text="Finance">
+                                    <ChildContent>
+                                        <RadzenTreeItem Text="Accounting" />
+                                        <RadzenTreeItem Text="Tax" />
+                                        <RadzenTreeItem Text="Audit" />
+                                    </ChildContent>
+                                    <Template>
+                                        <RadzenIcon Icon="folder" />
+                                        <b>@context.Text</b>
+                                    </Template>
+                                </RadzenTreeItem>
+                                <RadzenTreeItem Text="Sales">
+                                    <ChildContent>
+                                        <RadzenTreeItem Text="Marketing" />
+                                        <RadzenTreeItem Text="Sales" />
+                                        <RadzenTreeItem Text="Customer Service" />
+                                    </ChildContent>
+                                    <Template>
+                                        <RadzenIcon Icon="folder" />
+                                        <b>@context.Text</b>
+                                    </Template>
+                                </RadzenTreeItem>
+                            </ChildContent>
+                            <Template>
+                                <RadzenIcon Icon="folder" />
+                                <b>@context.Text</b>
+                            </Template>
+                        </RadzenTreeItem>
+                    </RadzenTree>
+                </RadzenStack>
+            </RadzenCard>
+        </RadzenColumn>
+        <RadzenColumn SizeLG="6" SizeMD="6" SizeSM="12" SizeXS="12">
+            <RadzenCard>
+                <RadzenStack class="rz-mb-3">
+                    <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Company Name">
+                        <RadzenTextBox @bind-Value=name />
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Email">
+                        <RadzenTextBox @bind-Value=email />
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Phone">
+                        <RadzenTextBox @bind-Value=phone />
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Address">
+                        <RadzenTextArea @bind-Value=description Style="width: 100%" aria-label="TextArea" />
+                    </RadzenFormField>
+                </RadzenStack>
+            </RadzenCard>
+            <RadzenStack class="rz-mt-3" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" AlignItems="AlignItems.Center">
+                <RadzenButton Text="Save" ButtonStyle="ButtonStyle.Primary"></RadzenButton>
+            </RadzenStack>
+        </RadzenColumn>
+    </RadzenRow>
+
+</RadzenCard>
+
+@code {
+
+    string name = "OpenHRCore";
+    string email = "info@openhrcore.com";
+    string phone = "+66625190773";
+    string description = "Bangkok, Thailand";
+}
