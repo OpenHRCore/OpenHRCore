@@ -8,60 +8,82 @@
         <RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center">
             <RadzenColumn Size="5">
                 <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center" Gap="0">
-                    <RadzenSidebarToggle Click="ToggleSidebar1" />
+                    <RadzenSidebarToggle Click="ToggleSidebar" />
                     <RadzenLabel Text="OpenHRCore" />
                 </RadzenStack>
             </RadzenColumn>
             <RadzenColumn Size="7">
                 <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" AlignItems="AlignItems.Center" Gap="2">
-                    <RadzenAppearanceToggle class="rz-mr-5 rz-border-radius-10 rz-shadow-10" />
+                    <RadzenAppearanceToggle class="rz-mr-3 rz-border-radius-10 rz-shadow-10" />
+                    <RadzenProfileMenu  class="rz-my-0 rz-p-0">
+                        <Template >
+                            <RadzenStack class="rz-py-3" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" AlignItems="AlignItems.Center" Gap="3">
+                                <RadzenIcon Icon="account_circle" />
+                                <RadzenLabel Text="Stephen" />
+                            </RadzenStack>
 
-                    <RadzenToggleButton Icon="settings" class="rz-mr-5 rz-border-radius-10 rz-shadow-10" ToggleIcon="settings" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" Click="@OpenSideDialog" />
+                        </Template>
+                        <ChildContent>
+                            <RadzenProfileMenuItem Text="User Profile" Icon="account_circle"></RadzenProfileMenuItem>
+                            <RadzenProfileMenuItem Text="Edit" Icon="edit"></RadzenProfileMenuItem>
+                            <RadzenProfileMenuItem Text="Notification" Icon="announcement"></RadzenProfileMenuItem>
+                            <RadzenProfileMenuItem Text="Logout" Icon="logout"></RadzenProfileMenuItem>
+                        </ChildContent>
+                    </RadzenProfileMenu>
+                    <RadzenToggleButton Icon="settings" class="rz-mr-5 rz-border-radius-0 rz-shadow-0" ToggleIcon="settings" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" Click="@OpenSideDialog" />
                 </RadzenStack>
             </RadzenColumn>
         </RadzenRow>
 
     </RadzenHeader>
-    <RadzenSidebar @bind-Expanded="@sidebarExpanded" Responsive="false" Style="width: max-content">
+    <RadzenSidebar @bind-Expanded="@sidebarExpanded" Responsive="true" Style="width: max-content">
         <RadzenPanelMenu Click="OnParentClicked" Multiple="@multiple">
             <RadzenPanelMenuItem Text="Dashboard" Icon="dashboard" />
-            <RadzenPanelMenuItem Text="Organization" Icon="corporate_fare">
-                <RadzenPanelMenuItem Text="Company Profile" Icon="store"></RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Organization" Icon="home_app_logo">
+                <RadzenPanelMenuItem Text="Company Profile" Icon="manage_accounts"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Organization Units" Icon="account_tree"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="Career Connect" Icon="person_add">
                 <RadzenPanelMenuItem Text="Jobs" Icon="work"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Candidates" Icon="person_search"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Stages" Icon="fact_check"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Job Offer" Icon="mail"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Stages" Icon="assignment_add"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Job Offers" Icon="assignment_add"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Expanded="true" Text="WorkForce" Icon="groups">
                 <RadzenPanelMenuItem Text="Profile" Icon="account_circle"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Employees" Icon="manage_accounts"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Workforce Transitions" Icon="contract_edit"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Workforce Transitions" Icon="assignment_add"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Policies" Icon="policy"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="Time Track" Icon="timer">
-                <RadzenPanelMenuItem Text="Attendances" Icon="check_circle"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Shift Assign" Icon="check_circle"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Biometric Devices" Icon="check_circle"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="My Attendances" Icon="check_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Attendances" Icon="today"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Shift Assign" Icon="calendar_month"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Biometric Devices" Icon="devices"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="FlexiLeave" Icon="date_range">
-                <RadzenPanelMenuItem Text="Profile" Icon="check_circle"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Employees" Icon="check_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Leave Requests" Icon="assignment"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Leave Types" Icon="code"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Leave Policies" Icon="policy"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Leave Assignments" Icon="assignment_add"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="Pay Stream" Icon="attach_money">
-                <RadzenPanelMenuItem Text="Profile" Icon="check_circle"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Employees" Icon="check_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Payslips" Icon="paid"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Allowances" Icon="assignment_add"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Deductions" Icon="assignment_add"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Taxes" Icon="receipt"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
-            <RadzenPanelMenuItem Text="Setup" Icon="data_object">
-                <RadzenPanelMenuItem Text="Profile" Icon="check_circle"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Employees" Icon="check_circle"></RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Setup"  Icon="data_object">
+                <RadzenPanelMenuItem Icon="deployed_code" Text="CareerConnect"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Icon="deployed_code" Text="WorkForce"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Icon="deployed_code" Text="TimeTrack"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Icon="deployed_code" Text="FlexiLeave"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Icon="deployed_code" Text="PayStream"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="Administration" Icon="settings">
-                <RadzenPanelMenuItem Text="Profile" Icon="check_circle"></RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Employees" Icon="check_circle"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Users" Icon="manage_accounts"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Roles" Icon="admin_panel_settings"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Permissions" Icon="shield_person"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Settings" Icon="manufacturing"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
         </RadzenPanelMenu>
     </RadzenSidebar>
@@ -81,7 +103,7 @@
     bool sidebarExpanded = true;
     bool multiple = true;
 
-    private void ToggleSidebar1() => sidebarExpanded = !sidebarExpanded;
+    private void ToggleSidebar() => sidebarExpanded = !sidebarExpanded;
 
     void OnParentClicked(MenuItemEventArgs args) { }
 
@@ -95,7 +117,6 @@
                 {
                     CloseDialogOnOverlayClick = true,
                     Position = DialogPosition.Right,
-                    ShowMask = true
                 }
         );
     }

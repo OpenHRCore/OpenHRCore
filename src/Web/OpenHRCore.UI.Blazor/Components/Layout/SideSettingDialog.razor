@@ -3,10 +3,18 @@
 
 <RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Normal">
     <RadzenColumn Size="12">
-        <RadzenFormField Text="Change Themes" Style="width: 100%;">
+        <RadzenFormField Text="Themes" Style="width: 100%;">
             <RadzenDropDown Name="ThemeDropDown" TValue="string" Value="@ThemeService.Theme" ValueChanged="@ChangeTheme" Data="@Themes.Free" TextProperty=@nameof(Theme.Text) ValueProperty=@nameof(Theme.Value)>
             </RadzenDropDown>
         </RadzenFormField>
+    </RadzenColumn>
+    <RadzenColumn Size="12">
+        <RadzenFormField Text="Languages" Style="width: 100%;">
+            <RadzenDropDown @bind-Value=@culture Data=@langauges Style="width: 100%; max-width: 400px;" Name="DropDownBindValue" />
+        </RadzenFormField>
+    </RadzenColumn>
+    <RadzenColumn>
+        <RadzenButton Text="Save" ButtonStyle="ButtonStyle.Primary"></RadzenButton>
     </RadzenColumn>
 </RadzenRow>
 
@@ -14,5 +22,13 @@
     void ChangeTheme(string value)
     {
         ThemeService.SetTheme(value);
+    }
+    string culture = "English";
+    List<string> langauges = new() { "English", "Thailand", "Myanmar" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
     }
 }
