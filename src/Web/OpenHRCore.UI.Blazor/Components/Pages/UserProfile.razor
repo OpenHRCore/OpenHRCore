@@ -10,21 +10,19 @@
 </RadzenCard>
 
 <RadzenCard class="rz-m-5">
-    <RadzenText class="rz-mb-3" TextStyle="TextStyle.Subtitle1">User Profile</RadzenText>
+    <RadzenText class="rz-mb-5" TextStyle="TextStyle.H6">User Profile</RadzenText>
     <RadzenRow>
         <RadzenColumn SizeLG="6" SizeMD="6" SizeSM="12" SizeXS="12">
             <RadzenStack>
-                <RadzenCard>
-                    <RadzenRow>
-                        <RadzenColumn SizeLG="4" SizeSM="12" SizeXS="12">
-                            <RadzenImage Path="https://api.dicebear.com/6.x/adventurer-neutral/svg?seed=stephenkyaw" Style="width: 120px;" AlternateText="url image" />
-                        </RadzenColumn>
-                        <RadzenColumn SizeLG="8" SizeSM="12" SizeXS="12">
-                            <RadzenText class="rz-mb-5" TextStyle="TextStyle.Caption">User Profile Image</RadzenText>
-                            <RadzenFileInput TValue="string" Style="width: 100%" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})" />
-                        </RadzenColumn>
-                    </RadzenRow>
-                </RadzenCard>
+                <RadzenRow>
+                    <RadzenColumn SizeLG="4" SizeSM="12" SizeXS="12">
+                        <RadzenImage class="rz-border-base-300 rz-border-radius-2" Path="https://api.dicebear.com/9.x/personas/svg?seed=stephenkyaw" Width="150" Height="150" />
+                    </RadzenColumn>
+                    <RadzenColumn SizeLG="8" SizeSM="12" SizeXS="12">
+                        <RadzenText class="rz-mb-5" TextStyle="TextStyle.Caption">User Profile Image</RadzenText>
+                        <RadzenFileInput TValue="string" Style="width: 100%" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})" />
+                    </RadzenColumn>
+                </RadzenRow>
             </RadzenStack>
         </RadzenColumn>
         <RadzenColumn SizeLG="6" SizeMD="6" SizeSM="12" SizeXS="12">
