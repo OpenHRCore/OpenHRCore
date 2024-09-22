@@ -1,0 +1,55 @@
+﻿@page "/user-profile"
+
+<PageTitle>User Profile</PageTitle>
+
+<RadzenCard class="rz-py-3 rz-px-5 rz-shadow-0 rz-border-0 rz-border-radius-0">
+    <RadzenBreadCrumb>
+        <RadzenBreadCrumbItem Path="/" Icon="home" />
+        <RadzenBreadCrumbItem Text="User Profile" />
+    </RadzenBreadCrumb>
+</RadzenCard>
+
+<RadzenCard class="rz-m-5">
+    <RadzenText class="rz-mb-3" TextStyle="TextStyle.Subtitle1">User Profile</RadzenText>
+    <RadzenRow>
+        <RadzenColumn SizeLG="6" SizeMD="6" SizeSM="12" SizeXS="12">
+            <RadzenStack>
+                <RadzenCard>
+                    <RadzenRow>
+                        <RadzenColumn SizeLG="4" SizeSM="12" SizeXS="12">
+                            <RadzenImage Path="https://api.dicebear.com/6.x/adventurer-neutral/svg?seed=stephenkyaw" Style="width: 120px;" AlternateText="url image" />
+                        </RadzenColumn>
+                        <RadzenColumn SizeLG="8" SizeSM="12" SizeXS="12">
+                            <RadzenText class="rz-mb-5" TextStyle="TextStyle.Caption">User Profile Image</RadzenText>
+                            <RadzenFileInput TValue="string" Style="width: 100%" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})" />
+                        </RadzenColumn>
+                    </RadzenRow>
+                </RadzenCard>
+            </RadzenStack>
+        </RadzenColumn>
+        <RadzenColumn SizeLG="6" SizeMD="6" SizeSM="12" SizeXS="12">
+            <RadzenStack>
+                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="User Name">
+                    <RadzenTextBox Name="UserName" Value="Administrator" />
+                </RadzenFormField>
+                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Email">
+                    <RadzenTextBox Name="Email" Value="info@openhrcore.com" />
+                </RadzenFormField>
+                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Password">
+                    <RadzenPassword  aria-label="enter password" />
+                </RadzenFormField>
+                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Confirm Password">
+                    <RadzenPassword aria-label="enter password" />
+                </RadzenFormField>
+            </RadzenStack>
+        </RadzenColumn>
+
+    </RadzenRow>
+    <RadzenStack class="rz-mt-3" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" AlignItems="AlignItems.Center">
+        <RadzenButton Text="Save" ButtonStyle="ButtonStyle.Primary"></RadzenButton>
+    </RadzenStack>
+</RadzenCard>
+@code {
+
+    string company_portfolio = @"<h3><strong>OpenHRCore – Empowering Workforce Management</strong></h3><p><strong>OpenHRCore</strong> is a cutting-edge, open-source HR management system (HRMS) designed to simplify and streamline the complexities of workforce management. Built using modern Microsoft technologies, including <strong>.NET</strong> and <strong>C#</strong>, OpenHRCore delivers a modular, scalable, and secure platform for organizations of all sizes.</p><p>Our system focuses on offering comprehensive solutions for key HR functions, including:</p><ul><li><strong>Recruitment Management</strong>: Streamline the hiring process with features for job posting, applicant tracking, and AI-powered candidate evaluations.</li><li><strong>Employee Management</strong>: A centralized platform to manage employee records, job positions, roles, and career progression.</li><li><strong>Attendance Tracking</strong>: Accurate, real-time tracking of employee attendance, leave management, and time-off requests.</li><li><strong>Payroll System</strong>: Automated payroll processing with integrated compliance and tax management.</li><li><strong>Performance Evaluation</strong>: Tools to assess and track employee performance, helping to foster growth and productivity.</li></ul><h3><strong>Our Vision</strong></h3><p>At OpenHRCore, our vision is to provide a flexible, robust HR solution that empowers businesses to focus on growth by automating and optimizing HR processes. We believe that by making HR tools accessible and adaptable, companies can foster a more productive, engaged workforce.</p><h3><strong>Why Choose OpenHRCore?</strong></h3><ol><li><strong>Modular Architecture</strong>: Built with a modular monolithic approach, OpenHRCore allows organizations to choose and integrate only the modules they need, enhancing flexibility and customization.</li><li><strong>Open-Source Flexibility</strong>: As an open-source solution, OpenHRCore provides full transparency, control, and the ability to customize the system to your specific business needs.</li><li><strong>Cloud-Ready</strong>: Seamless integration with cloud platforms, ensuring secure, scalable operations for businesses that are ready to move to the cloud.</li><li><strong>Comprehensive Features</strong>: From recruitment to payroll, OpenHRCore offers a suite of tools that cover the full employee lifecycle.</li><li><strong>Community-Driven</strong>: Supported by a growing community of developers and HR professionals, OpenHRCore continually evolves to meet the latest industry standards and user needs.</li></ol><h3><strong>Our Core Values</strong></h3><ul><li><strong>Innovation</strong>: We are committed to leveraging the latest technologies to build future-ready HR solutions.</li><li><strong>Transparency</strong>: As an open-source project, we prioritize transparency in both our product development and our customer relationships.</li><li><strong>User-Centric Design</strong>: Every feature and module is designed with the end-user in mind, ensuring ease of use and efficiency.</li><li><strong>Security &amp; Compliance</strong>: Data security and regulatory compliance are at the heart of our system, ensuring your workforce data is always protected.</li></ul><h3><strong>Join the OpenHRCore Community</strong></h3><p>Whether you’re a small business looking to streamline HR processes or a large enterprise in need of a comprehensive HR solution, OpenHRCore has the flexibility and power to support your needs. Join our community, contribute to the project, or customize the system to meet your organization's unique challenges.</p>";
+}
