@@ -4,7 +4,7 @@
 <RadzenComponents @rendermode="InteractiveServer" />
 
 <RadzenLayout Style="grid-template-areas: 'rz-sidebar rz-header' 'rz-sidebar rz-body' 'rz-sidebar rz-footer'">
-    <RadzenHeader Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
+    <RadzenHeader style="padding:0.2rem;" Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
         <RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center">
             <RadzenColumn Size="5">
                 <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center" Gap="0">
@@ -35,42 +35,54 @@
         </RadzenRow>
     </RadzenHeader>
     <RadzenSidebar @bind-Expanded="@sidebarExpanded" Responsive="true">
-        <RadzenPanelMenu Click="OnParentClicked" Multiple="@multiple">
+        <RadzenPanelMenu Click="OnParentClicked" ShowArrow="false" Multiple="@multiple">
             <RadzenPanelMenuItem Path="/" Text="Dashboard" Icon="dashboard" />
             <RadzenPanelMenuItem Text="Organization" Icon="home_app_logo">
                 <RadzenPanelMenuItem Path="company-profile" Text="Company Profile" Icon="manage_accounts" />
                 <RadzenPanelMenuItem Path="organization-unit" Text="Organization Units" Icon="account_tree"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="Career Connect" Icon="person_add">
+                <RadzenPanelMenuItem Text="Dashboard" Icon="dashboard"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Jobs" Icon="work"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Candidates" Icon="person_search"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Stages" Icon="assignment_add"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Job Offers" Icon="assignment_add"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
-            <RadzenPanelMenuItem Expanded="true" Text="WorkForce" Icon="groups">
-                <RadzenPanelMenuItem Text="Profile" Icon="account_circle"></RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="WorkForce" Icon="groups">
+                <RadzenPanelMenuItem Path="workforce" Text="Dashboard" Icon="dashboard"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Path="workforce/profile" Text="Profile" Icon="account_circle"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Employees" Icon="manage_accounts"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Workforce Transitions" Icon="assignment_add"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Policies" Icon="policy"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="Time Track" Icon="timer">
+                <RadzenPanelMenuItem Text="Dashboard" Icon="dashboard"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Attendances" Icon="today"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Shift Assign" Icon="calendar_month"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Biometric Devices" Icon="devices"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="FlexiLeave" Icon="date_range">
+                <RadzenPanelMenuItem Text="Dashboard" Icon="dashboard"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Leave Requests" Icon="assignment"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Leave Types" Icon="code"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Leave Policies" Icon="policy"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Leave Assignments" Icon="assignment_add"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
             <RadzenPanelMenuItem Text="Pay Stream" Icon="attach_money">
+                <RadzenPanelMenuItem Text="Dashboard" Icon="dashboard"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Payslips" Icon="paid"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Allowances" Icon="assignment_add"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Deductions" Icon="assignment_add"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Text="Taxes" Icon="receipt"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
-            <RadzenPanelMenuItem Text="Setup" Icon="data_object">
+            <RadzenPanelMenuItem Text="Reporting" Icon="folder_open">
+                <RadzenPanelMenuItem Icon="assignment" Text="Career Connect"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Icon="assignment" Text="WorkForce"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Icon="assignment" Text="Time Track"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Icon="assignment" Text="FlexiLeave"></RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Icon="assignment" Text="Pay Stream"></RadzenPanelMenuItem>
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Configuration" Icon="construction">
                 <RadzenPanelMenuItem Icon="deployed_code" Text="CareerConnect"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Icon="deployed_code" Text="WorkForce"></RadzenPanelMenuItem>
                 <RadzenPanelMenuItem Icon="deployed_code" Text="TimeTrack"></RadzenPanelMenuItem>
@@ -84,6 +96,7 @@
                 <RadzenPanelMenuItem Text="Settings" Icon="manufacturing"></RadzenPanelMenuItem>
             </RadzenPanelMenuItem>
         </RadzenPanelMenu>
+
     </RadzenSidebar>
     <RadzenBody class="rz-m-0 rz-p-0">
         @Body
