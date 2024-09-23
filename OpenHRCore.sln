@@ -95,6 +95,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{42109D34-132
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.UI.Blazor", "src\Web\OpenHRCore.UI.Blazor\OpenHRCore.UI.Blazor.csproj", "{94A2936B-C71B-4C63-8C5A-01719BC2AC07}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.UI.WebMudBlazor", "src\Web\OpenHRCore.UI.WebMudBlazor\OpenHRCore.UI.WebMudBlazor.csproj", "{0F170299-16FE-4465-A614-F79D663DC9B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -245,6 +247,10 @@ Global
 		{94A2936B-C71B-4C63-8C5A-01719BC2AC07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94A2936B-C71B-4C63-8C5A-01719BC2AC07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94A2936B-C71B-4C63-8C5A-01719BC2AC07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F170299-16FE-4465-A614-F79D663DC9B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F170299-16FE-4465-A614-F79D663DC9B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F170299-16FE-4465-A614-F79D663DC9B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F170299-16FE-4465-A614-F79D663DC9B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -286,6 +292,7 @@ Global
 		{3B88DBA3-F498-4FCB-B4E9-7D98ABFA5304} = {2772AF87-183B-407A-B203-E7C8A888EE14}
 		{97B4AA0A-4511-4A00-8CF2-6508AFA8F962} = {2772AF87-183B-407A-B203-E7C8A888EE14}
 		{94A2936B-C71B-4C63-8C5A-01719BC2AC07} = {42109D34-132C-43F2-9FB1-FD35F15A9DD3}
+		{0F170299-16FE-4465-A614-F79D663DC9B1} = {42109D34-132C-43F2-9FB1-FD35F15A9DD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DA6C3F4-D8F3-41EF-9FE2-C59B37B56616}

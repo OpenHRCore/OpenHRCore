@@ -1,0 +1,75 @@
+﻿@inherits LayoutComponentBase
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Fixed="true" WrapContent="true" Dense="false" Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudText Typo="Typo.h5" Class="ml-3">OpenHRCore</MudText>
+        <MudSpacer />
+        <MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme" />
+        <MudSwitch @bind-Value="_isDarkMode" Color="Color.Primary" T="bool" />
+        <MudIconButton Icon="@Icons.Material.Outlined.Settings" Color="Color.Inherit" Edge="Edge.End" />
+    </MudAppBar>
+    <MudDrawer ClipMode="DrawerClipMode.Always" OpenMiniOnHover="true" Fixed="true" OverlayAutoClose="true" Overlay="true" @bind-Open="_drawerOpen" Elevation="2">
+        <MudNavMenu Dense="false" Color="Color.Primary" Bordered="false" Rounded="true" Margin="Margin.None" Class="mud-width-full">
+            <MudNavLink Href="/" Icon="@Icons.Material.Outlined.Dashboard">Dashboard</MudNavLink>
+            <MudNavGroup Title="Organization" Expanded="true" Icon="@Icons.Material.Outlined.Home">
+                <MudNavLink Href="/company-profile" Icon="@Icons.Material.Outlined.AccountCircle">Company Profile</MudNavLink>
+                <MudNavLink Href="/organization-units" Icon="@Icons.Material.Outlined.AccountTree">Organization Units</MudNavLink>
+            </MudNavGroup>
+            <MudNavGroup Title="Career Connect" Icon="@Icons.Material.Outlined.ConnectedTv" Expanded="true">
+                <MudNavLink Href="/career-connect/dashboard" Icon="@Icons.Material.Outlined.Dashboard">Dashboard</MudNavLink>
+                <MudNavLink Href="/career-connect/profile" Icon="@Icons.Material.Outlined.WorkHistory">Jobs</MudNavLink>
+                <MudNavLink Href="/career-connect/employees" Icon="@Icons.Material.Outlined.People">Candidates</MudNavLink>
+                <MudNavLink Href="/career-connect/workforce-transitions" Icon="@Icons.Material.Outlined.Assistant">Stages</MudNavLink>
+                <MudNavLink Href="/career-connect/workforce-transitions" Icon="@Icons.Material.Outlined.Handshake">Job Offers</MudNavLink>
+            </MudNavGroup>
+            <MudNavGroup Title="Workforce" Icon="@Icons.Material.Outlined.Groups" Expanded="true">
+                <MudNavLink Href="/workforce/dashboard" Icon="@Icons.Material.Outlined.Dashboard">Dashboard</MudNavLink>
+                <MudNavLink Href="/workforce/profile" Icon="@Icons.Material.Outlined.AccountBox">Profile</MudNavLink>
+                <MudNavLink Href="/workforce/employees" Icon="@Icons.Material.Outlined.People">Employees</MudNavLink>
+                <MudNavLink Href="/workforce/workforce-transitions" Icon="@Icons.Material.Outlined.Assignment">Workforce Transitions</MudNavLink>
+            </MudNavGroup>
+            <MudNavGroup Title="Time Track" Icon="@Icons.Material.Outlined.Timer" Expanded="true">
+                <MudNavLink Href="/time-track/dashboard" Icon="@Icons.Material.Outlined.Dashboard">Dashboard</MudNavLink>
+                <MudNavLink Href="/time-track/attendances" Icon="@Icons.Material.Outlined.CalendarMonth">Attendances</MudNavLink>
+                <MudNavLink Href="/time-track/shift-assignments" Icon="@Icons.Material.Outlined.CalendarToday">Shift Assignments</MudNavLink>
+                <MudNavLink Href="/time-track/biometric-devices" Icon="@Icons.Material.Outlined.Devices">Biometric Devices</MudNavLink>
+            </MudNavGroup>
+            <MudNavGroup Title="FlexiLeave" Icon="@Icons.Material.Outlined.DateRange" Expanded="true">
+                <MudNavLink Href="/flexileave/dashboard" Icon="@Icons.Material.Outlined.Dashboard">Dashboard</MudNavLink>
+                <MudNavLink Href="/flexileave/leave-requests" Icon="@Icons.Material.Outlined.Assignment">Leave Requests</MudNavLink>
+                <MudNavLink Href="/flexileave/leave-assigments" Icon="@Icons.Material.Outlined.Assignment">Leave Assignments</MudNavLink>
+                <MudNavLink Href="/flexileave/leave-policies" Icon="@Icons.Material.Outlined.Policy">Leave Policies</MudNavLink>
+            </MudNavGroup>
+            <MudNavGroup Title="Pay Stream" Icon="@Icons.Material.Outlined.AccountBalanceWallet" Expanded="true">
+                <MudNavLink Href="/pay-stream/dashboard" Icon="@Icons.Material.Outlined.Dashboard">Dashboard</MudNavLink>
+                <MudNavLink Href="/pay-stream/leave-requests" Icon="@Icons.Material.Outlined.CurrencyExchange">Payslips</MudNavLink>
+                <MudNavLink Href="/pay-stream/leave-assigments" Icon="@Icons.Material.Outlined.Assignment">Allowances</MudNavLink>
+                <MudNavLink Href="/pay-stream/leave-policies" Icon="@Icons.Material.Outlined.Assignment">Deductions</MudNavLink>
+                <MudNavLink Href="/pay-stream/leave-policies" Icon="@Icons.Material.Outlined.AccountBalance">Taxes</MudNavLink>
+            </MudNavGroup>
+            <MudNavGroup Title="Administration" Icon="@Icons.Material.Outlined.Settings" Expanded="true">
+                <MudNavLink Href="/pay-stream/dashboard" Icon="@Icons.Material.Outlined.ManageAccounts">Users</MudNavLink>
+                <MudNavLink Href="/pay-stream/leave-requests" Icon="@Icons.Material.Outlined.SupervisorAccount">Roles</MudNavLink>
+                <MudNavLink Href="/pay-stream/leave-assigments" Icon="@Icons.Material.Outlined.SupervisedUserCircle">Permissions</MudNavLink>
+                <MudNavLink Href="/pay-stream/leave-policies" Icon="@Icons.Material.Outlined.BuildCircle">Configuration</MudNavLink>
+            </MudNavGroup>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent MaxWidth="MaxWidth.Medium">
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+
+
+@code {
+    bool _drawerOpen = true;
+    void DrawerToggle() => _drawerOpen = !_drawerOpen;
+    private MudTheme _theme = new();
+    private bool _isDarkMode;
+}

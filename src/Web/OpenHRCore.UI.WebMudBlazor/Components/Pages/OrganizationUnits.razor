@@ -1,0 +1,58 @@
+﻿@page "/organization-units"
+
+<PageTitle>OrganizationUnits</PageTitle>
+<MudCard Class="rounded-0 border-none pl-2" Elevation="0">
+    <MudBreadcrumbs Items="_items" Separator=">"></MudBreadcrumbs>
+</MudCard>
+
+<MudText Class="px-5 my-2" Typo="Typo.h6">Organization Units</MudText>
+
+<MudCard Class="px-5 rounded-0 border-none" Elevation="0">
+    <MudGrid>
+        <MudItem lg="6" md="6" sm="12" xs="12">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">The Story Book</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText>This day everything happened.</MudText>
+                    <MudText Typo="Typo.body2">The quick, brown fox jumps over a lazy dog.</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">Read More</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem lg="6" md="6" sm="12" xs="12">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">The Story Book</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText>This day everything happened.</MudText>
+                    <MudText Typo="Typo.body2">The quick, brown fox jumps over a lazy dog.</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">Read More</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudCard>
+@code {
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "/", icon: Icons.Material.Filled.Home),
+        new BreadcrumbItem("Organization Units", href: "/organization-units"),
+    };
+}
