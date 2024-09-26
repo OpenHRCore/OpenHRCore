@@ -5,12 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
-    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    @*    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="app.css" />
-    <link rel="stylesheet" href="OpenHRCore.UI.Blazor.styles.css" />
+    <link rel="stylesheet" href="OpenHRCore.UI.Blazor.styles.css" /> *@
     <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/standard-base.css">
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/standard-wcag.css"> <!-- Load WCAG 2.2 AA compliant colors -->
     <HeadOutlet />
-    <RadzenTheme Theme="material" @rendermode="InteractiveServer" />
+    <RadzenTheme Theme="material" Wcag="true" @rendermode="InteractiveServer" />
 </head>
 
 <body>
@@ -23,10 +25,10 @@
 
 @code {
     [CascadingParameter]
-    private HttpContext HttpContext { get; set; }
+    private HttpContext? HttpContext { get; set; }
 
     [Inject]
-    private ThemeService ThemeService { get; set; }
+    private ThemeService? ThemeService { get; set; }
 
     protected override void OnInitialized()
     {
@@ -34,11 +36,11 @@
 
         if (HttpContext != null)
         {
-            var theme = HttpContext.Request.Cookies["MyApplicationTheme"];
+            var theme = HttpContext.Request.Cookies["OpenHrCoreTheme"];
 
             if (!string.IsNullOrEmpty(theme))
             {
-                ThemeService.SetTheme(theme, false);
+                ThemeService?.SetTheme(theme, false);
             }
         }
     }

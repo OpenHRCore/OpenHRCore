@@ -9,7 +9,9 @@
     </RadzenBreadCrumb>
 </RadzenCard>
 
-<RadzenCard class="rz-m-5">
+<div class="rz-m-5">
+    <RadzenText class="rz-mb-5" TextStyle="TextStyle.H6">Dashboard</RadzenText>
+
     <RadzenRow class="rz-text-align-center rz-p-0 rz-m-0 rz-mb-5" Gap="1rem">
         <RadzenColumn SizeLG="3" SizeMD="6" SizeSM="6" SizeXS="12">
             <RadzenCard>
@@ -45,37 +47,40 @@
         </RadzenColumn>
     </RadzenRow>
 
-    <RadzenRow class="rz-text-align-left rz-p-0 rz-m-0" Gap="1rem">
-        <RadzenColumn SizeLG="6" SizeMD="6" SizeSM="12" SizeXS="12" class="rz-base rz-shadow-1 rz-m-0 rz-p-5">
-            <RadzenText TextStyle="TextStyle.Subtitle2">Manpower Plan - 2024</RadzenText>
-            <RadzenChart>
-                <RadzenColumnSeries Data="@revenue1" CategoryProperty="Quarter" ValueProperty="Revenue" />
-                <RadzenColumnSeries Data="@revenue2" CategoryProperty="Quarter" ValueProperty="Revenue" />
-            </RadzenChart>
+    <RadzenRow class="rz-p-0 rz-m-0" Gap="1rem">
+        <RadzenColumn SizeLG="6" SizeMD="6" SizeSM="12" SizeXS="12">
+            <RadzenCard>
+                <RadzenChart>
+                    <RadzenColumnSeries Data="@revenue1" CategoryProperty="Quarter" ValueProperty="Revenue" />
+                    <RadzenColumnSeries Data="@revenue2" CategoryProperty="Quarter" ValueProperty="Revenue" />
+                </RadzenChart>
+            </RadzenCard>
         </RadzenColumn>
 
-        <RadzenColumn SizeLG="6" SizeMD="6" SizeSM="12" SizeXS="12" class="rz-base rz-shadow-1 rz-m-0 rz-p-5">
-            <RadzenChart>
-                <RadzenChartTooltipOptions Shared="@sharedTooltip" />
-                <RadzenLineSeries Smooth="@smooth" Data="@revenue2023" CategoryProperty="Date" Title="2023" LineType="LineType.Dashed" ValueProperty="Revenue">
-                    <RadzenMarkers Visible="@showMarkers" MarkerType="MarkerType.Square" />
-                    <RadzenSeriesDataLabels Visible="@showDataLabels" />
-                </RadzenLineSeries>
-                <RadzenLineSeries Smooth="@smooth" Data="@revenue2024" CategoryProperty="Date" Title="2024" ValueProperty="Revenue">
-                    <RadzenMarkers Visible="@showMarkers" MarkerType="MarkerType.Circle" />
-                    <RadzenSeriesDataLabels Visible="@showDataLabels" />
-                </RadzenLineSeries>
-                <RadzenCategoryAxis Padding="20" />
-                <RadzenValueAxis Formatter="@FormatAsUSD">
-                    <RadzenGridLines Visible="true" />
-                    <RadzenAxisTitle Text="Revenue in USD" />
-                </RadzenValueAxis>
-            </RadzenChart>
+        <RadzenColumn SizeLG="6" SizeMD="6" SizeSM="12" SizeXS="12">
+            <RadzenCard>
+                <RadzenChart>
+                    <RadzenChartTooltipOptions Shared="@sharedTooltip" />
+                    <RadzenLineSeries Smooth="@smooth" Data="@revenue2023" CategoryProperty="Date" Title="2023" LineType="LineType.Dashed" ValueProperty="Revenue">
+                        <RadzenMarkers Visible="@showMarkers" MarkerType="MarkerType.Square" />
+                        <RadzenSeriesDataLabels Visible="@showDataLabels" />
+                    </RadzenLineSeries>
+                    <RadzenLineSeries Smooth="@smooth" Data="@revenue2024" CategoryProperty="Date" Title="2024" ValueProperty="Revenue">
+                        <RadzenMarkers Visible="@showMarkers" MarkerType="MarkerType.Circle" />
+                        <RadzenSeriesDataLabels Visible="@showDataLabels" />
+                    </RadzenLineSeries>
+                    <RadzenCategoryAxis Padding="20" />
+                    <RadzenValueAxis Formatter="@FormatAsUSD">
+                        <RadzenGridLines Visible="true" />
+                        <RadzenAxisTitle Text="Revenue in USD" />
+                    </RadzenValueAxis>
+                </RadzenChart>
+            </RadzenCard>
         </RadzenColumn>
 
     </RadzenRow>
 
-</RadzenCard>
+</div>
 
 @code {
     class DataItem_1

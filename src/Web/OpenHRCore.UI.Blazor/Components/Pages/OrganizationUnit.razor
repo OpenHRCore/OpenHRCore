@@ -9,9 +9,9 @@
     </RadzenBreadCrumb>
 </RadzenCard>
 
-<RadzenCard class="rz-m-5">
+<div class="rz-m-5">
     <RadzenText class="rz-mb-3" TextStyle="TextStyle.Subtitle1">
-        Organization Units
+        Organization Units <RadzenBadge BadgeStyle="BadgeStyle.Info" Text="Info" />
     </RadzenText>
 
     <RadzenRow>
@@ -25,7 +25,7 @@
                 </RadzenStack>
                 <RadzenStack>
                     <RadzenTree>
-                        <RadzenTreeItem Expanded="true" Text="OpenHrCore">
+                        <RadzenTreeItem Expanded="true" Text="NUOS">
                             <ChildContent>
                                 <RadzenTreeItem Text="Backend" />
                                 <RadzenTreeItem Text="Frontend" />
@@ -38,7 +38,7 @@
                                 <b>@context.Text</b>
                             </Template>
                         </RadzenTreeItem>
-                        <RadzenTreeItem Expanded="true" Text="OpenHrCore Cloud">
+                        <RadzenTreeItem Expanded="true" Text="NUOS">
                             <ChildContent>
                                 <RadzenTreeItem Text="IT">
                                     <ChildContent>
@@ -119,7 +119,7 @@
         </RadzenColumn>
     </RadzenRow>
 
-</RadzenCard>
+</div>
 
 @code {
 
