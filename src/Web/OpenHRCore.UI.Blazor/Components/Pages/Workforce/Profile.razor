@@ -2,17 +2,17 @@
 
 <PageTitle>Employee Profile</PageTitle>
 
-<RadzenCard class="rz-py-3 rz-px-5 rz-shadow-0 rz-border-0 rz-border-radius-0">
+<div class="rz-m-5">
     <RadzenBreadCrumb>
         <RadzenBreadCrumbItem Path="/" Icon="home" />
-        <RadzenBreadCrumbItem Path="/" Text="Workforce Dashboard" />
+        <RadzenBreadCrumbItem Path="/workforce/dashboard" Text="Workforce Dashboard" />
         <RadzenBreadCrumbItem Path="/workforce/profile" Text="Profile" />
     </RadzenBreadCrumb>
-</RadzenCard>
+</div>
 
 <div class="rz-m-5">
-    <RadzenText class="rz-mb-5" TextStyle="TextStyle.H6">Employee Profile</RadzenText>
-    <RadzenStack class="rz-mb-5 rz-p-0">
+    <RadzenText class="rz-mb-5" TextStyle="TextStyle.DisplayH5">Employee Profile</RadzenText>
+    <RadzenStack class="rz-mb-5">
        <RadzenCard>
             <RadzenRow>
                 <RadzenColumn SizeLG="6" SizeMD="6" SizeSM="12" SizeXS="12">
@@ -45,52 +45,52 @@
        </RadzenCard>
     </RadzenStack>
    <RadzenCard>
-        <RadzenTabs TabPosition="TabPosition.Top" RenderMode="TabRenderMode.Client">
+        <RadzenTabs  TabPosition="TabPosition.Top" RenderMode="TabRenderMode.Client">
             <Tabs>
-                <RadzenTabsItem Text="Personal">
+                <RadzenTabsItem  Icon="account_circle" Text="Personal">
                     <RadzenRow Gap="3rem" class="rz-p-0 rz-m-0">
                         <RadzenColumn SizeLG="4" SizeMD="4" SizeSM="12">
                             <RadzenStack Gap="2rem">
-                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Text" Style="width: 100%;" Text="Code">
-                                    <RadzenTextBox @bind-Value=code Name="Code" />
+                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Code">
+                                    <RadzenTextBox Disabled="false" @bind-Value=code Name="Code" />
                                 </RadzenFormField>
-                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Text" Style="width: 100%;" Text="First Name">
+                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="First Name">
                                     <RadzenTextBox @bind-Value=firstName Name="First Name" />
                                 </RadzenFormField>
-                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Text" Style="width: 100%;" Text="Last Name">
+                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Last Name">
                                     <RadzenTextBox @bind-Value=lastName Name="LastName" />
                                 </RadzenFormField>
-                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Text" Style="width: 100%;" Text="Date Of Birth">
+                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Date Of Birth">
                                     <RadzenDatePicker @bind-Value=@dateOfBirth DateFormat="MM/dd/yyyy" Name="DateOfBirth" ShowCalendarWeek />
                                 </RadzenFormField>
                             </RadzenStack>
                         </RadzenColumn>
                         <RadzenColumn SizeLG="4" SizeMD="4" SizeSM="12">
                             <RadzenStack Gap="2rem">
-                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Text" Style="width: 100%;" Text="Gender">
+                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Gender">
                                     <RadzenDropDown @bind-Value=male Data=@gender Style="width: 100%;" Name="Gender" />
                                 </RadzenFormField>
-                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Text" Style="width: 100%;" Text="Marital Status">
+                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Marital Status">
                                     <RadzenDropDown @bind-Value=single Data=@maritalStatus Style="width: 100%;" Name="MaritalStatus" />
                                 </RadzenFormField>
-                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Text" Style="width: 100%;" Text="Work Email">
+                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Work Email">
                                     <RadzenTextBox @bind-Value=workEmail Name="WorkEmail" />
                                 </RadzenFormField>
-                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Text" Style="width: 100%;" Text="Personal Email">
+                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Personal Email">
                                     <RadzenTextBox @bind-Value=personalEmail Name="PersonalEmail" />
                                 </RadzenFormField>
                             </RadzenStack>
                         </RadzenColumn>
                         <RadzenColumn SizeLG="4" SizeMD="4" SizeSM="12">
                             <RadzenStack Gap="2rem">
-                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Text" Style="width: 100%;" Text="Phone">
+                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Phone">
                                     <RadzenTextBox @bind-Value=phone Name="Phone" />
                                 </RadzenFormField>
-                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Text" Style="width: 100%;" Text="Nationalities">
+                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Nationalities">
                                     <RadzenDropDown @bind-Value=@national Data=@nationalities Name="Nationalities"
                                                     SelectAllText="Select All" Style="width: 100%;" />
                                 </RadzenFormField>
-                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Text" Style="width: 100%;" Text="Languages">
+                                <RadzenFormField AllowFloatingLabel="true" Variant="Variant.Flat" Style="width: 100%;" Text="Languages">
                                     <RadzenDropDown SelectAllText="Select All" @bind-Value=@language Data=@languages Name="Languages"
                                                     Style="width: 100%;" />
                                 </RadzenFormField>
@@ -98,10 +98,10 @@
                         </RadzenColumn>
                     </RadzenRow>
                 </RadzenTabsItem>
-                <RadzenTabsItem Text="Employment"></RadzenTabsItem>
-                <RadzenTabsItem Text="Contact Details"></RadzenTabsItem>
-                <RadzenTabsItem Text="Emergency Contact"></RadzenTabsItem>
-                <RadzenTabsItem Text="Documents"></RadzenTabsItem>
+                <RadzenTabsItem Icon="work" Text="Employment"></RadzenTabsItem>
+                <RadzenTabsItem Icon="location_on" Text="Contact Details"></RadzenTabsItem>
+                <RadzenTabsItem Icon="call" Text="Emergency Contact"></RadzenTabsItem>
+                <RadzenTabsItem Icon="folder_open" Text="Documents"></RadzenTabsItem>
             </Tabs>
         </RadzenTabs>
         <RadzenStack class="rz-mt-3" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" AlignItems="AlignItems.Center">

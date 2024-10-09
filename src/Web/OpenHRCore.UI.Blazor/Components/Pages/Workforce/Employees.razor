@@ -1,6 +1,268 @@
 ﻿@page "/workforce/employees"
-<h3>Employees</h3>
+
+<div class="rz-m-5">
+    <RadzenBreadCrumb>
+        <RadzenBreadCrumbItem Path="/" Icon="home" />
+        <RadzenBreadCrumbItem Path="/" Text="Workforce" />
+        <RadzenBreadCrumbItem Text="Employees" />
+    </RadzenBreadCrumb>
+</div>
+
+<div class="rz-m-5">
+    <RadzenText class="rz-mb-5" TextStyle="TextStyle.DisplayH5">Employees</RadzenText>
+
+    <RadzenCard class="rz-mb-5">
+        <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="5" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        Data="@employees" ColumnWidth="250px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedEmployees>
+            <Columns>
+                <RadzenDataGridColumn Title="Photo" Frozen="true" Sortable="false" Filterable="false" Width="80px" TextAlign="TextAlign.Center">
+                    <Template Context="data">
+                        <RadzenImage Path="@data.ProfilePath" class="rz-gravatar" AlternateText="@(data.Name)" />
+                    </Template>
+                </RadzenDataGridColumn>
+
+                <RadzenDataGridColumn Property="@nameof(EmployeeDto.Name)"  Title="Name" />
+                <RadzenDataGridColumn Property="@nameof(EmployeeDto.Email)" Title="Email" />
+                <RadzenDataGridColumn Property="@nameof(EmployeeDto.Phone)" Title="Phone" />
+                <RadzenDataGridColumn Property="@nameof(EmployeeDto.JobTitle)" Title="Job Title" />
+                <RadzenDataGridColumn Property="@nameof(EmployeeDto.Department)" Title="Department" />
+                <RadzenDataGridColumn Property="@nameof(EmployeeDto.Address)" Title="Address" />
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenCard>
+</div>
 
 @code {
+    IEnumerable<EmployeeDto> employees;
+    IList<EmployeeDto> selectedEmployees;
+
+
+    public record EmployeeDto
+    {
+        public required string Name { get; init; }
+        public required string Email { get; init; }
+        public required string Phone { get; init; }
+        public required string ProfilePath { get; init; }
+        public string? JobTitle { get; set; }
+        public string? Department { get; set; }
+        public string? Address { get; set; }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        employees = GetEmployees().ToList();
+        selectedEmployees = new List<EmployeeDto>() { employees.FirstOrDefault() };
+    }
+
+    private List<EmployeeDto> GetEmployees()
+    {
+        return new List<EmployeeDto>
+        {
+            new EmployeeDto
+            {
+                Name = "John Doe",
+                Email = "johndoe@example.com",
+                Phone = "+1234567890",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=JohnDoe",
+                JobTitle = "Software Engineer",
+                Department = "Development",
+                Address = "123 Main St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Jane Smith",
+                Email = "janesmith@example.com",
+                Phone = "+9876543210",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=JaneSmith",
+                JobTitle = "Product Manager",
+                Department = "Product",
+                Address = "456 Elm St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Michael Johnson",
+                Email = "michaelj@example.com",
+                Phone = "+1234567891",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=MichaelJohnson",
+                JobTitle = "HR Manager",
+                Department = "Human Resources",
+                Address = "789 Oak St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Emily Davis",
+                Email = "emilyd@example.com",
+                Phone = "+9876543211",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=EmilyDavis",
+                JobTitle = "UX Designer",
+                Department = "Design",
+                Address = "234 Pine St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Chris Brown",
+                Email = "chrisb@example.com",
+                Phone = "+1234567892",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=ChrisBrown",
+                JobTitle = "QA Engineer",
+                Department = "Quality Assurance",
+                Address = "345 Maple St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Sarah Wilson",
+                Email = "sarahw@example.com",
+                Phone = "+9876543212",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=SarahWilson",
+                JobTitle = "Marketing Specialist",
+                Department = "Marketing",
+                Address = "456 Cedar St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "David Lee",
+                Email = "davidl@example.com",
+                Phone = "+1234567893",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=DavidLee",
+                JobTitle = "DevOps Engineer",
+                Department = "Operations",
+                Address = "567 Birch St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Anna Harris",
+                Email = "annah@example.com",
+                Phone = "+9876543213",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=AnnaHarris",
+                JobTitle = "Data Scientist",
+                Department = "Data Science",
+                Address = "678 Cherry St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "James Clark",
+                Email = "jamesc@example.com",
+                Phone = "+1234567894",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=JamesClark",
+                JobTitle = "Project Manager",
+                Department = "Project Management",
+                Address = "789 Aspen St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Lisa Martinez",
+                Email = "lisam@example.com",
+                Phone = "+9876543214",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=LisaMartinez",
+                JobTitle = "Sales Executive",
+                Department = "Sales",
+                Address = "123 Walnut St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Robert Garcia",
+                Email = "robertg@example.com",
+                Phone = "+1234567895",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=RobertGarcia",
+                JobTitle = "Business Analyst",
+                Department = "Business Development",
+                Address = "234 Poplar St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Sophia Anderson",
+                Email = "sophiaa@example.com",
+                Phone = "+9876543215",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=SophiaAnderson",
+                JobTitle = "Content Writer",
+                Department = "Content",
+                Address = "345 Redwood St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Daniel Young",
+                Email = "daniely@example.com",
+                Phone = "+1234567896",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=DanielYoung",
+                JobTitle = "IT Support",
+                Department = "IT",
+                Address = "456 Fir St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Olivia Wright",
+                Email = "oliviaw@example.com",
+                Phone = "+9876543216",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=OliviaWright",
+                JobTitle = "Graphic Designer",
+                Department = "Design",
+                Address = "567 Spruce St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Matthew Scott",
+                Email = "matthews@example.com",
+                Phone = "+1234567897",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=MatthewScott",
+                JobTitle = "Network Engineer",
+                Department = "IT",
+                Address = "678 Hemlock St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Chloe Green",
+                Email = "chloeg@example.com",
+                Phone = "+9876543217",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=ChloeGreen",
+                JobTitle = "Social Media Manager",
+                Department = "Marketing",
+                Address = "789 Cedar St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Nathan Adams",
+                Email = "nathana@example.com",
+                Phone = "+1234567898",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=NathanAdams",
+                JobTitle = "Full Stack Developer",
+                Department = "Development",
+                Address = "123 Beech St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Zoe Baker",
+                Email = "zoeb@example.com",
+                Phone = "+9876543218",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=ZoeBaker",
+                JobTitle = "Customer Support",
+                Department = "Customer Service",
+                Address = "234 Willow St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Ethan Carter",
+                Email = "ethanc@example.com",
+                Phone = "+1234567899",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=EthanCarter",
+                JobTitle = "Backend Developer",
+                Department = "Development",
+                Address = "345 Sycamore St, Springfield, USA"
+            },
+            new EmployeeDto
+            {
+                Name = "Mia Perez",
+                Email = "miap@example.com",
+                Phone = "+9876543219",
+                ProfilePath = "https://api.dicebear.com/9.x/personas/svg?seed=MiaPerez",
+                JobTitle = "Operations Manager",
+                Department = "Operations",
+                Address = "456 Chestnut St, Springfield, USA"
+            }
+        };
+    }
+
+
 
 }
