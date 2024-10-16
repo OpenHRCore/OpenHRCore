@@ -3,16 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkForce", "WorkForce", "{BF6237CD-B514-4895-9119-DB7220E8B3E3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.WorkForce.Domain", "src\WorkForce\OpenHRCore.WorkForce.Domain\OpenHRCore.WorkForce.Domain.csproj", "{473A5697-8A5E-4522-B392-81753AF3BD9C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.WorkForce.Application", "src\WorkForce\OpenHRCore.WorkForce.Application\OpenHRCore.WorkForce.Application.csproj", "{7AC17AEF-728D-4FDD-98FB-6FAC279CF24F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.WorkForce.Infrastructure", "src\WorkForce\OpenHRCore.WorkForce.Infrastructure\OpenHRCore.WorkForce.Infrastructure.csproj", "{2133F3A9-B7C9-4A02-AFDC-CD4ED3E1B9F3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.WorkForce.WebAPI", "src\WorkForce\OpenHRCore.WorkForce.WebAPI\OpenHRCore.WorkForce.WebAPI.csproj", "{F4AA59BD-7CC4-43E0-83C5-E534F2A52192}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedKernel", "SharedKernel", "{2772AF87-183B-407A-B203-E7C8A888EE14}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.SharedKernel.Domain", "src\SharedKernel\OpenHRCore.SharedKernel.Domain\OpenHRCore.SharedKernel.Domain.csproj", "{D2B4FF00-AD47-4F94-89E6-D1BF75465AE4}"
@@ -45,22 +35,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{473A5697-8A5E-4522-B392-81753AF3BD9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{473A5697-8A5E-4522-B392-81753AF3BD9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{473A5697-8A5E-4522-B392-81753AF3BD9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{473A5697-8A5E-4522-B392-81753AF3BD9C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7AC17AEF-728D-4FDD-98FB-6FAC279CF24F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7AC17AEF-728D-4FDD-98FB-6FAC279CF24F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7AC17AEF-728D-4FDD-98FB-6FAC279CF24F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7AC17AEF-728D-4FDD-98FB-6FAC279CF24F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2133F3A9-B7C9-4A02-AFDC-CD4ED3E1B9F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2133F3A9-B7C9-4A02-AFDC-CD4ED3E1B9F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2133F3A9-B7C9-4A02-AFDC-CD4ED3E1B9F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2133F3A9-B7C9-4A02-AFDC-CD4ED3E1B9F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4AA59BD-7CC4-43E0-83C5-E534F2A52192}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4AA59BD-7CC4-43E0-83C5-E534F2A52192}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4AA59BD-7CC4-43E0-83C5-E534F2A52192}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4AA59BD-7CC4-43E0-83C5-E534F2A52192}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D2B4FF00-AD47-4F94-89E6-D1BF75465AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D2B4FF00-AD47-4F94-89E6-D1BF75465AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2B4FF00-AD47-4F94-89E6-D1BF75465AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -108,10 +82,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{473A5697-8A5E-4522-B392-81753AF3BD9C} = {BF6237CD-B514-4895-9119-DB7220E8B3E3}
-		{7AC17AEF-728D-4FDD-98FB-6FAC279CF24F} = {BF6237CD-B514-4895-9119-DB7220E8B3E3}
-		{2133F3A9-B7C9-4A02-AFDC-CD4ED3E1B9F3} = {BF6237CD-B514-4895-9119-DB7220E8B3E3}
-		{F4AA59BD-7CC4-43E0-83C5-E534F2A52192} = {BF6237CD-B514-4895-9119-DB7220E8B3E3}
 		{D2B4FF00-AD47-4F94-89E6-D1BF75465AE4} = {2772AF87-183B-407A-B203-E7C8A888EE14}
 		{3B88DBA3-F498-4FCB-B4E9-7D98ABFA5304} = {2772AF87-183B-407A-B203-E7C8A888EE14}
 		{97B4AA0A-4511-4A00-8CF2-6508AFA8F962} = {2772AF87-183B-407A-B203-E7C8A888EE14}
