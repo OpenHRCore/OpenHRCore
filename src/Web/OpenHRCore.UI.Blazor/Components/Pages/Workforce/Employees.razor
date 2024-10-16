@@ -12,8 +12,9 @@
     <RadzenText class="rz-mb-5" TextStyle="TextStyle.DisplayH5">Employees</RadzenText>
 
     <RadzenCard class="rz-mb-5">
-        <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="5" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+        <RadzenDataGrid  AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="5" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                         Data="@employees" ColumnWidth="250px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedEmployees>
+          
             <Columns>
                 <RadzenDataGridColumn Title="Photo" Frozen="true" Sortable="false" Filterable="false" Width="80px" TextAlign="TextAlign.Center">
                     <Template Context="data">
@@ -33,6 +34,7 @@
 </div>
 
 @code {
+
     IEnumerable<EmployeeDto> employees;
     IList<EmployeeDto> selectedEmployees;
 
@@ -47,6 +49,8 @@
         public string? Department { get; set; }
         public string? Address { get; set; }
     }
+
+    
 
     protected override void OnInitialized()
     {
