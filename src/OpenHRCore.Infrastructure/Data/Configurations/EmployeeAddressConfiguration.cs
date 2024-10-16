@@ -1,4 +1,6 @@
-﻿namespace OpenHRCore.Infrastructure.Data.Configurations
+﻿using OpenHRCore.Domain.Workforce.Entities;
+
+namespace OpenHRCore.Infrastructure.Data.Configurations
 {
     public class EmployeeAddressConfiguration : IEntityTypeConfiguration<EmployeeAddress>
     {

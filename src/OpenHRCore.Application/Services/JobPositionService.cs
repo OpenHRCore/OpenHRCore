@@ -2,6 +2,8 @@
 using OpenHRCore.Application.DTOs.JobGrade;
 using OpenHRCore.Application.Interfaces;
 using OpenHRCore.Application.UnitOfWork;
+using OpenHRCore.Domain.Workforce.Entities;
+using OpenHRCore.Domain.Workforce.Interfaces;
 
 namespace OpenHRCore.Application.Services
 {

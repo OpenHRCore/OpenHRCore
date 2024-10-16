@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenHRCore.Application.UnitOfWork;
-using OpenHRCore.Infrastructure.Data;
 using OpenHRCore.Infrastructure.Repositories;
 using OpenHRCore.Infrastructure.UnitOfWork;
 using OpenHRCore.SharedKernel.Domain;

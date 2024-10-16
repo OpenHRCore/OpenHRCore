@@ -1,3 +1,3 @@
 ﻿global using OpenHRCore.SharedKernel.Domain;
-global using OpenHRCore.Domain.Entities;
-global using OpenHRCore.Domain.Enums;
+global using OpenHRCore.Domain.Workforce.Entities;
+global using OpenHRCore.Domain.Workforce.Enums;

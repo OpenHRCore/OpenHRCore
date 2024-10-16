@@ -1,4 +1,6 @@
-﻿namespace OpenHRCore.Infrastructure.Data
+﻿using OpenHRCore.Domain.Workforce.Entities;
+
+namespace OpenHRCore.Infrastructure.Data
 {
     /// <summary>
     /// Represents the database context for the WorkForce module in OpenHRCore.

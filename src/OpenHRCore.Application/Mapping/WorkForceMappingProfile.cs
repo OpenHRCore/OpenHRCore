@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using OpenHRCore.Application.DTOs.JobGrade;
+using OpenHRCore.Domain.Workforce.Entities;
 
 namespace OpenHRCore.Application.Mapping
 {
