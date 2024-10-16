@@ -67,7 +67,7 @@ namespace OpenHRCore.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteJobGradeAsync(string id)
         {
-            var request = new DeleteJobGradeRequest(id);
+            var request = new DeleteJobGradeRequest(Guid.Parse(id));
             var response = await _jobPositionService.DeleteJobGradeAsync(request);
 
             if (!response.IsSuccess)
