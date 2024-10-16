@@ -1,3 +1,6 @@
+using FluentValidation.AspNetCore;
+using OpenHRCore.Application;
+using OpenHRCore.Infrastructure;
 
 namespace OpenHRCore.API
 {
@@ -13,6 +16,11 @@ namespace OpenHRCore.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddOpenHRCoreWorkForceDbContext(builder.Configuration);
+            builder.Services.AddOpenHRCoreWorkForceInfrastructure();
+            builder.Services.AddOpenHRCoreWorkForceApplication();
 
             var app = builder.Build();
 

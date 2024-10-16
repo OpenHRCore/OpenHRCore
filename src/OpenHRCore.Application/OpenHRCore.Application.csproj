@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.10.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenHRCore.Domain\OpenHRCore.Domain.csproj" />
+    <ProjectReference Include="..\SharedKernel\OpenHRCore.SharedKernel.Application\OpenHRCore.SharedKernel.Application.csproj" />
+  </ItemGroup>
+
 </Project>
