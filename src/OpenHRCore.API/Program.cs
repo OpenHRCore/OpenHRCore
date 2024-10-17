@@ -1,6 +1,8 @@
 using FluentValidation.AspNetCore;
 using OpenHRCore.Application;
 using OpenHRCore.Infrastructure;
+using Serilog;
+using Serilog.Events;
 
 namespace OpenHRCore.API
 {
@@ -8,12 +10,22 @@ namespace OpenHRCore.API
     {
         public static void Main(string[] args)
         {
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .Enrich.WithEnvironmentName()
+                .Enrich.WithMachineName()
+                .WriteTo.Console()
+                .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .CreateLogger();
+
+            Log.Information("Starting up OpenHRCore.API");
+
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Host.UseSerilog();
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -24,7 +36,8 @@ namespace OpenHRCore.API
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            Log.Information("Application build completed");
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -32,13 +45,33 @@ namespace OpenHRCore.API
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
 
-            app.Run();
+            try
+            {
+                var urls = app.Configuration["ASPNETCORE_URLS"]?.Split(',').ToArray();
+
+                if (urls != null)
+                {
+                    foreach (var url in urls)
+                    {
+                        Log.Information("OpenHRCore.API is running on {Address}", url);
+                    }
+                }
+                Log.Information("Running OpenHRCore.API");
+                app.Run();
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Application failed to start");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
     }
 }

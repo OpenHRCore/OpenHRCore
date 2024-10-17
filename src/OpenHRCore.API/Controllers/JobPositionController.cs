@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OpenHRCore.Application.DTOs.JobGrade;
 using OpenHRCore.Application.Interfaces;
+using OpenHRCore.SharedKernel.Utilities;
 
 namespace OpenHRCore.API.Controllers
 {
@@ -12,14 +13,12 @@ namespace OpenHRCore.API.Controllers
     public class JobPositionController : ControllerBase
     {
         private readonly IJobPositionService _jobPositionService;
+        private readonly ILogger<JobPositionController> _logger;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JobPositionController"/> class.
-        /// </summary>
-        /// <param name="jobPositionService">The job position service.</param>
-        public JobPositionController(IJobPositionService jobPositionService)
+        public JobPositionController(IJobPositionService jobPositionService, ILogger<JobPositionController> logger)
         {
             _jobPositionService = jobPositionService;
+            _logger = logger;
         }
 
         /// <summary>
@@ -30,14 +29,26 @@ namespace OpenHRCore.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateJobGradeAsync(CreateJobGradeRequest request)
         {
-            var response = await _jobPositionService.CreateJobGradeAsync(request);
+            _logger.LogApiInfo("CreateJobGradeAsync started. Request: {@Request}", request);
 
-            if (!response.IsSuccess)
+            try
             {
-                return BadRequest(response);
-            }
+                var response = await _jobPositionService.CreateJobGradeAsync(request);
 
-            return Ok(response);
+                if (!response.IsSuccess)
+                {
+                    _logger.LogApiWarning("CreateJobGradeAsync failed. Request: {@Request}, Errors: {@Errors}", request, response.ErrorMessage);
+                    return BadRequest(response);
+                }
+
+                _logger.LogApiInfo("CreateJobGradeAsync succeeded. Created JobGrade: {@Response}", response);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogApiError(ex, "Error in CreateJobGradeAsync. Request: {@Request}", request);
+                return StatusCode(500, "An internal error occurred.");
+            }
         }
 
         /// <summary>
@@ -49,14 +60,26 @@ namespace OpenHRCore.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateJobGradeAsync(string id, UpdateJobGradeRequest request)
         {
-            var response = await _jobPositionService.UpdateJobGradeAsync(request);
+            _logger.LogApiInfo("UpdateJobGradeAsync started. ID: {JobGradeId}, Request: {@Request}", id, request);
 
-            if (!response.IsSuccess)
+            try
             {
-                return BadRequest(response);
-            }
+                var response = await _jobPositionService.UpdateJobGradeAsync(request);
 
-            return Ok(response);
+                if (!response.IsSuccess)
+                {
+                    _logger.LogApiWarning("UpdateJobGradeAsync failed. ID: {JobGradeId}, Errors: {@Errors}", id, response.ErrorMessage);
+                    return BadRequest(response);
+                }
+
+                _logger.LogApiInfo("UpdateJobGradeAsync succeeded. ID: {JobGradeId}, Updated Data: {@Response}", id, response);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogApiError(ex, "Error in UpdateJobGradeAsync. ID: {JobGradeId}, Request: {@Request}", id, request);
+                return StatusCode(500, "An internal error occurred.");
+            }
         }
 
         /// <summary>
@@ -67,15 +90,27 @@ namespace OpenHRCore.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteJobGradeAsync(string id)
         {
-            var request = new DeleteJobGradeRequest(Guid.Parse(id));
-            var response = await _jobPositionService.DeleteJobGradeAsync(request);
+            _logger.LogApiInfo("DeleteJobGradeAsync started. JobGradeId: {JobGradeId}", id);
 
-            if (!response.IsSuccess)
+            try
             {
-                return BadRequest(response);
-            }
+                var request = new DeleteJobGradeRequest(Guid.Parse(id));
+                var response = await _jobPositionService.DeleteJobGradeAsync(request);
 
-            return Ok(response);
+                if (!response.IsSuccess)
+                {
+                    _logger.LogApiWarning("DeleteJobGradeAsync failed. JobGradeId: {JobGradeId}, Errors: {@Errors}", id, response.ErrorMessage);
+                    return BadRequest(response);
+                }
+
+                _logger.LogApiInfo("DeleteJobGradeAsync succeeded. JobGradeId: {JobGradeId}", id);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogApiError(ex, "Error in DeleteJobGradeAsync. JobGradeId: {JobGradeId}", id);
+                return StatusCode(500, "An internal error occurred.");
+            }
         }
 
         /// <summary>
@@ -86,14 +121,26 @@ namespace OpenHRCore.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetJobGradeByIdAsync(string id)
         {
-            var response = await _jobPositionService.GetJobGradeByIdAsync(Guid.Parse(id));
+            _logger.LogApiInfo("GetJobGradeByIdAsync started. JobGradeId: {JobGradeId}", id);
 
-            if (!response.IsSuccess)
+            try
             {
-                return BadRequest(response);
-            }
+                var response = await _jobPositionService.GetJobGradeByIdAsync(Guid.Parse(id));
 
-            return Ok(response);
+                if (!response.IsSuccess)
+                {
+                    _logger.LogApiWarning("GetJobGradeByIdAsync failed. JobGradeId: {JobGradeId}, Errors: {@Errors}", id, response.ErrorMessage);
+                    return BadRequest(response);
+                }
+
+                _logger.LogApiInfo("GetJobGradeByIdAsync succeeded. JobGradeId: {JobGradeId}, Data: {@Response}", id, response);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogApiError(ex, "Error in GetJobGradeByIdAsync. JobGradeId: {JobGradeId}", id);
+                return StatusCode(500, "An internal error occurred.");
+            }
         }
 
         /// <summary>
@@ -103,14 +150,26 @@ namespace OpenHRCore.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllJobGradesAsync()
         {
-            var response = await _jobPositionService.GetAllJobGradesAsync();
+            _logger.LogApiInfo("GetAllJobGradesAsync started");
 
-            if (!response.IsSuccess)
+            try
             {
-                return BadRequest(response);
-            }
+                var response = await _jobPositionService.GetAllJobGradesAsync();
 
-            return Ok(response);
+                if (!response.IsSuccess)
+                {
+                    _logger.LogApiWarning("GetAllJobGradesAsync failed. Errors: {@Errors}", response.ErrorMessage);
+                    return BadRequest(response);
+                }
+
+                _logger.LogApiInfo("GetAllJobGradesAsync succeeded. Data: {@Response}", response);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogApiError(ex, "Error in GetAllJobGradesAsync");
+                return StatusCode(500, "An internal error occurred.");
+            }
         }
     }
 }
