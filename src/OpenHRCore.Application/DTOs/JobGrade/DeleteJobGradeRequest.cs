@@ -4,12 +4,12 @@ namespace OpenHRCore.Application.DTOs.JobGrade
 {
     public class DeleteJobGradeRequest
     {
-        public DeleteJobGradeRequest(Guid id)
+        public DeleteJobGradeRequest(string id)
         {
             Id = id;
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
     }
 
     public class DeleteJobGradeRequestValidator : AbstractValidator<DeleteJobGradeRequest>

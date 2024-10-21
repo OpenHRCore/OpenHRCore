@@ -1,5 +1,6 @@
-using FluentValidation.AspNetCore;
+using FluentValidation;
 using OpenHRCore.Application;
+using OpenHRCore.Application.DTOs.JobGrade;
 using OpenHRCore.Infrastructure;
 using Serilog;
 using Serilog.Events;
@@ -63,17 +64,46 @@ namespace OpenHRCore.API
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Host.UseSerilog();
-
             builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
-            builder.Services.AddFluentValidationAutoValidation();
-            builder.Services.AddOpenHRCoreWorkForceDbContext(builder.Configuration);
-            builder.Services.AddOpenHRCoreWorkForceInfrastructure();
-            builder.Services.AddOpenHRCoreWorkForceApplication();
+            AddValidators(builder.Services);
+            AddSwagger(builder.Services);
+            AddOpenHRCoreServices(builder.Services, builder.Configuration);
 
             return builder;
+        }
+
+        /// <summary>
+        /// Adds validators to the service collection.
+        /// </summary>
+        /// <param name="services">The IServiceCollection to add the validators to.</param>
+        private static void AddValidators(IServiceCollection services)
+        {
+            services.AddValidatorsFromAssemblyContaining<CreateJobGradeRequestValidator>();
+            services.AddValidatorsFromAssemblyContaining<UpdateJobGradeRequestValidator>();
+            services.AddValidatorsFromAssemblyContaining<DeleteJobGradeRequestValidator>();
+        }
+
+        /// <summary>
+        /// Adds Swagger services to the service collection.
+        /// </summary>
+        /// <param name="services">The IServiceCollection to add Swagger services to.</param>
+        private static void AddSwagger(IServiceCollection services)
+        {
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+        }
+
+        /// <summary>
+        /// Adds OpenHRCore services to the service collection.
+        /// </summary>
+        /// <param name="services">The IServiceCollection to add the services to.</param>
+        /// <param name="configuration">The configuration to use for adding services.</param>
+        private static void AddOpenHRCoreServices(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddOpenHRCoreWorkForceDbContext(configuration);
+            services.AddOpenHRCoreWorkForceInfrastructure();
+            services.AddOpenHRCoreWorkForceApplication();
         }
 
         /// <summary>
@@ -87,6 +117,17 @@ namespace OpenHRCore.API
 
             Log.Information("Application build completed");
 
+            ConfigureMiddleware(app);
+
+            return app;
+        }
+
+        /// <summary>
+        /// Configures the middleware for the application.
+        /// </summary>
+        /// <param name="app">The WebApplication to configure.</param>
+        private static void ConfigureMiddleware(WebApplication app)
+        {
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -96,8 +137,6 @@ namespace OpenHRCore.API
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
-
-            return app;
         }
 
         /// <summary>
@@ -105,6 +144,18 @@ namespace OpenHRCore.API
         /// </summary>
         /// <param name="app">The WebApplication to run.</param>
         private static void RunApplication(WebApplication app)
+        {
+            LogApplicationUrls(app);
+            
+            Log.Information("Running OpenHRCore.API");
+            app.Run();
+        }
+
+        /// <summary>
+        /// Logs the URLs the application is running on.
+        /// </summary>
+        /// <param name="app">The WebApplication to get the URLs from.</param>
+        private static void LogApplicationUrls(WebApplication app)
         {
             var urls = app.Configuration["ASPNETCORE_URLS"]?.Split(',');
 
@@ -115,9 +166,6 @@ namespace OpenHRCore.API
                     Log.Information("OpenHRCore.API is running on {Address}", url);
                 }
             }
-
-            Log.Information("Running OpenHRCore.API");
-            app.Run();
         }
     }
 }

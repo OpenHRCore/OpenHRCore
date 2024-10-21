@@ -1,63 +1,69 @@
 ﻿namespace OpenHRCore.SharedKernel.Application
 {
     /// <summary>
-    /// Represents a standardized response for service operations in the OpenHRCore application.
+    /// Represents a generic service response for OpenHRCore operations.
     /// </summary>
-    /// <typeparam name="TData">The type of the data contained in the response.</typeparam>
+    /// <typeparam name="TData">The type of data contained in the response.</typeparam>
     public class OpenHRCoreServiceResponse<TData> where TData : class
     {
         /// <summary>
-        /// Gets or sets the data of the response.
+        /// Gets or sets the data returned by the service operation.
         /// </summary>
         public TData? Data { get; set; }
 
         /// <summary>
-        /// Gets or sets the error message if the operation failed.
+        /// Gets or sets the error message in case of a failure.
         /// </summary>
-        public string? ErrorMessage { get; set; }
-        public string? TechnicalMessage { get; set; }
-        /// <summary>
-        /// Gets or sets a user-friendly message about the operation.
-        /// </summary>
-        public string? UserMessage { get; set; }
+        public string ErrorMessage { get; set; } = string.Empty;
 
         /// <summary>
-        /// Indicates if the response is successful.
+        /// Gets or sets the general message for the response.
         /// </summary>
-        public bool IsSuccess => string.IsNullOrEmpty(ErrorMessage);
+        public string Message { get; set; } = string.Empty;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OpenHRCoreServiceResponse{TData}"/> class.
+        /// Gets or sets a value indicating whether the operation was successful.
         /// </summary>
-        public OpenHRCoreServiceResponse() { }
+        public bool IsSuccess { get; set; } = true;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OpenHRCoreServiceResponse{TData}"/> class with the specified data.
+        /// Creates a successful response with the provided data and message.
         /// </summary>
         /// <param name="data">The data to be included in the response.</param>
-        public OpenHRCoreServiceResponse(TData data)
-        {
-            Data = data ?? throw new ArgumentNullException(nameof(data));
-        }
+        /// <param name="message">The success message.</param>
+        /// <returns>A new instance of OpenHRCoreServiceResponse indicating success.</returns>
+        public static OpenHRCoreServiceResponse<TData> CreateSuccess(TData data, string message) =>
+            new OpenHRCoreServiceResponse<TData>
+            {
+                IsSuccess = true,
+                Data = data,
+                Message = message
+            };
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OpenHRCoreServiceResponse{TData}"/> class with an error message.
+        /// Creates a failure response with the provided error message.
         /// </summary>
         /// <param name="errorMessage">The error message describing the failure.</param>
-        public OpenHRCoreServiceResponse(string errorMessage)
-        {
-            ErrorMessage = errorMessage ?? throw new ArgumentNullException(nameof(errorMessage));
-        }
+        /// <returns>A new instance of OpenHRCoreServiceResponse indicating failure.</returns>
+        public static OpenHRCoreServiceResponse<TData> CreateFailure(string errorMessage) =>
+            new OpenHRCoreServiceResponse<TData>
+            {
+                IsSuccess = false,
+                ErrorMessage = errorMessage
+            };
 
         /// <summary>
-        /// Provides a detailed string representation of the response.
+        /// Creates a failure response with the provided exception and error message.
         /// </summary>
-        /// <returns>A string representation of the response.</returns>
-        public override string ToString()
-        {
-            return IsSuccess
-                ? $"Success: {UserMessage}, Data: {Data}"
-                : $"Error: {ErrorMessage}, Message: {UserMessage}";
-        }
+        /// <param name="exception">The exception that caused the failure.</param>
+        /// <param name="errorMessage">The error message describing the failure.</param>
+        /// <returns>A new instance of OpenHRCoreServiceResponse indicating failure with exception details.</returns>
+        public static OpenHRCoreServiceResponse<TData> CreateFailure(Exception exception, string errorMessage) =>
+            new OpenHRCoreServiceResponse<TData>
+            {
+                IsSuccess = false,
+                ErrorMessage = exception.Message,
+                Message = errorMessage
+            };
     }
 }

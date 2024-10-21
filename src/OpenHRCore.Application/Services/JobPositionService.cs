@@ -44,8 +44,6 @@ namespace OpenHRCore.Application.Services
         /// <returns>A response containing the created job grade details.</returns>
         public async Task<OpenHRCoreServiceResponse<CreateJobGradeResponse>> CreateJobGradeAsync(CreateJobGradeRequest request)
         {
-            var response = new OpenHRCoreServiceResponse<CreateJobGradeResponse>();
-
             try
             {
                 _logger.LogApplicationInfo("Starting job grade creation for {JobGradeName}", request.Name);
@@ -56,17 +54,16 @@ namespace OpenHRCore.Application.Services
                 await _jobGradeRepository.AddAsync(jobGrade);
                 await _unitOfWork.SaveChangesAsync();
 
-                response.Data = _mapper.Map<CreateJobGradeResponse>(jobGrade);
-                response.UserMessage = "Job grade created successfully.";
-
                 _logger.LogApplicationInfo("Job grade {JobGradeId} created successfully with sort order {SortOrder}", jobGrade.Id, jobGrade.SortOrder);
+
+                var response = _mapper.Map<CreateJobGradeResponse>(jobGrade);
+                return OpenHRCoreServiceResponse<CreateJobGradeResponse>.CreateSuccess(response, "Job grade created successfully.");
             }
             catch (Exception ex)
             {
-                HandleException(response, ex, "An error occurred while creating the job grade.");
+                _logger.LogApplicationError(ex, "An error occurred while creating the job grade.");
+                return OpenHRCoreServiceResponse<CreateJobGradeResponse>.CreateFailure(ex, "An error occurred while creating the job grade.");
             }
-
-            return response;
         }
 
         /// <summary>
@@ -76,34 +73,30 @@ namespace OpenHRCore.Application.Services
         /// <returns>A response containing the deleted job grade details.</returns>
         public async Task<OpenHRCoreServiceResponse<DeleteJobGradeResponse>> DeleteJobGradeAsync(DeleteJobGradeRequest request)
         {
-            var response = new OpenHRCoreServiceResponse<DeleteJobGradeResponse>();
-
             try
             {
                 _logger.LogApplicationInfo("Attempting to delete job grade with ID: {JobGradeId}", request.Id);
 
-                var jobGradeToDelete = await _jobGradeRepository.GetByIdAsync(request.Id);
+                var jobGradeToDelete = await _jobGradeRepository.GetByIdAsync(Guid.Parse(request.Id));
 
                 if (jobGradeToDelete == null)
                 {
                     _logger.LogApplicationWarning("Job grade with ID {JobGradeId} not found.", request.Id);
-                    return new OpenHRCoreServiceResponse<DeleteJobGradeResponse>("Job grade not found.");
+                    return OpenHRCoreServiceResponse<DeleteJobGradeResponse>.CreateFailure("Job grade not found.");
                 }
 
                 _jobGradeRepository.Remove(jobGradeToDelete);
                 await _unitOfWork.SaveChangesAsync();
 
-                response.Data = _mapper.Map<DeleteJobGradeResponse>(jobGradeToDelete);
-                response.UserMessage = "Job grade deleted successfully.";
-
                 _logger.LogApplicationInfo("Job grade {JobGradeId} deleted successfully.", request.Id);
+                var response = _mapper.Map<DeleteJobGradeResponse>(jobGradeToDelete);
+                return OpenHRCoreServiceResponse<DeleteJobGradeResponse>.CreateSuccess(response, "Job grade deleted successfully.");
             }
             catch (Exception ex)
             {
-                HandleException(response, ex, "An error occurred while deleting the job grade.");
+                _logger.LogApplicationError(ex, "An error occurred while deleting the job grade.");
+                return OpenHRCoreServiceResponse<DeleteJobGradeResponse>.CreateFailure(ex, "An error occurred while deleting the job grade.");
             }
-
-            return response;
         }
 
         /// <summary>
@@ -112,8 +105,6 @@ namespace OpenHRCore.Application.Services
         /// <returns>A response containing a collection of all job grades.</returns>
         public async Task<OpenHRCoreServiceResponse<IEnumerable<GetAllJobGradesResponse>>> GetAllJobGradesAsync()
         {
-            var response = new OpenHRCoreServiceResponse<IEnumerable<GetAllJobGradesResponse>>();
-
             try
             {
                 _logger.LogApplicationInfo("Retrieving all job grades.");
@@ -121,17 +112,15 @@ namespace OpenHRCore.Application.Services
                 var jobGrades = await _jobGradeRepository.GetAllAsync();
                 var jobGradeResponses = _mapper.Map<IEnumerable<GetAllJobGradesResponse>>(jobGrades);
 
-                response.Data = jobGradeResponses;
-                response.UserMessage = "Retrieved all job grades successfully.";
-
                 _logger.LogApplicationInfo("Retrieved {Count} job grades.", jobGrades.Count());
+
+                return OpenHRCoreServiceResponse<IEnumerable<GetAllJobGradesResponse>>.CreateSuccess(jobGradeResponses, "Retrieved all job grades successfully.");
             }
             catch (Exception ex)
             {
-                HandleException(response, ex, "An error occurred while retrieving job grades.");
+                _logger.LogApplicationError(ex, "An error occurred while retrieving job grades.");
+                return OpenHRCoreServiceResponse<IEnumerable<GetAllJobGradesResponse>>.CreateFailure(ex, "An error occurred while retrieving job grades.");
             }
-
-            return response;
         }
 
         /// <summary>
@@ -141,8 +130,6 @@ namespace OpenHRCore.Application.Services
         /// <returns>A response containing the retrieved job grade details.</returns>
         public async Task<OpenHRCoreServiceResponse<GetJobGradeByIdResponse>> GetJobGradeByIdAsync(Guid id)
         {
-            var response = new OpenHRCoreServiceResponse<GetJobGradeByIdResponse>();
-
             try
             {
                 _logger.LogApplicationInfo("Retrieving job grade with ID: {JobGradeId}", id);
@@ -152,21 +139,20 @@ namespace OpenHRCore.Application.Services
                 if (jobGrade == null)
                 {
                     _logger.LogApplicationWarning("Job grade with ID {JobGradeId} not found.", id);
-                    return new OpenHRCoreServiceResponse<GetJobGradeByIdResponse>("Job grade not found.");
+                    return OpenHRCoreServiceResponse<GetJobGradeByIdResponse>.CreateFailure("Job grade not found.");
                 }
 
                 var jobGradeResponse = _mapper.Map<GetJobGradeByIdResponse>(jobGrade);
-                response.Data = jobGradeResponse;
-                response.UserMessage = "Retrieved job grade successfully.";
 
                 _logger.LogApplicationInfo("Successfully retrieved job grade with ID: {JobGradeId}", id);
+
+                return OpenHRCoreServiceResponse<GetJobGradeByIdResponse>.CreateSuccess(jobGradeResponse, "Retrieved job grade successfully.");
             }
             catch (Exception ex)
             {
-                HandleException(response, ex, "An error occurred while retrieving the job grade.");
+                _logger.LogApplicationError(ex, "An error occurred while retrieving the job grade.");
+                return OpenHRCoreServiceResponse<GetJobGradeByIdResponse>.CreateFailure(ex, "An error occurred while retrieving the job grade.");
             }
-
-            return response;
         }
 
         /// <summary>
@@ -176,8 +162,6 @@ namespace OpenHRCore.Application.Services
         /// <returns>A response containing the updated job grade details.</returns>
         public async Task<OpenHRCoreServiceResponse<UpdateJobGradeResponse>> UpdateJobGradeAsync(UpdateJobGradeRequest request)
         {
-            var response = new OpenHRCoreServiceResponse<UpdateJobGradeResponse>();
-
             try
             {
                 _logger.LogApplicationInfo("Attempting to update job grade with ID: {JobGradeId}", request.Id);
@@ -187,7 +171,7 @@ namespace OpenHRCore.Application.Services
                 if (existingJobGrade == null)
                 {
                     _logger.LogApplicationWarning("Job grade with ID {JobGradeId} not found.", request.Id);
-                    return new OpenHRCoreServiceResponse<UpdateJobGradeResponse>("Job grade not found.");
+                    return OpenHRCoreServiceResponse<UpdateJobGradeResponse>.CreateFailure("Job grade not found.");
                 }
 
                 _mapper.Map(request, existingJobGrade);
@@ -195,17 +179,15 @@ namespace OpenHRCore.Application.Services
                 _jobGradeRepository.Update(existingJobGrade);
                 await _unitOfWork.SaveChangesAsync();
 
-                response.Data = _mapper.Map<UpdateJobGradeResponse>(existingJobGrade);
-                response.UserMessage = "Job grade updated successfully.";
-
                 _logger.LogApplicationInfo("Job grade {JobGradeId} updated successfully.", request.Id);
+                var response = _mapper.Map<UpdateJobGradeResponse>(existingJobGrade);
+                return OpenHRCoreServiceResponse<UpdateJobGradeResponse>.CreateSuccess(response, "Job grade updated successfully.");
             }
             catch (Exception ex)
             {
-                HandleException(response, ex, "An error occurred while updating the job grade.");
+                _logger.LogApplicationError(ex, "An error occurred while updating the job grade.");
+                return OpenHRCoreServiceResponse<UpdateJobGradeResponse>.CreateFailure(ex, "An error occurred while updating the job grade.");
             }
-
-            return response;
         }
 
         /// <summary>
@@ -220,20 +202,6 @@ namespace OpenHRCore.Application.Services
             _logger.LogApplicationInfo("Max sort order retrieved: {MaxSortOrder}", maxSortOrder);
 
             return maxSortOrder + 1;
-        }
-
-        /// <summary>
-        /// Handles exceptions by logging the error and setting appropriate response properties.
-        /// </summary>
-        /// <typeparam name="T">The type of the response data.</typeparam>
-        /// <param name="response">The service response to update.</param>
-        /// <param name="ex">The exception that occurred.</param>
-        /// <param name="errorMessage">The error message to set in the response.</param>
-        private void HandleException<T>(OpenHRCoreServiceResponse<T> response, Exception ex, string errorMessage) where T : class
-        {
-            response.ErrorMessage = errorMessage;
-            response.TechnicalMessage = ex.Message;
-            _logger.LogApplicationError(ex, "{ErrorMessage}: {ExceptionMessage}", errorMessage, ex.Message);
         }
     }
 }
