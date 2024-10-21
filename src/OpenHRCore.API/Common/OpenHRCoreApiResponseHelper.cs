@@ -8,7 +8,7 @@ namespace OpenHRCore.API.Common
     /// <summary>
     /// Helper class for creating standardized API responses.
     /// </summary>
-    public static class ApiResponseHelper
+    public static class OpenHRCoreApiResponseHelper
     {
         /// <summary>
         /// Creates a successful API response.
