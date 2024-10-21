@@ -1,18 +1,17 @@
 ﻿using AutoMapper;
 using OpenHRCore.Application.DTOs.JobGrade;
-using OpenHRCore.Domain.Workforce.Entities;
 
 namespace OpenHRCore.Application.Mapping
 {
     /// <summary>
     /// Defines AutoMapper profile for mapping between DTOs and domain entities in the WorkForce module.
     /// </summary>
-    public class WorkForceMappingProfile : Profile
+    public class OpenHRCoreMappingProfile : Profile
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WorkForceMappingProfile"/> class and configures all mappings.
+        /// Initializes a new instance of the <see cref="OpenHRCoreMappingProfile"/> class and configures all mappings.
         /// </summary>
-        public WorkForceMappingProfile()
+        public OpenHRCoreMappingProfile()
         {
             ConfigureJobGradeMappings();
         }

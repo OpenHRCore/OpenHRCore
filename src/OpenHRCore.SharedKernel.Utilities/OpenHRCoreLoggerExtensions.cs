@@ -5,7 +5,7 @@ namespace OpenHRCore.SharedKernel.Utilities
     /// <summary>
     /// Provides extension methods for ILogger to log messages with layer-specific prefixes.
     /// </summary>
-    public static class LoggerExtensions
+    public static class OpenHRCoreLoggerExtensions
     {
         private const string ApiLayerPrefix = "OpenHRCore.API";
         private const string ApplicationLayerPrefix = "OpenHRCore.Application";

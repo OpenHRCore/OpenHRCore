@@ -101,9 +101,9 @@ namespace OpenHRCore.API
         /// <param name="configuration">The configuration to use for adding services.</param>
         private static void AddOpenHRCoreServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddOpenHRCoreWorkForceDbContext(configuration);
-            services.AddOpenHRCoreWorkForceInfrastructure();
-            services.AddOpenHRCoreWorkForceApplication();
+            services.AddOpenHRCoreDbContext(configuration);
+            services.AddOpenHRCoreInfrastructure();
+            services.AddOpenHRCoreApplication();
         }
 
         /// <summary>

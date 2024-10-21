@@ -9,9 +9,9 @@ namespace OpenHRCore.Application
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddOpenHRCoreWorkForceApplication(this IServiceCollection services)
+        public static IServiceCollection AddOpenHRCoreApplication(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(WorkForceMappingProfile));
+            services.AddAutoMapper(typeof(OpenHRCoreMappingProfile));
             //services.AddValidatorsFromAssemblyContaining<CreateJobGradeRequestValidator>();
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddScoped<IJobPositionService, JobPositionService>();

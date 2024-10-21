@@ -7,18 +7,18 @@ namespace OpenHRCore.SharedKernel.Infrastructure
     /// Implements the Unit of Work pattern for Entity Framework Core operations.
     /// </summary>
     /// <typeparam name="TDbContext">The type of DbContext to be used.</typeparam>
-    public class OpenHRCoreEfUnitOfWork<TDbContext> : IOpenHRCoreUnitOfWork
+    public class OpenHRCoreEfBaseUnitOfWork<TDbContext> : IOpenHRCoreBaseUnitOfWork
         where TDbContext : DbContext
     {
         private readonly TDbContext _dbContext;
         private bool _disposed;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OpenHRCoreEfUnitOfWork{TDbContext}"/> class.
+        /// Initializes a new instance of the <see cref="OpenHRCoreEfBaseUnitOfWork{TDbContext}"/> class.
         /// </summary>
         /// <param name="dbContext">The database context to be used for operations.</param>
         /// <exception cref="ArgumentNullException">Thrown if dbContext is null.</exception>
-        public OpenHRCoreEfUnitOfWork(TDbContext dbContext)
+        public OpenHRCoreEfBaseUnitOfWork(TDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }

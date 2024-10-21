@@ -9,20 +9,20 @@ namespace OpenHRCore.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddOpenHRCoreWorkForceDbContext(this IServiceCollection services, IConfiguration _configuration)
+        public static IServiceCollection AddOpenHRCoreDbContext(this IServiceCollection services, IConfiguration _configuration)
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<OpenHRCoreDbContext>(options => options.UseSqlServer(connectionString));
             return services;
         }
 
-        public static IServiceCollection AddOpenHRCoreWorkForceInfrastructure(this IServiceCollection services)
+        public static IServiceCollection AddOpenHRCoreInfrastructure(this IServiceCollection services)
         {
-            services.AddScoped<IWorkForceUnitOfWork, WorkForceUnitOfWork>();
+            services.AddScoped<IOpenHRCoreUnitOfWork, OpenHRCoreUnitOfWork>();
             services.AddScoped(typeof(IOpenHRCoreBaseRepository<>), typeof(OpenHRCoreEfBaseRepository<>));
             services.AddTransient<IJobGradeRepository, JobGradeRepository>();
-            services.AddTransient<JobLevelRepository, JobLevelRepository>();
-            services.AddTransient<JobPositionRepository, JobPositionRepository>();
+            services.AddTransient<IJobLevelRepository, JobLevelRepository>();
+            services.AddTransient<IJobPositionRepository, JobPositionRepository>();
 
             return services;
         }

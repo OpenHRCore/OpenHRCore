@@ -12,7 +12,7 @@ namespace OpenHRCore.Application.Services
     /// </summary>
     public class JobPositionService : IJobPositionService
     {
-        private readonly IWorkForceUnitOfWork _unitOfWork;
+        private readonly IOpenHRCoreUnitOfWork _unitOfWork;
         private readonly IJobGradeRepository _jobGradeRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<JobPositionService> _logger;
@@ -26,7 +26,7 @@ namespace OpenHRCore.Application.Services
         /// <param name="logger">The logger for logging service operations.</param>
         /// <exception cref="ArgumentNullException">Thrown if any of the parameters are null.</exception>
         public JobPositionService(
-            IWorkForceUnitOfWork unitOfWork,
+            IOpenHRCoreUnitOfWork unitOfWork,
             IJobGradeRepository jobGradeRepository,
             IMapper mapper,
             ILogger<JobPositionService> logger)

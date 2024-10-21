@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a unit of work for database operations in the OpenHR Core system.
     /// </summary>
-    public interface IOpenHRCoreUnitOfWork : IDisposable, IAsyncDisposable
+    public interface IOpenHRCoreBaseUnitOfWork : IDisposable, IAsyncDisposable
     {
         /// <summary>
         /// Saves all changes made in this unit of work to the database.
