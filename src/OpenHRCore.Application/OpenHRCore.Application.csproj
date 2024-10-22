@@ -15,8 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenHRCore.Domain\OpenHRCore.Domain.csproj" />
-    <ProjectReference Include="..\OpenHRCore.SharedKernel.Utilities\OpenHRCore.SharedKernel.Utilities.csproj" />
     <ProjectReference Include="..\SharedKernel\OpenHRCore.SharedKernel.Application\OpenHRCore.SharedKernel.Application.csproj" />
+    <ProjectReference Include="..\SharedKernel\OpenHRCore.SharedKernel.Utilities\OpenHRCore.SharedKernel.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
