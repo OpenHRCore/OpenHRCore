@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using OpenHRCore.API.Common;
@@ -13,6 +14,7 @@ namespace OpenHRCore.API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class JobGradesController : ControllerBase
     {
         private readonly IValidator<CreateJobGradeRequest> _createJobGradeRequestValidator;

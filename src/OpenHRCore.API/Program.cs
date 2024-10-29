@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using OpenHRCore.API.ServicesConfiguration;
+using OpenHRCore.Infrastructure.Data;
 using Serilog;
 using Serilog.Events;
 
@@ -62,10 +64,13 @@ namespace OpenHRCore.API
 
             builder.Host.UseSerilog();
             builder.Services.AddControllers();
+            builder.Services.AddAuthorization();
             builder.Services.AddValidatorsService();
             builder.Services.AddSwaggerGenService();
             builder.Services.AddLocalizationService();
             builder.Services.AddOpenHRCoreServices(builder.Configuration);
+            builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+                .AddEntityFrameworkStores<OpenHRCoreDbContext>();
             return builder;
         }
 
@@ -101,6 +106,8 @@ namespace OpenHRCore.API
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
+            app.MapIdentityApi<IdentityUser>();
+            app.MapSwagger().RequireAuthorization();
         }
 
         /// <summary>

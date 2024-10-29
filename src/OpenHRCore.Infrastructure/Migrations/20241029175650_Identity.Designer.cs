@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OpenHRCore.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using OpenHRCore.Infrastructure.Data;
 namespace OpenHRCore.Infrastructure.Migrations
 {
     [DbContext(typeof(OpenHRCoreDbContext))]
-    partial class OpenHRCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241029175650_Identity")]
+    partial class Identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

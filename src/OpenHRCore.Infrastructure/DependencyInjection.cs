@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenHRCore.Application.UnitOfWork;
 using OpenHRCore.Infrastructure.Repositories;
@@ -13,6 +14,7 @@ namespace OpenHRCore.Infrastructure
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<OpenHRCoreDbContext>(options => options.UseSqlServer(connectionString));
+
             return services;
         }
 

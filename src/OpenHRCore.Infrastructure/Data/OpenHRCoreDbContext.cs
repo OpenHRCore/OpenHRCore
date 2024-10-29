@@ -1,4 +1,5 @@
-﻿using OpenHRCore.Domain.Workforce.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace OpenHRCore.Infrastructure.Data
 {
@@ -6,7 +7,7 @@ namespace OpenHRCore.Infrastructure.Data
     /// Represents the database context for the WorkForce module in OpenHRCore.
     /// This context manages all entity sets related to workforce management.
     /// </summary>
-    public class OpenHRCoreDbContext : DbContext
+    public class OpenHRCoreDbContext : IdentityDbContext<IdentityUser>
     {
         /// <summary>
         /// Defines the database schema name for the WorkForce module.
@@ -48,6 +49,7 @@ namespace OpenHRCore.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.HasDefaultSchema(SchemaName);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
