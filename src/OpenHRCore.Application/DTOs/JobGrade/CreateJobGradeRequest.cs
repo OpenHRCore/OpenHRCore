@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
 
 namespace OpenHRCore.Application.DTOs.JobGrade
 {
@@ -41,17 +42,14 @@ namespace OpenHRCore.Application.DTOs.JobGrade
     /// </summary>
     public class CreateJobGradeRequestValidator : AbstractValidator<CreateJobGradeRequest>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CreateJobGradeRequestValidator"/> class.
-        /// </summary>
-        public CreateJobGradeRequestValidator()
+        public CreateJobGradeRequestValidator(IStringLocalizer<SharedResource> localizedizer)
         {
             RuleFor(x => x.Code)
-                .NotEmpty().WithMessage("Code is required.")
+                .NotEmpty().WithMessage("{PropertyName} " + localizedizer["RequireField"].Value.ToString())
                 .Length(1, 50).WithMessage("Code must be between 1 and 50 characters.");
 
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Name is required.")
+                .NotEmpty().WithMessage("{PropertyName} " + localizedizer["RequireField"].Value.ToString())
                 .Length(1, 100).WithMessage("Name must be between 1 and 100 characters.");
 
             RuleFor(x => x.Description)

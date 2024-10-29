@@ -1,7 +1,4 @@
-using FluentValidation;
-using OpenHRCore.Application;
-using OpenHRCore.Application.DTOs.JobGrade;
-using OpenHRCore.Infrastructure;
+using OpenHRCore.API.ServicesConfiguration;
 using Serilog;
 using Serilog.Events;
 
@@ -65,46 +62,13 @@ namespace OpenHRCore.API
 
             builder.Host.UseSerilog();
             builder.Services.AddControllers();
-
-            AddValidators(builder.Services);
-            AddSwagger(builder.Services);
-            AddOpenHRCoreServices(builder.Services, builder.Configuration);
-
+            builder.Services.AddValidatorsService();
+            builder.Services.AddSwaggerGenService();
+            builder.Services.AddLocalizationService();
+            builder.Services.AddOpenHRCoreServices(builder.Configuration);
             return builder;
         }
 
-        /// <summary>
-        /// Adds validators to the service collection.
-        /// </summary>
-        /// <param name="services">The IServiceCollection to add the validators to.</param>
-        private static void AddValidators(IServiceCollection services)
-        {
-            services.AddValidatorsFromAssemblyContaining<CreateJobGradeRequestValidator>();
-            services.AddValidatorsFromAssemblyContaining<UpdateJobGradeRequestValidator>();
-            services.AddValidatorsFromAssemblyContaining<DeleteJobGradeRequestValidator>();
-        }
-
-        /// <summary>
-        /// Adds Swagger services to the service collection.
-        /// </summary>
-        /// <param name="services">The IServiceCollection to add Swagger services to.</param>
-        private static void AddSwagger(IServiceCollection services)
-        {
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
-        }
-
-        /// <summary>
-        /// Adds OpenHRCore services to the service collection.
-        /// </summary>
-        /// <param name="services">The IServiceCollection to add the services to.</param>
-        /// <param name="configuration">The configuration to use for adding services.</param>
-        private static void AddOpenHRCoreServices(IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddOpenHRCoreDbContext(configuration);
-            services.AddOpenHRCoreInfrastructure();
-            services.AddOpenHRCoreApplication();
-        }
 
         /// <summary>
         /// Builds and configures the WebApplication.
@@ -133,7 +97,7 @@ namespace OpenHRCore.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseRequestLocalization();
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();

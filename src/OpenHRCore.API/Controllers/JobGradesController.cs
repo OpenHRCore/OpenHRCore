@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using OpenHRCore.API.Common;
 using OpenHRCore.Application.DTOs.JobGrade;
 using OpenHRCore.Application.Interfaces;
-using OpenHRCore.SharedKernel.Utilities;
 
 namespace OpenHRCore.API.Controllers
 {
@@ -20,28 +20,26 @@ namespace OpenHRCore.API.Controllers
         private readonly IValidator<DeleteJobGradeRequest> _deleteJobGradeRequestValidator;
         private readonly IJobPositionService _jobPositionService;
         private readonly ILogger<JobGradesController> _logger;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JobGradesController"/> class.
-        /// </summary>
-        /// <param name="createJobGradeRequestValidator">Validator for create job grade requests.</param>
-        /// <param name="updateJobGradeRequestValidator">Validator for update job grade requests.</param>
-        /// <param name="deleteJobGradeRequestValidator">Validator for delete job grade requests.</param>
-        /// <param name="jobPositionService">Service for job position operations.</param>
-        /// <param name="logger">Logger for the controller.</param>
         public JobGradesController(
-            IValidator<CreateJobGradeRequest> createJobGradeRequestValidator,
-            IValidator<UpdateJobGradeRequest> updateJobGradeRequestValidator,
-            IValidator<DeleteJobGradeRequest> deleteJobGradeRequestValidator,
-            IJobPositionService jobPositionService,
-            ILogger<JobGradesController> logger)
+            IValidator<CreateJobGradeRequest> createJobGradeRequestValidator, 
+            IValidator<UpdateJobGradeRequest> updateJobGradeRequestValidator, 
+            IValidator<DeleteJobGradeRequest> deleteJobGradeRequestValidator, 
+            IJobPositionService jobPositionService, 
+            ILogger<JobGradesController> logger, 
+            IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _createJobGradeRequestValidator = createJobGradeRequestValidator;
             _updateJobGradeRequestValidator = updateJobGradeRequestValidator;
             _deleteJobGradeRequestValidator = deleteJobGradeRequestValidator;
             _jobPositionService = jobPositionService;
             _logger = logger;
+            _sharedLocalizer = sharedLocalizer;
         }
+
+
+
 
         /// <summary>
         /// Creates a new job grade.
