@@ -71,6 +71,7 @@ namespace OpenHRCore.API
             builder.Services.AddOpenHRCoreServices(builder.Configuration);
             builder.Services.AddIdentityApiEndpoints<IdentityUser>()
                 .AddEntityFrameworkStores<OpenHRCoreDbContext>();
+            builder.Services.AddScoped<CountryData.Standard.CountryHelper>();
             return builder;
         }
 

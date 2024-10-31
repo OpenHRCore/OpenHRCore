@@ -14,7 +14,7 @@ namespace OpenHRCore.Application.DTOs.JobGrade
         /// <param name="code">The code of the job grade.</param>
         /// <param name="name">The name of the job grade.</param>
         /// <param name="description">The description of the job grade.</param>
-        public UpdateJobGradeRequest(string id, string code, string name, string? description)
+        public UpdateJobGradeRequest(Guid id, string code, string name, string? description)
         {
             Id = id;
             Code = code;
@@ -25,7 +25,7 @@ namespace OpenHRCore.Application.DTOs.JobGrade
         /// <summary>
         /// Gets or sets the ID of the job grade.
         /// </summary>
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the code of the job grade.

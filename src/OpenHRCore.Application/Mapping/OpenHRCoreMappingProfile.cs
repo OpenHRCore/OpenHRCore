@@ -23,6 +23,7 @@ namespace OpenHRCore.Application.Mapping
         {
             // Map CreateJobGradeRequest to JobGrade
             CreateMap<CreateJobGradeRequest, JobGrade>();
+            CreateMap<UpdateJobGradeRequest,JobGrade>();
 
             // Map JobGrade to DTOs
             CreateMap<JobGrade, CreateJobGradeResponse>();
