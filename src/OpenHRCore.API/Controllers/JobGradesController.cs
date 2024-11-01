@@ -63,13 +63,13 @@ namespace OpenHRCore.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateJobGradeAsync([FromBody] CreateJobGradeRequest request)
         {
-            _logger.LogApiInfo("Creating new job grade. Request: {@Request}", request);
+            _logger.LogLayerInfo("Creating new job grade. Request: {@Request}", request);
 
             ValidationResult validationResult = await _createJobGradeRequestValidator.ValidateAsync(request);
 
             if (!validationResult.IsValid)
             {
-                _logger.LogApiWarning("Job grade creation validation failed. Request: {@Request}, Errors: {@Errors}", request, validationResult.Errors);
+                _logger.LogLayerWarning("Job grade creation validation failed. Request: {@Request}, Errors: {@Errors}", request, validationResult.Errors);
                 return OpenHRCoreApiResponseHelper.CreateValidationErrorResponse(validationResult);
             }
 
@@ -79,16 +79,16 @@ namespace OpenHRCore.API.Controllers
 
                 if (!response.IsSuccess)
                 {
-                    _logger.LogApiWarning("Job grade creation failed. Request: {@Request}, Error: {Error}", request, response.ErrorMessage ?? "Unknown error");
+                    _logger.LogLayerWarning("Job grade creation failed. Request: {@Request}, Error: {Error}", request, response.ErrorMessage ?? "Unknown error");
                     return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
                 }
 
-                _logger.LogApiInfo("Job grade created successfully. Created grade: {@Response}", response);
+                _logger.LogLayerInfo("Job grade created successfully. Created grade: {@Response}", response);
                 return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response, StatusCodes.Status201Created);
             }
             catch (Exception ex)
             {
-                _logger.LogApiError(ex, "Error creating job grade. Request: {@Request}", request);
+                _logger.LogLayerError(ex, "Error creating job grade. Request: {@Request}", request);
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
             }
         }
@@ -110,7 +110,7 @@ namespace OpenHRCore.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateJobGradeAsync(Guid id, [FromBody] UpdateJobGradeRequest request)
         {
-            _logger.LogApiInfo("Updating job grade. ID: {JobGradeId}, Request: {@Request}", id, request);
+            _logger.LogLayerInfo("Updating job grade. ID: {JobGradeId}, Request: {@Request}", id, request);
 
             if (request.Id != id)
             {
@@ -121,7 +121,7 @@ namespace OpenHRCore.API.Controllers
 
             if (!validationResult.IsValid)
             {
-                _logger.LogApiWarning("Job grade update validation failed. ID: {JobGradeId}, Request: {@Request}, Errors: {@Errors}", id, request, validationResult.Errors);
+                _logger.LogLayerWarning("Job grade update validation failed. ID: {JobGradeId}, Request: {@Request}, Errors: {@Errors}", id, request, validationResult.Errors);
                 return OpenHRCoreApiResponseHelper.CreateValidationErrorResponse(validationResult);
             }
 
@@ -131,16 +131,16 @@ namespace OpenHRCore.API.Controllers
 
                 if (!response.IsSuccess)
                 {
-                    _logger.LogApiWarning("Job grade update failed. ID: {JobGradeId}, Error: {Error}", id, response.ErrorMessage ?? "Unknown error");
+                    _logger.LogLayerWarning("Job grade update failed. ID: {JobGradeId}, Error: {Error}", id, response.ErrorMessage ?? "Unknown error");
                     return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
                 }
 
-                _logger.LogApiInfo("Job grade updated successfully. ID: {JobGradeId}, Updated Data: {@Response}", id, response);
+                _logger.LogLayerInfo("Job grade updated successfully. ID: {JobGradeId}, Updated Data: {@Response}", id, response);
                 return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response);
             }
             catch (Exception ex)
             {
-                _logger.LogApiError(ex, "Error updating job grade. ID: {JobGradeId}, Request: {@Request}", id, request);
+                _logger.LogLayerError(ex, "Error updating job grade. ID: {JobGradeId}, Request: {@Request}", id, request);
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
             }
         }
@@ -159,14 +159,14 @@ namespace OpenHRCore.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteJobGradeAsync(string id)
         {
-            _logger.LogApiInfo("Deleting job grade. ID: {JobGradeId}", id);
+            _logger.LogLayerInfo("Deleting job grade. ID: {JobGradeId}", id);
 
             var request = new DeleteJobGradeRequest(id);
             ValidationResult validationResult = await _deleteJobGradeRequestValidator.ValidateAsync(request);
 
             if (!validationResult.IsValid)
             {
-                _logger.LogApiWarning("Job grade deletion validation failed. ID: {JobGradeId}, Errors: {@Errors}", id, validationResult.Errors);
+                _logger.LogLayerWarning("Job grade deletion validation failed. ID: {JobGradeId}, Errors: {@Errors}", id, validationResult.Errors);
                 return OpenHRCoreApiResponseHelper.CreateValidationErrorResponse(validationResult);
             }
 
@@ -176,16 +176,16 @@ namespace OpenHRCore.API.Controllers
 
                 if (!response.IsSuccess)
                 {
-                    _logger.LogApiWarning("Job grade deletion failed. ID: {JobGradeId}, Error: {Error}", id, response.ErrorMessage ?? "Unknown error");
+                    _logger.LogLayerWarning("Job grade deletion failed. ID: {JobGradeId}, Error: {Error}", id, response.ErrorMessage ?? "Unknown error");
                     return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
                 }
 
-                _logger.LogApiInfo("Job grade deleted successfully. ID: {JobGradeId}", id);
+                _logger.LogLayerInfo("Job grade deleted successfully. ID: {JobGradeId}", id);
                 return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response, StatusCodes.Status200OK);
             }
             catch (Exception ex)
             {
-                _logger.LogApiError(ex, "Error deleting job grade. ID: {JobGradeId}", id);
+                _logger.LogLayerError(ex, "Error deleting job grade. ID: {JobGradeId}", id);
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
             }
         }
@@ -204,7 +204,7 @@ namespace OpenHRCore.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetJobGradeByIdAsync(Guid id)
         {
-            _logger.LogApiInfo("Retrieving job grade. ID: {JobGradeId}", id);
+            _logger.LogLayerInfo("Retrieving job grade. ID: {JobGradeId}", id);
 
             try
             {
@@ -212,16 +212,16 @@ namespace OpenHRCore.API.Controllers
 
                 if (!response.IsSuccess)
                 {
-                    _logger.LogApiWarning("Job grade retrieval failed. ID: {JobGradeId}, Error: {Error}", id, response.ErrorMessage ?? "Unknown error");
+                    _logger.LogLayerWarning("Job grade retrieval failed. ID: {JobGradeId}, Error: {Error}", id, response.ErrorMessage ?? "Unknown error");
                     return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
                 }
 
-                _logger.LogApiInfo("Job grade retrieved successfully. ID: {JobGradeId}, Data: {@Response}", id, response);
+                _logger.LogLayerInfo("Job grade retrieved successfully. ID: {JobGradeId}, Data: {@Response}", id, response);
                 return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response);
             }
             catch (Exception ex)
             {
-                _logger.LogApiError(ex, "Error retrieving job grade. ID: {JobGradeId}", id);
+                _logger.LogLayerError(ex, "Error retrieving job grade. ID: {JobGradeId}", id);
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
             }
         }
@@ -237,7 +237,7 @@ namespace OpenHRCore.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllJobGradesAsync()
         {
-            _logger.LogApiInfo("Retrieving all job grades");
+            _logger.LogLayerInfo("Retrieving all job grades");
 
             try
             {
@@ -245,16 +245,16 @@ namespace OpenHRCore.API.Controllers
 
                 if (!response.IsSuccess)
                 {
-                    _logger.LogApiWarning("Job grades retrieval failed. Error: {Error}", response.ErrorMessage ?? "Unknown error");
+                    _logger.LogLayerWarning("Job grades retrieval failed. Error: {Error}", response.ErrorMessage ?? "Unknown error");
                     return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
                 }
 
-                _logger.LogApiInfo("Job grades retrieved successfully. Count: {Count}", response.Data?.Count() ?? 0);
+                _logger.LogLayerInfo("Job grades retrieved successfully. Count: {Count}", response.Data?.Count() ?? 0);
                 return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response);
             }
             catch (Exception ex)
             {
-                _logger.LogApiError(ex, "Error retrieving all job grades");
+                _logger.LogLayerError(ex, "Error retrieving all job grades");
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
             }
         }

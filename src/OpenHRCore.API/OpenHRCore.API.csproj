@@ -22,6 +22,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="OpenHRCore.SharedKernel.Utilities" Version="1.0.2-beta" />
     <PackageReference Include="Serilog" Version="4.0.2" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
     <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
@@ -34,7 +35,6 @@
     <ProjectReference Include="..\OpenHRCore.Application\OpenHRCore.Application.csproj" />
     <ProjectReference Include="..\OpenHRCore.Domain\OpenHRCore.Domain.csproj" />
     <ProjectReference Include="..\OpenHRCore.Infrastructure\OpenHRCore.Infrastructure.csproj" />
-    <ProjectReference Include="..\SharedKernel\OpenHRCore.SharedKernel.Utilities\OpenHRCore.SharedKernel.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

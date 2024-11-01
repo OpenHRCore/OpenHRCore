@@ -43,7 +43,7 @@ namespace OpenHRCore.API.Controllers
         public IActionResult GetCountries()
         {
             var response = new OpenHRCoreServiceResponse<IEnumerable<string>>();
-            _logger.LogApiInfo("Getting all countries");
+            _logger.LogLayerInfo("Getting all countries");
 
             try
             {
@@ -56,7 +56,7 @@ namespace OpenHRCore.API.Controllers
                     response.IsSuccess = false;
                     response.Message = errorMessage;
 
-                    _logger.LogApiWarning("Failed to retrieve countries. No data returned from service.");
+                    _logger.LogLayerWarning("Failed to retrieve countries. No data returned from service.");
                     return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
                 }
 
@@ -64,13 +64,13 @@ namespace OpenHRCore.API.Controllers
                 response.Data = countries;
                 response.Message = "Countries retrieved successfully";
 
-                _logger.LogApiInfo("Successfully retrieved {Count} countries", countries.Count());
+                _logger.LogLayerInfo("Successfully retrieved {Count} countries", countries.Count());
                 return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response);
             }
             catch (Exception ex)
             {
                 const string errorMessage = "An error occurred while retrieving countries";
-                _logger.LogApiError(ex, errorMessage);
+                _logger.LogLayerError(ex, errorMessage);
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
             }
         }
@@ -87,7 +87,7 @@ namespace OpenHRCore.API.Controllers
         public IActionResult GetCountriesDetails()
         {
             var response = new OpenHRCoreServiceResponse<IEnumerable<Country>>();
-            _logger.LogApiInfo("Retrieving detailed country information");
+            _logger.LogLayerInfo("Retrieving detailed country information");
 
             try
             {
@@ -100,7 +100,7 @@ namespace OpenHRCore.API.Controllers
                     response.IsSuccess = false;
                     response.Message = errorMessage;
 
-                    _logger.LogApiWarning("Failed to retrieve country details - Service returned null");
+                    _logger.LogLayerWarning("Failed to retrieve country details - Service returned null");
                     return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
                 }
 
@@ -108,12 +108,12 @@ namespace OpenHRCore.API.Controllers
                 response.Data = countriesData;
                 response.Message = "Country details retrieved successfully";
 
-                _logger.LogApiInfo("Successfully retrieved details for {Count} countries", countriesData.Count());
+                _logger.LogLayerInfo("Successfully retrieved details for {Count} countries", countriesData.Count());
                 return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response);
             }
             catch (Exception ex)
             {
-                _logger.LogApiError(ex, "Exception occurred while retrieving country details: {Message}", ex.Message);
+                _logger.LogLayerError(ex, "Exception occurred while retrieving country details: {Message}", ex.Message);
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
             }
         }
@@ -131,7 +131,7 @@ namespace OpenHRCore.API.Controllers
         public IActionResult GetCountriesByPhoneCode(string phoneCode)
         {
             var response = new OpenHRCoreServiceResponse<IEnumerable<Country>>();
-            _logger.LogApiInfo("Retrieving countries by phone code: {PhoneCode}", phoneCode);
+            _logger.LogLayerInfo("Retrieving countries by phone code: {PhoneCode}", phoneCode);
 
             try
             {
@@ -144,7 +144,7 @@ namespace OpenHRCore.API.Controllers
                     response.IsSuccess = false;
                     response.Message = errorMessage;
 
-                    _logger.LogApiWarning("Failed to retrieve countries by phone code - Service returned null");
+                    _logger.LogLayerWarning("Failed to retrieve countries by phone code - Service returned null");
                     return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
                 }
 
@@ -152,12 +152,12 @@ namespace OpenHRCore.API.Controllers
                 response.Data = countriesData;
                 response.Message = "Countries retrieved successfully";
 
-                _logger.LogApiInfo("Successfully retrieved {Count} countries for phone code {PhoneCode}", countriesData.Count(), phoneCode);
+                _logger.LogLayerInfo("Successfully retrieved {Count} countries for phone code {PhoneCode}", countriesData.Count(), phoneCode);
                 return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response);
             }
             catch (Exception ex)
             {
-                _logger.LogApiError(ex, "Exception occurred while retrieving countries by phone code: {Message}", ex.Message);
+                _logger.LogLayerError(ex, "Exception occurred while retrieving countries by phone code: {Message}", ex.Message);
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
             }
         }
@@ -177,7 +177,7 @@ namespace OpenHRCore.API.Controllers
         public IActionResult GetPhoneCodeByIsoCode(string isoCode)
         {
             var response = new OpenHRCoreServiceResponse<string>();
-            _logger.LogApiInfo("Getting phone code for ISO code: {IsoCode}", isoCode);
+            _logger.LogLayerInfo("Getting phone code for ISO code: {IsoCode}", isoCode);
 
             try
             {
@@ -190,7 +190,7 @@ namespace OpenHRCore.API.Controllers
                     response.IsSuccess = false;
                     response.Message = errorMessage;
 
-                    _logger.LogApiWarning("Failed to retrieve phone code - Service returned null");
+                    _logger.LogLayerWarning("Failed to retrieve phone code - Service returned null");
                     return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
                 }
 
@@ -198,13 +198,13 @@ namespace OpenHRCore.API.Controllers
                 response.Data = phoneCode;
                 response.Message = "Phone code retrieved successfully";
 
-                _logger.LogApiInfo("Successfully retrieved phone code for country {IsoCode}", isoCode);
+                _logger.LogLayerInfo("Successfully retrieved phone code for country {IsoCode}", isoCode);
                 return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response);
             }
             catch (Exception ex)
             {
                 const string errorMessage = "An error occurred while retrieving phone code";
-                _logger.LogApiError(ex, errorMessage);
+                _logger.LogLayerError(ex, errorMessage);
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
             }
         }
@@ -224,7 +224,7 @@ namespace OpenHRCore.API.Controllers
         public IActionResult GetCountryByIsoCode(string isoCode)
         {
             var response = new OpenHRCoreServiceResponse<Country>();
-            _logger.LogApiInfo("Retrieving country information for ISO code: {IsoCode}", isoCode);
+            _logger.LogLayerInfo("Retrieving country information for ISO code: {IsoCode}", isoCode);
 
             try
             {
@@ -237,7 +237,7 @@ namespace OpenHRCore.API.Controllers
                     response.IsSuccess = false;
                     response.Message = errorMessage;
 
-                    _logger.LogApiWarning("Failed to retrieve country information - Service returned null");
+                    _logger.LogLayerWarning("Failed to retrieve country information - Service returned null");
                     return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
                 }
 
@@ -245,12 +245,12 @@ namespace OpenHRCore.API.Controllers
                 response.Data = country;
                 response.Message = "Country information retrieved successfully";
 
-                _logger.LogApiInfo("Successfully retrieved information for country {IsoCode}", isoCode);
+                _logger.LogLayerInfo("Successfully retrieved information for country {IsoCode}", isoCode);
                 return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response);
             }
             catch (Exception ex)
             {
-                _logger.LogApiError(ex, "Exception occurred while retrieving country information: {Message}", ex.Message);
+                _logger.LogLayerError(ex, "Exception occurred while retrieving country information: {Message}", ex.Message);
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
             }
         }
@@ -270,7 +270,7 @@ namespace OpenHRCore.API.Controllers
         public IActionResult GetRegionsByIsoCode(string isoCode)
         {
             var response = new OpenHRCoreServiceResponse<IEnumerable<Regions>>();
-            _logger.LogApiInfo("Retrieving regions for country: {IsoCode}", isoCode);
+            _logger.LogLayerInfo("Retrieving regions for country: {IsoCode}", isoCode);
 
             try
             {
@@ -283,7 +283,7 @@ namespace OpenHRCore.API.Controllers
                     response.IsSuccess = false;
                     response.Message = errorMessage;
 
-                    _logger.LogApiWarning("Failed to retrieve regions - Service returned null");
+                    _logger.LogLayerWarning("Failed to retrieve regions - Service returned null");
                     return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
                 }
 
@@ -291,12 +291,12 @@ namespace OpenHRCore.API.Controllers
                 response.Data = regions;
                 response.Message = "Regions retrieved successfully";
 
-                _logger.LogApiInfo("Successfully retrieved {Count} regions for country {IsoCode}", regions.Count(), isoCode);
+                _logger.LogLayerInfo("Successfully retrieved {Count} regions for country {IsoCode}", regions.Count(), isoCode);
                 return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response);
             }
             catch (Exception ex)
             {
-                _logger.LogApiError(ex, "Exception occurred while retrieving regions: {Message}", ex.Message);
+                _logger.LogLayerError(ex, "Exception occurred while retrieving regions: {Message}", ex.Message);
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
             }
         }

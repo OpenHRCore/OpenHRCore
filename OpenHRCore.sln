@@ -31,6 +31,8 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "openhrcore.reactui", "src\O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHRCore.SharedKernel.Utilities", "src\SharedKernel\OpenHRCore.SharedKernel.Utilities\OpenHRCore.SharedKernel.Utilities.csproj", "{DFF87B27-61F3-406A-B51C-4E5A75B1DBA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHRCore.Shared", "src\OpenHRCore.Shared\OpenHRCore.Shared.csproj", "{6947A477-7E2B-4FC6-8B47-F9AC7F74D069}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{DFF87B27-61F3-406A-B51C-4E5A75B1DBA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFF87B27-61F3-406A-B51C-4E5A75B1DBA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFF87B27-61F3-406A-B51C-4E5A75B1DBA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6947A477-7E2B-4FC6-8B47-F9AC7F74D069}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6947A477-7E2B-4FC6-8B47-F9AC7F74D069}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6947A477-7E2B-4FC6-8B47-F9AC7F74D069}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6947A477-7E2B-4FC6-8B47-F9AC7F74D069}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{4F73DD0C-DDB9-4507-B57B-EB6E83EE29A3} = {6F2C4BDB-70FA-4139-A658-BA62429B5547}
 		{183A5A13-8670-4564-BC5C-BB323AE92C53} = {6F2C4BDB-70FA-4139-A658-BA62429B5547}
 		{DFF87B27-61F3-406A-B51C-4E5A75B1DBA5} = {2772AF87-183B-407A-B203-E7C8A888EE14}
+		{6947A477-7E2B-4FC6-8B47-F9AC7F74D069} = {6F2C4BDB-70FA-4139-A658-BA62429B5547}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DA6C3F4-D8F3-41EF-9FE2-C59B37B56616}
