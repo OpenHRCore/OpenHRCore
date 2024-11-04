@@ -49,6 +49,7 @@ namespace OpenHRCore.Application.Services
 
                 var jobGrade = _mapper.Map<JobGrade>(request);
                 jobGrade.SortOrder = await GetNextSortOrderAsync();
+                jobGrade.CreatedAt = DateTime.UtcNow;
 
                 await _jobGradeRepository.AddAsync(jobGrade);
                 await _unitOfWork.SaveChangesAsync();
@@ -175,6 +176,7 @@ namespace OpenHRCore.Application.Services
 
                 _mapper.Map(request, existingJobGrade);
 
+                existingJobGrade.UpdatedAt = DateTime.UtcNow;
                 _jobGradeRepository.Update(existingJobGrade);
                 await _unitOfWork.SaveChangesAsync();
 

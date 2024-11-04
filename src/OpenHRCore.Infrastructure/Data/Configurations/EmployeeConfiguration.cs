@@ -2,7 +2,7 @@
 
 namespace OpenHRCore.Infrastructure.Data.Configurations
 {
-    public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
+    public class OpenHRCoreUserConfiguration : IEntityTypeConfiguration<Employee>
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {

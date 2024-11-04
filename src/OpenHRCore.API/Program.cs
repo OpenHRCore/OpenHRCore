@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using OpenHRCore.API.ServicesConfiguration;
 using OpenHRCore.Infrastructure.Data;
+using OpenHRCore.Infrastructure.Identity;
 using Serilog;
 using Serilog.Events;
 
@@ -69,9 +70,12 @@ namespace OpenHRCore.API
             builder.Services.AddSwaggerGenService();
             builder.Services.AddLocalizationService();
             builder.Services.AddOpenHRCoreServices(builder.Configuration);
-            builder.Services.AddIdentityApiEndpoints<IdentityUser>()
-                .AddEntityFrameworkStores<OpenHRCoreDbContext>();
             builder.Services.AddScoped<CountryData.Standard.CountryHelper>();
+            builder.Services.AddIdentityApiEndpoints<OpenHRCoreUser>() // Asp.net Core Identity
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<OpenHRCoreDbContext>();
+            builder.Services.ConfigureApplicationCookie(options => { options.Cookie.SameSite = SameSiteMode.None; }); // Asp.net Core Identity
+
             return builder;
         }
 
@@ -103,12 +107,17 @@ namespace OpenHRCore.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
             app.UseRequestLocalization();
             app.UseHttpsRedirection();
-            app.UseAuthorization();
             app.MapControllers();
-            app.MapIdentityApi<IdentityUser>();
-            app.MapSwagger().RequireAuthorization();
+            app.MapIdentityApi<OpenHRCoreUser>(); // Asp.net Core Identity
+            app.MapPost("/logout", async (SignInManager<OpenHRCoreUser> signInManager) =>
+            {
+                await signInManager.SignOutAsync().ConfigureAwait(false);
+            }).RequireAuthorization(); // Asp.net Core Identity
+
+
         }
 
         /// <summary>
@@ -118,7 +127,7 @@ namespace OpenHRCore.API
         private static void RunApplication(WebApplication app)
         {
             LogApplicationUrls(app);
-            
+
             Log.Information("Running OpenHRCore.API");
             app.Run();
         }
