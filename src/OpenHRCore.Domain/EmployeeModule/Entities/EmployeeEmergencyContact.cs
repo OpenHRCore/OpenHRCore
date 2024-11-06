@@ -9,11 +9,11 @@
     {
         /// <summary>
         /// Gets or sets the unique identifier of the employee associated with this emergency contact.
-        /// This property is required and establishes a relationship with the Employee entity.
+        /// This property is required and establishes a relationship with the EmployeeInfo entity.
         /// </summary>
         public required Guid EmployeeId { get; set; }
 
-        public required virtual Employee Employee { get; set; }
+        public required virtual EmployeeInfo Employee { get; set; }
 
         /// <summary>
         /// Gets or sets the first name of the emergency contact.

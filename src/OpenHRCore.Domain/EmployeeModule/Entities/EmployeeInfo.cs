@@ -8,7 +8,7 @@ namespace OpenHRCore.Domain.EmployeeModule.Entities
     /// <remarks>
     /// This class inherits from OpenHRCoreBaseEntity, which likely provides common properties such as Id, CreatedAt, UpdatedAt, etc.
     /// </remarks>
-    public class Employee : OpenHRCoreBaseEntity
+    public class EmployeeInfo : OpenHRCoreBaseEntity
     {
         /// <summary>
         /// Gets or sets the unique employee code.

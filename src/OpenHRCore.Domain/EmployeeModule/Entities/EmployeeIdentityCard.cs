@@ -14,10 +14,10 @@ namespace OpenHRCore.Domain.EmployeeModule.Entities
         /// </summary>
         /// <remarks>
         /// This property establishes a relationship between the identity card and a specific employee.
-        /// It should correspond to the Id of an existing Employee entity.
+        /// It should correspond to the Id of an existing EmployeeInfo entity.
         /// </remarks>
         public required Guid EmployeeId { get; set; }
-        public required virtual Employee Employee { get; set; }
+        public required virtual EmployeeInfo Employee { get; set; }
 
         /// <summary>
         /// Gets or sets the unique number or identifier of the identity card.

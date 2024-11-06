@@ -2,9 +2,9 @@
 
 namespace OpenHRCore.Infrastructure.Data.Configurations
 {
-    public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
+    public class EmployeeConfiguration : IEntityTypeConfiguration<EmployeeInfo>
     {
-        public void Configure(EntityTypeBuilder<Employee> builder)
+        public void Configure(EntityTypeBuilder<EmployeeInfo> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Code).IsRequired();

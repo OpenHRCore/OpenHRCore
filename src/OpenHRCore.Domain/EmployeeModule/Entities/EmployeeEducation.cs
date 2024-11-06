@@ -16,7 +16,7 @@
         /// </remarks>
         public required Guid EmployeeId { get; set; }
 
-        public required virtual Employee Employee { get; set; }
+        public required virtual EmployeeInfo Employee { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the educational institution where the employee studied.

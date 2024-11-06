@@ -23,8 +23,8 @@ namespace OpenHRCore.Infrastructure.Data
         {
         }
 
-        // Employee-related entity sets
-        public DbSet<Employee> Employees { get; set; }
+        // EmployeeInfo-related entity sets
+        public DbSet<EmployeeInfo> Employees { get; set; }
         public DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
         public DbSet<EmployeeBankInformation> EmployeeBankInformation { get; set; }
         public DbSet<EmployeeDependent> EmployeeDependents { get; set; }

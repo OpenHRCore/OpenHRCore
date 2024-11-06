@@ -2,7 +2,7 @@
 
 namespace OpenHRCore.Domain.EmployeeModule.Interfaces
 {
-    public interface IEmployeeRepository : IOpenHRCoreBaseRepository<Employee>
+    public interface IEmployeeRepository : IOpenHRCoreBaseRepository<EmployeeInfo>
     {
     }
 }

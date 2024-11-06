@@ -30,6 +30,7 @@
     <Folder Include="TimeTrack\Entities\" />
     <Folder Include="TimeTrack\Enums\" />
     <Folder Include="TimeTrack\Interfaces\" />
+    <Folder Include="Workforce\Interfaces\" />
   </ItemGroup>
 
 </Project>

@@ -14,7 +14,7 @@ namespace OpenHRCore.Infrastructure
         public static IServiceCollection AddOpenHRCoreDbContext(this IServiceCollection services, IConfiguration _configuration)
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<OpenHRCoreDbContext>(options => options.UseSqlServer(connectionString));
+            //services.AddDbContext<OpenHRCoreDbContext>(options => options.UseSqlServer(connectionString));
 
             return services;
         }
