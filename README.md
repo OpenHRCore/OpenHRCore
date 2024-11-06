@@ -20,13 +20,13 @@ OpenHRCore provides a comprehensive suite of HR management tools designed to str
 
 The HRMS consists of the following core modules:
 
-1. [**CareerConnect (Recruitment Module)**](./recruitment_module_readme.md) - Manage job postings, applications, and candidate tracking. Simplify the recruitment process and enhance hiring efficiency.
-2. [**WorkForce (Employee Module)**](./employee_module_readme.md) - Oversee employee records, roles, and organizational structure. Facilitate effective employee management and organizational alignment.
-3. [**TimeTrack (Attendance Module)**](./attendance_module_readme.md) - Track employee attendance, working hours, and absences. Ensure accurate attendance records and streamline time management.
-4. [**FlexiLeave (Leave Module)**](./leave_module_readme.md) - Handle leave requests, approvals, and balances. Manage employee leave effectively and ensure compliance with company policies.
-5. [**PayStream (Payroll Module)**](./payroll_module_readme.md) - Manage payroll processing, salary calculations, tax, SSC (Social Security Contribution), allowances, deductions, and multi-currency payroll. Ensure timely and accurate payroll management.
+1. [**CareerConnect (Recruitment Module)**](./src/OpenHRCore.Domain/CareerConnect) - Manage job postings, applications, and candidate tracking. Simplify the recruitment process and enhance hiring efficiency.
+2. [**WorkForce (Employee Module)**](./src/OpenHRCore.Domain/Workforce) - Oversee employee records, roles, and organizational structure. Facilitate effective employee management and organizational alignment.
+3. [**TimeTrack (Attendance Module)**](./src/OpenHRCore.Domain/TimeTrack) - Track employee attendance, working hours, and absences. Ensure accurate attendance records and streamline time management.
+4. [**FlexiLeave (Leave Module)**](./src/OpenHRCore.Domain/FlexiLeave) - Handle leave requests, approvals, and balances. Manage employee leave effectively and ensure compliance with company policies.
+5. [**PayStream (Payroll Module)**](./src/OpenHRCore.Domain/PayStream) - Manage payroll processing, salary calculations, tax, SSC (Social Security Contribution), allowances, deductions, and multi-currency payroll. Ensure timely and accurate payroll management.
 6. [**EasyESS (Employee Self-Service)**] - Provide employees with self-service options for HR-related tasks via web and mobile applications. Empower employees to manage their HR needs independently.
-7. [**ControlCenter (Administration Module)**](./administration_module_readme.md) - Administer system settings, user roles, and permissions. Centralize administrative tasks and manage system configurations.
+7. [**ControlCenter (Administration Module)**](./src/OpenHRCore.Domain/ControlCenter) - Administer system settings, user roles, and permissions. Centralize administrative tasks and manage system configurations.
 8. [**SetupCentral (Common Configuration)**] - Configure system-wide settings and manage common configurations. Ensure consistent and efficient system setup.
 
 Each module is designed to be independent, with its own data modeling, flow, and business logic. Below is a summary of each module, along with links to their respective README files, which provide detailed information on data models, example scenarios, flow diagrams, and usage.
