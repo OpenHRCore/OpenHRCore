@@ -8,12 +8,9 @@ OpenHRCore provides a comprehensive suite of HR management tools designed to str
 
 - **IDE**: Visual Studio 2022
 - **Language**: C#
-- **Framework**: ASP.NET Core 8 WebAPI
-- **UI**: ASP.NET Blazor (Web), MAUI (Mobile for ESS)
-- **ORM**: Entity Framework Core
 - **Libraries/Frameworks**: Automapper, FluentValidation, Entity Framework Core, ASP.NET Core 8, Serilog
 - **Multi-language Support**
-- **Backend**: REST API
+- **Backend**: ASP.NET Core 8 REST API
 - **Frontend**: React
 
 ## Modules Overview
@@ -86,7 +83,7 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 
 ## Contact
 
-If you have any questions or feedback, feel free to reach out to the project maintainers via email: [hrmsopensource@example.com](mailto:hrmsopensource@example.com).
+If you have any questions or feedback, feel free to reach out to the project maintainers via email: [info@openhrcore.com](mailto:info@openhrcore.com).
 
 ## Conclusion
 
