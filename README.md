@@ -1,4 +1,4 @@
-# OpenHRCore - Human Resource Management System (HRMS) - Main README
+# OpenHRCore - Human Resource Management System (HRMS)
 
 ## Overview
 
