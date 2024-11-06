@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="CareerConnect\Interfaces\" />
-    <Folder Include="ControlCenter\Entities\" />
     <Folder Include="ControlCenter\Enums\" />
     <Folder Include="ControlCenter\Interfaces\" />
     <Folder Include="FlexiLeave\Enums\" />
