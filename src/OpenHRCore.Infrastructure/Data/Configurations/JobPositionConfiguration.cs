@@ -1,4 +1,4 @@
-﻿using OpenHRCore.Domain.Workforce.Entities;
+﻿using OpenHRCore.Domain.EmployeeModule.Entities;
 
 namespace OpenHRCore.Infrastructure.Data.Configurations
 {

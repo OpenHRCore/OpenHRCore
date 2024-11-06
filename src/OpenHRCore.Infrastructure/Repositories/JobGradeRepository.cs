@@ -1,5 +1,5 @@
-﻿using OpenHRCore.Domain.Workforce.Entities;
-using OpenHRCore.Domain.Workforce.Interfaces;
+﻿using OpenHRCore.Domain.EmployeeModule.Entities;
+using OpenHRCore.Domain.EmployeeModule.Interfaces;
 using OpenHRCore.Infrastructure.Data;
 using OpenHRCore.SharedKernel.Infrastructure;
 

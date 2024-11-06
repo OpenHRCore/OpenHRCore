@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using OpenHRCore.Infrastructure.Identity;
-using System.Reflection;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using OpenHRCore.Domain.EmployeeModule.Entities;
 
 namespace OpenHRCore.Infrastructure.Data
 {
@@ -8,9 +8,7 @@ namespace OpenHRCore.Infrastructure.Data
     /// Represents the database context for the WorkForce module in OpenHRCore.
     /// This context manages all entity sets related to workforce management.
     /// </summary>
-    public class OpenHRCoreDbContext : IdentityDbContext<OpenHRCoreUser,OpenHRCoreRole,string,
-        OpenHRCoreUserClaim,OpenHRCoreUserRole,OpenHRCoreUserLogin,
-        OpenHRCoreRoleClaim,OpenHRCoreUserToken>
+    public class OpenHRCoreDbContext : IdentityDbContext<IdentityUser>
     {
         /// <summary>
         /// Defines the database schema name for the WorkForce module.
@@ -53,7 +51,6 @@ namespace OpenHRCore.Infrastructure.Data
         {
             //modelBuilder.HasDefaultSchema(SchemaName);
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

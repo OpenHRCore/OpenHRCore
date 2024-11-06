@@ -3,6 +3,8 @@ using Microsoft.Extensions.Logging;
 using OpenHRCore.Application.DTOs.JobGrade;
 using OpenHRCore.Application.Interfaces;
 using OpenHRCore.Application.UnitOfWork;
+using OpenHRCore.Domain.EmployeeModule.Entities;
+using OpenHRCore.Domain.EmployeeModule.Interfaces;
 
 namespace OpenHRCore.Application.Services
 {
@@ -49,7 +51,6 @@ namespace OpenHRCore.Application.Services
 
                 var jobGrade = _mapper.Map<JobGrade>(request);
                 jobGrade.SortOrder = await GetNextSortOrderAsync();
-                jobGrade.CreatedAt = DateTime.UtcNow;
 
                 await _jobGradeRepository.AddAsync(jobGrade);
                 await _unitOfWork.SaveChangesAsync();
@@ -176,7 +177,6 @@ namespace OpenHRCore.Application.Services
 
                 _mapper.Map(request, existingJobGrade);
 
-                existingJobGrade.UpdatedAt = DateTime.UtcNow;
                 _jobGradeRepository.Update(existingJobGrade);
                 await _unitOfWork.SaveChangesAsync();
 

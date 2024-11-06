@@ -1,8 +1,8 @@
-﻿using OpenHRCore.Domain.Workforce.Entities;
+﻿using OpenHRCore.Domain.EmployeeModule.Entities;
 
 namespace OpenHRCore.Infrastructure.Data.Configurations
 {
-    public class OpenHRCoreUserConfiguration : IEntityTypeConfiguration<Employee>
+    public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
