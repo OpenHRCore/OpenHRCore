@@ -23,8 +23,6 @@
     <Folder Include="ControlCenter\Interfaces\" />
     <Folder Include="FlexiLeave\Enums\" />
     <Folder Include="FlexiLeave\Interfaces\" />
-    <Folder Include="PayStream\Entities\" />
-    <Folder Include="PayStream\Enums\" />
     <Folder Include="PayStream\Interfaces\" />
     <Folder Include="TimeTrack\Enums\" />
     <Folder Include="TimeTrack\Interfaces\" />
