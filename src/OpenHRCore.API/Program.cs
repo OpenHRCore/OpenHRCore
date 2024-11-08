@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using OpenHRCore.API.ServicesConfiguration;
 using OpenHRCore.Infrastructure.Data;
-using OpenHRCore.Infrastructure.Identity;
 using Serilog;
 using Serilog.Events;
 
@@ -71,10 +70,7 @@ namespace OpenHRCore.API
             builder.Services.AddLocalizationService();
             builder.Services.AddOpenHRCoreServices(builder.Configuration);
             builder.Services.AddScoped<CountryData.Standard.CountryHelper>();
-            builder.Services.AddIdentityApiEndpoints<OpenHRCoreUser>() // Asp.net Core Identity
-                .AddDefaultUI()
-                .AddEntityFrameworkStores<OpenHRCoreDbContext>();
-            builder.Services.ConfigureApplicationCookie(options => { options.Cookie.SameSite = SameSiteMode.None; }); // Asp.net Core Identity
+
 
             return builder;
         }
@@ -111,12 +107,6 @@ namespace OpenHRCore.API
             app.UseRequestLocalization();
             app.UseHttpsRedirection();
             app.MapControllers();
-            app.MapIdentityApi<OpenHRCoreUser>(); // Asp.net Core Identity
-            app.MapPost("/logout", async (SignInManager<OpenHRCoreUser> signInManager) =>
-            {
-                await signInManager.SignOutAsync().ConfigureAwait(false);
-            }).RequireAuthorization(); // Asp.net Core Identity
-
 
         }
 

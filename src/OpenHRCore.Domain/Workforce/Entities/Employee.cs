@@ -2,13 +2,17 @@
 {
     public class Employee : OpenHRCoreBaseEntity
     {
-        public required string Name { get; set; }
-        public DateTime HireDate { get; set; }
-        public required string JobPositionId { get; set; }
-        public required virtual JobPosition JobPosition { get; set; }
-        public required string DepartmentId { get; set; }
-        public required virtual Department Department { get; set; }
-        public virtual ICollection<EmployeeMovement> EmployeeMovements { get; set; } = new List<EmployeeMovement>();
-        public virtual ICollection<EmployeeSalaryHistory> SalaryHistories { get; set; } = new List<EmployeeSalaryHistory>();
+        public required string Code { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public DateOnly? DateOfBirth { get; set; }
+        public required Gender Gender { get; set; }
+        public required string Email { get; set; }
+        public required string Phone { get; set; }
+        public string? Address { get; set; }
+        public required Guid JobPositionId { get; set; }
+        public virtual JobPosition? JobPosition { get; set; }
+        public required Guid OrganizationUnitId { get; set; }
+        public virtual OrganizationUnit? OrganizationUnit { get; set; }
     }
 }

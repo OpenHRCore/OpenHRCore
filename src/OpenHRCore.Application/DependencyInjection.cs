@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using OpenHRCore.Application.Interfaces;
-using OpenHRCore.Application.Mapping;
-using OpenHRCore.Application.Services;
+using OpenHRCore.Application.Workforce.DTOs.OU;
+using OpenHRCore.Application.Workforce.Interfaces;
+using OpenHRCore.Application.Workforce.Services;
 using System.Reflection;
 
 namespace OpenHRCore.Application
@@ -11,10 +11,10 @@ namespace OpenHRCore.Application
     {
         public static IServiceCollection AddOpenHRCoreApplication(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(OpenHRCoreMappingProfile));
-            //services.AddValidatorsFromAssemblyContaining<CreateJobGradeRequestValidator>();
+            services.AddAutoMapper(typeof(OrganizationUnitMappingProfile));
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            services.AddScoped<IJobPositionService, JobPositionService>();
+            services.AddScoped<IOrganizationUnitService, OrganizationUnitService>();
+
             return services;
         }
     }
