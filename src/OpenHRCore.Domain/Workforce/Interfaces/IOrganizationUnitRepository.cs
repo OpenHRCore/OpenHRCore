@@ -2,6 +2,6 @@
 {
     public interface IOrganizationUnitRepository : IOpenHRCoreBaseRepository<OrganizationUnit>
     {
-        Task<IEnumerable<OrganizationUnit>> GetAllOrganizationUnitsAsync();
+        Task<List<OrganizationUnit>> GetAllOrganizationUnitsWithHierarchyAsync(Guid? parentId);
     }
 }

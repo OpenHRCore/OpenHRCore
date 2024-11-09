@@ -8,6 +8,7 @@
             builder.Property(x => x.Code).IsRequired();
             builder.Property(x => x.LevelName).IsRequired();
             builder.Property(x => x.SortOrder).IsRequired();
+            builder.HasQueryFilter(x => x.IsActive == true && x.IsDeleted == false);
         }
     }
 }

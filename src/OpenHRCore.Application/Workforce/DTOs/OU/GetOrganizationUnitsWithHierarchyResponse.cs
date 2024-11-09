@@ -1,6 +1,6 @@
 ﻿namespace OpenHRCore.Application.Workforce.DTOs.OU
 {
-    public class GetOrganizationUnitResponse
+    public class GetOrganizationUnitsWithHierarchyResponse
     {
         public required Guid Id { get; set; }
         public required string Code { get; set; }
@@ -11,6 +11,7 @@
         public string? ParentOrganizationCode { get; set; }
         public string? ParentOrganizationName { get; set; }
         public string? ParentOrganizationDescription { get; set; }
+        public ICollection<GetOrganizationUnitsWithHierarchyResponse> SubOrganizationUnits { get; set; } = new List<GetOrganizationUnitsWithHierarchyResponse>();
         public required int SortOrder { get; set; }
     }
 }

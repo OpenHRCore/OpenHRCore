@@ -24,6 +24,8 @@
                 .WithMany()
                 .HasForeignKey(x => x.OrganizationUnitId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasQueryFilter(x => x.IsActive == true && x.IsDeleted == false);
         }
     }
 }

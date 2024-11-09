@@ -1,4 +1,6 @@
-﻿namespace OpenHRCore.Infrastructure.Workforce.ETConfigs
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace OpenHRCore.Infrastructure.Workforce.ETConfigs
 {
     public class EmployeeETConfig : IEntityTypeConfiguration<Employee>
     {
@@ -28,6 +30,7 @@
                 .HasForeignKey(x => x.OrganizationUnitId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasQueryFilter(x => x.IsActive == true && x.IsDeleted == false);
         }
     }
 }

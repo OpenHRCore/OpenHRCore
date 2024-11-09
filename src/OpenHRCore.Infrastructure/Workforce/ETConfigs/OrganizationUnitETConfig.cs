@@ -16,6 +16,8 @@
                 .WithMany(x => x.SubOrganizationUnits)
                 .HasForeignKey(x => x.ParentOrganizationUnitId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasQueryFilter(x => x.IsActive == true && x.IsDeleted == false);
         }
     }
 }

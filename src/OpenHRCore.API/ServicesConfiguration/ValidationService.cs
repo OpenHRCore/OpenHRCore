@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using OpenHRCore.Application.DTOs.JobGrade;
+using System.Reflection;
 
 namespace OpenHRCore.API.ServicesConfiguration
 {
@@ -7,9 +7,7 @@ namespace OpenHRCore.API.ServicesConfiguration
     {
         public static IServiceCollection AddValidatorsService(this IServiceCollection services)
         {
-            services.AddValidatorsFromAssemblyContaining<CreateJobGradeRequestValidator>();
-            services.AddValidatorsFromAssemblyContaining<UpdateJobGradeRequestValidator>();
-            services.AddValidatorsFromAssemblyContaining<DeleteJobGradeRequestValidator>();
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             return services;
         }

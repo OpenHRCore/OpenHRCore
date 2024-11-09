@@ -61,6 +61,7 @@ namespace OpenHRCore.API
         private static WebApplicationBuilder CreateAndConfigureWebApplicationBuilder(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var logger = builder.Services.BuildServiceProvider().GetRequiredService<ILogger<Program>>();
 
             builder.Host.UseSerilog();
             builder.Services.AddControllers();
@@ -68,7 +69,7 @@ namespace OpenHRCore.API
             builder.Services.AddValidatorsService();
             builder.Services.AddSwaggerGenService();
             builder.Services.AddLocalizationService();
-            builder.Services.AddOpenHRCoreServices(builder.Configuration);
+            builder.Services.AddOpenHRCoreServices(builder.Configuration, logger);
             builder.Services.AddScoped<CountryData.Standard.CountryHelper>();
 
 

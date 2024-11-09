@@ -12,7 +12,7 @@ namespace OpenHRCore.Application.Workforce.DTOs.OU
             CreateMap<CreateOrganizationUnitRequest, OrganizationUnit>();
 
             // Map from OrganizationUnit to GetOrganizationUnitResponse, including nested properties
-            CreateMap<OrganizationUnit, GetOrganizationUnitResponse>()
+            CreateMap<OrganizationUnit, GetOrganizationUnitsWithHierarchyResponse>()
                 .ForMember(dest => dest.ParentOrganizationUnitId,
                            opt => opt.MapFrom(src => src.ParentOrganizationUnitId))
                 .ForMember(dest => dest.SubOrganizationUnits,
@@ -23,6 +23,16 @@ namespace OpenHRCore.Application.Workforce.DTOs.OU
                            opt => opt.MapFrom(src => src.ParentOrganizationUnit != null ? src.ParentOrganizationUnit.Name : null))
                 .ForMember(dest => dest.ParentOrganizationDescription,
                            opt => opt.MapFrom(src => src.ParentOrganizationUnit != null ? src.ParentOrganizationUnit.Description : null));
+
+            CreateMap<OrganizationUnit, GetOrganizationUnitResponse>()
+                    .ForMember(dest => dest.ParentOrganizationUnitId,
+                               opt => opt.MapFrom(src => src.ParentOrganizationUnitId))
+                    .ForMember(dest => dest.ParentOrganizationCode,
+                               opt => opt.MapFrom(src => src.ParentOrganizationUnit != null ? src.ParentOrganizationUnit.Code : null))
+                    .ForMember(dest => dest.ParentOrganizationName,
+                               opt => opt.MapFrom(src => src.ParentOrganizationUnit != null ? src.ParentOrganizationUnit.Name : null))
+                    .ForMember(dest => dest.ParentOrganizationDescription,
+                               opt => opt.MapFrom(src => src.ParentOrganizationUnit != null ? src.ParentOrganizationUnit.Description : null));
 
         }
     }
