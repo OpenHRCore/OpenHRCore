@@ -10,7 +10,9 @@ using OpenHRCore.SharedKernel.Utilities;
 namespace OpenHRCore.Application.Workforce.Services
 {
     /// <summary>
-    /// Service for managing organization units
+    /// Service responsible for managing organization units, including CRUD operations and hierarchy management.
+    /// Provides functionality for creating, reading, updating and deleting organization units,
+    /// as well as managing their hierarchical relationships and sort orders.
     /// </summary>
     public class OrganizationUnitService : IOrganizationUnitService
     {
@@ -20,8 +22,13 @@ namespace OpenHRCore.Application.Workforce.Services
         private readonly ILogger<OrganizationUnitService> _logger;
 
         /// <summary>
-        /// Initializes a new instance of the OrganizationUnitService class
+        /// Initializes a new instance of the OrganizationUnitService class with required dependencies
         /// </summary>
+        /// <param name="unitOfWork">Unit of work for transaction management</param>
+        /// <param name="organizationUnitRepository">Repository for organization unit data access</param>
+        /// <param name="mapper">AutoMapper instance for object mapping</param>
+        /// <param name="logger">Logger for service diagnostics</param>
+        /// <exception cref="ArgumentNullException">Thrown when any required dependency is null</exception>
         public OrganizationUnitService(
             IOpenHRCoreUnitOfWork unitOfWork,
             IOrganizationUnitRepository organizationUnitRepository,
@@ -35,11 +42,13 @@ namespace OpenHRCore.Application.Workforce.Services
         }
 
         /// <summary>
-        /// Creates a new organization unit
+        /// Creates a new organization unit with automatically assigned sort order
         /// </summary>
+        /// <param name="request">Details of the organization unit to create</param>
+        /// <returns>Response containing the created organization unit details</returns>
         public async Task<OpenHRCoreServiceResponse<GetOrganizationUnitResponse>> CreateOrganizationUnitAsync(CreateOrganizationUnitRequest request)
         {
-            _logger.LogLayerInfo("Initiating creation of Organization Unit with name: {OrganizationUnitName}", request.Name);
+            _logger.LogLayerInfo("Beginning organization unit creation process for unit: {OrganizationUnitName}", request.Name);
 
             try
             {
@@ -50,7 +59,7 @@ namespace OpenHRCore.Application.Workforce.Services
                 await _organizationUnitRepository.AddAsync(organizationUnit);
                 await _unitOfWork.SaveChangesAsync();
 
-                _logger.LogLayerInfo("Successfully created Organization Unit with ID: {OrganizationUnitId} and Sort Order: {SortOrder}",
+                _logger.LogLayerInfo("Organization unit creation completed successfully. Unit ID: {OrganizationUnitId}, Sort Order: {SortOrder}",
                     organizationUnit.Id, organizationUnit.SortOrder);
 
                 var response = await GetOrganizationUnitResponseById(organizationUnit.Id);
@@ -61,28 +70,29 @@ namespace OpenHRCore.Application.Workforce.Services
             }
             catch (Exception ex)
             {
-                _logger.LogLayerError(ex, "An error occurred while creating the Organization Unit with name: {OrganizationUnitName}", request.Name);
+                _logger.LogLayerError(ex, "Organization unit creation failed for unit name: {OrganizationUnitName}. Error details: {ErrorMessage}", 
+                    request.Name, ex.Message);
                 return OpenHRCoreServiceResponse<GetOrganizationUnitResponse>.CreateFailure(
                     ex,
                     "An error occurred while creating the Organization Unit.");
             }
         }
 
-
-
         /// <summary>
-        /// Gets all organization units with their hierarchical structure
+        /// Retrieves all organization units with their complete hierarchical structure.
+        /// Returns a tree-like structure showing parent-child relationships between units.
         /// </summary>
+        /// <returns>Response containing collection of organization units with hierarchy information</returns>
         public async Task<OpenHRCoreServiceResponse<IEnumerable<GetOrganizationUnitsWithHierarchyResponse>>> GetAllOrganizationUnitsWithHierarchyAsync()
         {
             try
             {
-                _logger.LogLayerInfo("Retrieving all OrganizationUnits.");
+                _logger.LogLayerInfo("Initiating retrieval of complete organization unit hierarchy");
 
                 var organizationUnits = await _organizationUnitRepository.GetAllOrganizationUnitsWithHierarchyAsync(null);
                 var organizationUnitsResponse = _mapper.Map<IEnumerable<GetOrganizationUnitsWithHierarchyResponse>>(organizationUnits);
 
-                _logger.LogLayerInfo("Retrieved {Count} OrganizationUnits.", organizationUnits.Count());
+                _logger.LogLayerInfo("Successfully retrieved organization unit hierarchy. Total units found: {Count}", organizationUnits.Count());
 
                 return OpenHRCoreServiceResponse<IEnumerable<GetOrganizationUnitsWithHierarchyResponse>>.CreateSuccess(
                     organizationUnitsResponse,
@@ -90,23 +100,28 @@ namespace OpenHRCore.Application.Workforce.Services
             }
             catch (Exception ex)
             {
-                _logger.LogLayerError(ex, "An error occurred while retrieving organization units.");
+                _logger.LogLayerError(ex, "Failed to retrieve organization unit hierarchy. Error details: {ErrorMessage}", ex.Message);
                 return OpenHRCoreServiceResponse<IEnumerable<GetOrganizationUnitsWithHierarchyResponse>>.CreateFailure(
                     ex,
                     "An error occurred while retrieving organization units.");
             }
         }
 
+        /// <summary>
+        /// Updates an existing organization unit with the provided details
+        /// </summary>
+        /// <param name="request">The updated organization unit information</param>
+        /// <returns>Response containing the updated organization unit details</returns>
         public async Task<OpenHRCoreServiceResponse<GetOrganizationUnitResponse>> UpdateOrganizationUnitAsync(UpdateOrganizationUnitRequest request)
         {
             try
             {
-                _logger.LogLayerInfo("Initiating update of Organization Unit with ID: {OrganizationUnitId}", request.Id);
+                _logger.LogLayerInfo("Beginning update process for organization unit ID: {OrganizationUnitId}", request.Id);
 
                 var existingOrganizationUnit = await _organizationUnitRepository.GetByIdAsync(request.Id);
                 if (existingOrganizationUnit == null)
                 {
-                    _logger.LogLayerWarning("Organization Unit with ID: {OrganizationUnitId} not found", request.Id);
+                    _logger.LogLayerWarning("Update failed - Unable to locate organization unit with ID: {OrganizationUnitId}", request.Id);
                     return OpenHRCoreServiceResponse<GetOrganizationUnitResponse>.CreateFailure("Organization Unit not found.");
                 }
 
@@ -116,7 +131,7 @@ namespace OpenHRCore.Application.Workforce.Services
                 _organizationUnitRepository.Update(existingOrganizationUnit);
                 await _unitOfWork.SaveChangesAsync();
 
-                _logger.LogLayerInfo("Successfully updated Organization Unit with ID: {OrganizationUnitId}", request.Id);
+                _logger.LogLayerInfo("Organization unit update completed successfully for ID: {OrganizationUnitId}", request.Id);
 
                 var response = await GetOrganizationUnitResponseById(existingOrganizationUnit.Id);
 
@@ -126,30 +141,36 @@ namespace OpenHRCore.Application.Workforce.Services
             }
             catch (Exception ex)
             {
-                _logger.LogLayerError(ex, "An error occurred while updating the Organization Unit with ID: {OrganizationUnitId}", request.Id);
+                _logger.LogLayerError(ex, "Organization unit update failed for ID: {OrganizationUnitId}. Error details: {ErrorMessage}", 
+                    request.Id, ex.Message);
                 return OpenHRCoreServiceResponse<GetOrganizationUnitResponse>.CreateFailure(
                     ex,
                     "An error occurred while updating the Organization Unit.");
             }
         }
 
+        /// <summary>
+        /// Deletes an organization unit by its ID
+        /// </summary>
+        /// <param name="id">The unique identifier of the organization unit to delete</param>
+        /// <returns>Response containing the deleted organization unit details</returns>
         public async Task<OpenHRCoreServiceResponse<GetOrganizationUnitResponse>> DeleteOrganizationUnitAsync(Guid id)
         {
             try
             {
-                _logger.LogLayerInfo("Initiating deletion of Organization Unit with ID: {OrganizationUnitId}", id);
+                _logger.LogLayerInfo("Beginning deletion process for organization unit ID: {OrganizationUnitId}", id);
 
                 var organizationUnit = await _organizationUnitRepository.GetByIdAsync(id);
                 if (organizationUnit == null)
                 {
-                    _logger.LogLayerWarning("Organization Unit with ID: {OrganizationUnitId} not found", id);
+                    _logger.LogLayerWarning("Deletion failed - Unable to locate organization unit with ID: {OrganizationUnitId}", id);
                     return OpenHRCoreServiceResponse<GetOrganizationUnitResponse>.CreateFailure("Organization Unit not found.");
                 }
 
                 _organizationUnitRepository.Remove(organizationUnit);
                 await _unitOfWork.SaveChangesAsync();
 
-                _logger.LogLayerInfo("Successfully deleted Organization Unit with ID: {OrganizationUnitId}", id);
+                _logger.LogLayerInfo("Organization unit successfully deleted. ID: {OrganizationUnitId}", id);
 
                 var response = _mapper.Map<GetOrganizationUnitResponse>(organizationUnit);
 
@@ -159,18 +180,24 @@ namespace OpenHRCore.Application.Workforce.Services
             }
             catch (Exception ex)
             {
-                _logger.LogLayerError(ex, "An error occurred while deleting the Organization Unit with ID: {OrganizationUnitId}", id);
+                _logger.LogLayerError(ex, "Organization unit deletion failed for ID: {OrganizationUnitId}. Error details: {ErrorMessage}", 
+                    id, ex.Message);
                 return OpenHRCoreServiceResponse<GetOrganizationUnitResponse>.CreateFailure(
                     ex,
                     "An error occurred while deleting the Organization Unit.");
             }
         }
 
+        /// <summary>
+        /// Retrieves an organization unit by its ID including parent relationships
+        /// </summary>
+        /// <param name="id">The unique identifier of the organization unit to retrieve</param>
+        /// <returns>Response containing the requested organization unit details</returns>
         public async Task<OpenHRCoreServiceResponse<GetOrganizationUnitResponse>> GetOrganizationUnitByIdAsync(Guid id)
         {
             try
             {
-                _logger.LogLayerInfo("Retrieving Organization Unit with ID: {OrganizationUnitId}", id);
+                _logger.LogLayerInfo("Initiating retrieval of organization unit with ID: {OrganizationUnitId}", id);
 
                 var organizationUnit = await _organizationUnitRepository.GetFirstOrDefaultAsync(
                     x => x.Id == id,
@@ -179,13 +206,13 @@ namespace OpenHRCore.Application.Workforce.Services
 
                 if (organizationUnit == null)
                 {
-                    _logger.LogLayerWarning("Organization Unit with ID: {OrganizationUnitId} not found", id);
+                    _logger.LogLayerWarning("Retrieval failed - Unable to locate organization unit with ID: {OrganizationUnitId}", id);
                     return OpenHRCoreServiceResponse<GetOrganizationUnitResponse>.CreateFailure("Organization Unit not found.");
                 }
 
                 var response = _mapper.Map<GetOrganizationUnitResponse>(organizationUnit);
 
-                _logger.LogLayerInfo("Successfully retrieved Organization Unit with ID: {OrganizationUnitId}", id);
+                _logger.LogLayerInfo("Successfully retrieved organization unit details for ID: {OrganizationUnitId}", id);
 
                 return OpenHRCoreServiceResponse<GetOrganizationUnitResponse>.CreateSuccess(
                     response,
@@ -193,29 +220,36 @@ namespace OpenHRCore.Application.Workforce.Services
             }
             catch (Exception ex)
             {
-                _logger.LogLayerError(ex, "An error occurred while retrieving the Organization Unit with ID: {OrganizationUnitId}", id);
+                _logger.LogLayerError(ex, "Failed to retrieve organization unit with ID: {OrganizationUnitId}. Error details: {ErrorMessage}", 
+                    id, ex.Message);
                 return OpenHRCoreServiceResponse<GetOrganizationUnitResponse>.CreateFailure(
                     ex,
                     "An error occurred while retrieving the Organization Unit.");
             }
         }
 
+        /// <summary>
+        /// Retrieves all child organization units for a given parent ID
+        /// </summary>
+        /// <param name="parentId">The unique identifier of the parent organization unit</param>
+        /// <returns>Response containing collection of child organization units with hierarchy information</returns>
         public async Task<OpenHRCoreServiceResponse<IEnumerable<GetOrganizationUnitsWithHierarchyResponse>>> GetAllOrganizationUnitsByParentId(Guid parentId)
         {
             try
             {
-                _logger.LogLayerInfo("Retrieving Organization Units by Parent ID: {ParentId}", parentId);
+                _logger.LogLayerInfo("Initiating retrieval of child organization units for parent ID: {ParentId}", parentId);
 
                 var organizationUnits = await _organizationUnitRepository.GetAllOrganizationUnitsWithHierarchyAsync(parentId);
                 if (organizationUnits == null || !organizationUnits.Any())
                 {
-                    _logger.LogLayerWarning("No Organization Units found for Parent ID: {ParentId}", parentId);
+                    _logger.LogLayerWarning("No child organization units found for parent ID: {ParentId}", parentId);
                     return OpenHRCoreServiceResponse<IEnumerable<GetOrganizationUnitsWithHierarchyResponse>>.CreateFailure("No Organization Units found.");
                 }
 
                 var response = _mapper.Map<IEnumerable<GetOrganizationUnitsWithHierarchyResponse>>(organizationUnits);
 
-                _logger.LogLayerInfo("Successfully retrieved {Count} Organization Units for Parent ID: {ParentId}", organizationUnits.Count, parentId);
+                _logger.LogLayerInfo("Successfully retrieved {Count} child organization units for parent ID: {ParentId}", 
+                    organizationUnits.Count, parentId);
 
                 return OpenHRCoreServiceResponse<IEnumerable<GetOrganizationUnitsWithHierarchyResponse>>.CreateSuccess(
                     response,
@@ -223,29 +257,35 @@ namespace OpenHRCore.Application.Workforce.Services
             }
             catch (Exception ex)
             {
-                _logger.LogLayerError(ex, "An error occurred while retrieving Organization Units for Parent ID: {ParentId}", parentId);
+                _logger.LogLayerError(ex, "Failed to retrieve child organization units for parent ID: {ParentId}. Error details: {ErrorMessage}", 
+                    parentId, ex.Message);
                 return OpenHRCoreServiceResponse<IEnumerable<GetOrganizationUnitsWithHierarchyResponse>>.CreateFailure(
                     ex,
                     "An error occurred while retrieving the Organization Units.");
             }
         }
 
+        /// <summary>
+        /// Retrieves all organization units without hierarchy information
+        /// </summary>
+        /// <returns>Response containing a flat collection of all organization units</returns>
         public async Task<OpenHRCoreServiceResponse<IEnumerable<GetOrganizationUnitResponse>>> GetAllOrganizationUnitsAsync()
         {
             try
             {
-                _logger.LogLayerInfo("Retrieving all Organization Units");
+                _logger.LogLayerInfo("Initiating retrieval of all organization units");
 
                 var organizationUnits = await _organizationUnitRepository.GetAllAsync();
                 if (organizationUnits == null || !organizationUnits.Any())
                 {
-                    _logger.LogLayerWarning("No Organization Units found");
+                    _logger.LogLayerWarning("No organization units found in the system");
                     return OpenHRCoreServiceResponse<IEnumerable<GetOrganizationUnitResponse>>.CreateFailure("No Organization Units found.");
                 }
 
                 var response = _mapper.Map<IEnumerable<GetOrganizationUnitResponse>>(organizationUnits);
 
-                _logger.LogLayerInfo("Successfully retrieved {Count} Organization Units", organizationUnits.Count());
+                _logger.LogLayerInfo("Successfully retrieved complete list of organization units. Total count: {Count}", 
+                    organizationUnits.Count());
 
                 return OpenHRCoreServiceResponse<IEnumerable<GetOrganizationUnitResponse>>.CreateSuccess(
                     response,
@@ -253,7 +293,7 @@ namespace OpenHRCore.Application.Workforce.Services
             }
             catch (Exception ex)
             {
-                _logger.LogLayerError(ex, "An error occurred while retrieving all Organization Units");
+                _logger.LogLayerError(ex, "Failed to retrieve organization units. Error details: {ErrorMessage}", ex.Message);
                 return OpenHRCoreServiceResponse<IEnumerable<GetOrganizationUnitResponse>>.CreateFailure(
                     ex,
                     "An error occurred while retrieving the Organization Units.");
@@ -262,8 +302,10 @@ namespace OpenHRCore.Application.Workforce.Services
 
         #region private methods
         /// <summary>
-        /// Gets an organization unit by ID
+        /// Retrieves an organization unit by ID including its parent and child relationships
         /// </summary>
+        /// <param name="id">The unique identifier of the organization unit</param>
+        /// <returns>Mapped response containing the organization unit details</returns>
         private async Task<GetOrganizationUnitResponse> GetOrganizationUnitResponseById(Guid id)
         {
             var organizationUnit = await _organizationUnitRepository.GetFirstOrDefaultAsync(
@@ -275,14 +317,17 @@ namespace OpenHRCore.Application.Workforce.Services
         }
 
         /// <summary>
-        /// Gets the next available sort order value
+        /// Calculates the next available sort order value for new organization units
+        /// by finding the maximum existing sort order and incrementing it by one
         /// </summary>
+        /// <returns>The next available sort order value</returns>
         private async Task<int> GetNextSortOrderAsync()
         {
-            _logger.LogLayerInfo("Calculating next sort order for Organization Units.");
+            _logger.LogLayerInfo("Calculating next available sort order for new organization unit");
 
             var maxSortOrder = await _organizationUnitRepository.MaxAsync(ou => ou.SortOrder);
-            _logger.LogLayerInfo("Retrieved maximum sort order value: {MaxSortOrder}", maxSortOrder);
+            _logger.LogLayerInfo("Current maximum sort order is: {MaxSortOrder}. Next available will be: {NextSortOrder}", 
+                maxSortOrder, maxSortOrder + 1);
 
             return maxSortOrder + 1;
         }
