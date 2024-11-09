@@ -172,7 +172,11 @@ namespace OpenHRCore.Application.Workforce.Services
             {
                 _logger.LogLayerInfo("Retrieving Organization Unit with ID: {OrganizationUnitId}", id);
 
-                var organizationUnit = await _organizationUnitRepository.GetFirstOrDefaultAsync(x => x.Id == id, "ParentOrganizationUnit,SubOrganizationUnits");
+                var organizationUnit = await _organizationUnitRepository.GetFirstOrDefaultAsync(
+                    x => x.Id == id,
+                    x => x.ParentOrganizationUnit!
+                    );
+
                 if (organizationUnit == null)
                 {
                     _logger.LogLayerWarning("Organization Unit with ID: {OrganizationUnitId} not found", id);
@@ -262,7 +266,11 @@ namespace OpenHRCore.Application.Workforce.Services
         /// </summary>
         private async Task<GetOrganizationUnitResponse> GetOrganizationUnitResponseById(Guid id)
         {
-            var organizationUnit = await _organizationUnitRepository.GetFirstOrDefaultAsync(x => x.Id == id, "ParentOrganizationUnit,SubOrganizationUnits");
+            var organizationUnit = await _organizationUnitRepository.GetFirstOrDefaultAsync(
+                x => x.Id == id,
+                x => x.ParentOrganizationUnit!,
+                x => x.SubOrganizationUnits
+                );
             return _mapper.Map<GetOrganizationUnitResponse>(organizationUnit);
         }
 
