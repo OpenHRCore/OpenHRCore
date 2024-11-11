@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using OpenHRCore.Application.UnitOfWork;
 using OpenHRCore.Infrastructure.UnitOfWork;
 using OpenHRCore.SharedKernel.Domain;
-using OpenHRCore.SharedKernel.Utilities;
 
 namespace OpenHRCore.Infrastructure
 {
@@ -26,6 +25,9 @@ namespace OpenHRCore.Infrastructure
             services.AddScoped<IOpenHRCoreUnitOfWork, OpenHRCoreUnitOfWork>();
             services.AddScoped(typeof(IOpenHRCoreBaseRepository<>), typeof(OpenHRCoreEfBaseRepository<>));
             services.AddScoped<IOrganizationUnitRepository, OrganizationUnitRepository>();
+            services.AddScoped<IJobLevelRepository, JobLevelRepository>();
+            services.AddScoped<IJobGradeRepository, JobGradeRepository>();
+            services.AddScoped<IJobPositionRepository, JobPositionRepository>();
 
             return services;
         }

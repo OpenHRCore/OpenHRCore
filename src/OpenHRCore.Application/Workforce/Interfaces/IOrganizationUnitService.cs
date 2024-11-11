@@ -1,4 +1,4 @@
-﻿using OpenHRCore.Application.Workforce.DTOs.OU;
+﻿using OpenHRCore.Application.Workforce.DTOs.OUDtos;
 
 namespace OpenHRCore.Application.Workforce.Interfaces
 {

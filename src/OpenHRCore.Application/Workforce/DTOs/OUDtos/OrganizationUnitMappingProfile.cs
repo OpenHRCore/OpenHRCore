@@ -1,17 +1,18 @@
 ﻿using AutoMapper;
 using OpenHRCore.Domain.Workforce.Entities;
-using OpenHRCore.Application.Workforce.DTOs;
 
-namespace OpenHRCore.Application.Workforce.DTOs.OU
+namespace OpenHRCore.Application.Workforce.DTOs.OUDtos
 {
     public class OrganizationUnitMappingProfile : Profile
     {
         public OrganizationUnitMappingProfile()
         {
-            // Map from CreateOrganizationUnitRequest to OrganizationUnit
+            // Request to Entity
             CreateMap<CreateOrganizationUnitRequest, OrganizationUnit>();
+            CreateMap<UpdateOrganizationUnitRequest, OrganizationUnit>();
 
-            // Map from OrganizationUnit to GetOrganizationUnitResponse, including nested properties
+
+            // Entity to Response
             CreateMap<OrganizationUnit, GetOrganizationUnitsWithHierarchyResponse>()
                 .ForMember(dest => dest.ParentOrganizationUnitId,
                            opt => opt.MapFrom(src => src.ParentOrganizationUnitId))

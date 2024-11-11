@@ -6,8 +6,8 @@ using OpenHRCore.SharedKernel.Application;
 namespace OpenHRCore.API.Controllers
 {
     /// <summary>
-    /// Controller for managing country-related operations and data retrieval.
-    /// Provides endpoints for accessing country information, phone codes, and regions.
+    /// REST API controller for managing country-related operations.
+    /// Provides endpoints for retrieving country information, phone codes, regions and other geographical data.
     /// </summary>
     [ApiController]
     [Route("api/v1/countries")]
@@ -18,7 +18,7 @@ namespace OpenHRCore.API.Controllers
         private readonly ILogger<CountriesController> _logger;
 
         /// <summary>
-        /// Initializes a new instance of the CountriesController
+        /// Initializes a new instance of the CountriesController.
         /// </summary>
         /// <param name="countryHelper">Helper service for country-related operations</param>
         /// <param name="logger">Logger instance for the controller</param>
@@ -32,11 +32,17 @@ namespace OpenHRCore.API.Controllers
         }
 
         /// <summary>
-        /// Retrieves a list of all available countries
+        /// Gets a list of all available countries.
         /// </summary>
-        /// <returns>A list of country names</returns>
-        /// <response code="200">Successfully retrieved the list of countries</response>
-        /// <response code="500">Internal server error occurred while processing the request</response>
+        /// <returns>
+        /// ActionResult containing:
+        /// - 200 OK with list of country names
+        /// - 500 Internal Server Error if retrieval fails
+        /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/v1/countries
+        /// </remarks>
         [HttpGet]
         [ProducesResponseType(typeof(OpenHRCoreServiceResponse<IEnumerable<string>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -76,11 +82,17 @@ namespace OpenHRCore.API.Controllers
         }
 
         /// <summary>
-        /// Retrieves detailed information for all countries including codes and regions
+        /// Gets detailed information for all countries including codes and regions.
         /// </summary>
-        /// <returns>A collection of detailed country information</returns>
-        /// <response code="200">Successfully retrieved detailed country information</response>
-        /// <response code="500">Internal server error occurred while processing the request</response>
+        /// <returns>
+        /// ActionResult containing:
+        /// - 200 OK with collection of detailed country information
+        /// - 500 Internal Server Error if retrieval fails
+        /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/v1/countries/details
+        /// </remarks>
         [HttpGet("details")]
         [ProducesResponseType(typeof(OpenHRCoreServiceResponse<IEnumerable<Country>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -119,12 +131,18 @@ namespace OpenHRCore.API.Controllers
         }
 
         /// <summary>
-        /// Retrieves countries by their phone code
+        /// Gets countries by their phone code.
         /// </summary>
         /// <param name="phoneCode">The phone code to search for (e.g., "1" for USA/Canada)</param>
-        /// <returns>A collection of countries matching the provided phone code</returns>
-        /// <response code="200">Successfully retrieved matching countries</response>
-        /// <response code="500">Internal server error occurred while processing the request</response>
+        /// <returns>
+        /// ActionResult containing:
+        /// - 200 OK with collection of countries matching the phone code
+        /// - 500 Internal Server Error if retrieval fails
+        /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/v1/countries/phone-codes/1
+        /// </remarks>
         [HttpGet("phone-codes/{phoneCode}")]
         [ProducesResponseType(typeof(OpenHRCoreServiceResponse<IEnumerable<Country>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -163,13 +181,19 @@ namespace OpenHRCore.API.Controllers
         }
 
         /// <summary>
-        /// Retrieves the phone code for a country using its ISO code
+        /// Gets the phone code for a country using its ISO code.
         /// </summary>
         /// <param name="isoCode">The country's ISO 3166-1 alpha-2 code (e.g., "US" for United States)</param>
-        /// <returns>The phone code for the specified country</returns>
-        /// <response code="200">Successfully retrieved the phone code</response>
-        /// <response code="404">Country not found</response>
-        /// <response code="500">Internal server error occurred while processing the request</response>
+        /// <returns>
+        /// ActionResult containing:
+        /// - 200 OK with the phone code
+        /// - 404 Not Found if country not found
+        /// - 500 Internal Server Error if retrieval fails
+        /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/v1/countries/iso-codes/US/phone-code
+        /// </remarks>
         [HttpGet("iso-codes/{isoCode}/phone-code")]
         [ProducesResponseType(typeof(OpenHRCoreServiceResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -210,13 +234,19 @@ namespace OpenHRCore.API.Controllers
         }
 
         /// <summary>
-        /// Retrieves detailed country information by ISO code
+        /// Gets detailed country information by ISO code.
         /// </summary>
         /// <param name="isoCode">The ISO 3166-1 alpha-2 country code</param>
-        /// <returns>Detailed information for the specified country</returns>
-        /// <response code="200">Successfully retrieved the country information</response>
-        /// <response code="404">Country not found</response>
-        /// <response code="500">Internal server error occurred while processing the request</response>
+        /// <returns>
+        /// ActionResult containing:
+        /// - 200 OK with detailed country information
+        /// - 404 Not Found if country not found
+        /// - 500 Internal Server Error if retrieval fails
+        /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/v1/countries/iso-codes/US
+        /// </remarks>
         [HttpGet("iso-codes/{isoCode}")]
         [ProducesResponseType(typeof(OpenHRCoreServiceResponse<Country>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -256,13 +286,19 @@ namespace OpenHRCore.API.Controllers
         }
 
         /// <summary>
-        /// Retrieves all regions/states/provinces for a specific country
+        /// Gets all regions/states/provinces for a specific country.
         /// </summary>
         /// <param name="isoCode">The ISO 3166-1 alpha-2 country code</param>
-        /// <returns>A collection of regions for the specified country</returns>
-        /// <response code="200">Successfully retrieved the list of regions</response>
-        /// <response code="404">Country not found</response>
-        /// <response code="500">Internal server error occurred while processing the request</response>
+        /// <returns>
+        /// ActionResult containing:
+        /// - 200 OK with collection of regions
+        /// - 404 Not Found if country not found
+        /// - 500 Internal Server Error if retrieval fails
+        /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/v1/countries/iso-codes/US/regions
+        /// </remarks>
         [HttpGet("iso-codes/{isoCode}/regions")]
         [ProducesResponseType(typeof(OpenHRCoreServiceResponse<IEnumerable<Regions>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

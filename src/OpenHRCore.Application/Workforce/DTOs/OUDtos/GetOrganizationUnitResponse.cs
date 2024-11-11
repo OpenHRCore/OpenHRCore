@@ -1,4 +1,4 @@
-﻿namespace OpenHRCore.Application.Workforce.DTOs.OU
+﻿namespace OpenHRCore.Application.Workforce.DTOs.OUDtos
 {
     public class GetOrganizationUnitResponse
     {
