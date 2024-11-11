@@ -8,20 +8,10 @@
 
             builder.Property(x => x.Code).IsRequired();
 
-            builder.Property(x => x.Title).IsRequired();
-
-            builder.HasOne(x => x.JobLevel)
-                .WithMany()
-                .HasForeignKey(x => x.JobLevelId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(x => x.JobGrade)
-                .WithMany()
-                .HasForeignKey(x => x.JobGradeId)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(x => x.JobTitle).IsRequired();
 
             builder.HasOne(x => x.OrganizationUnit)
-                .WithMany()
+                .WithMany(x => x.JobPositions)
                 .HasForeignKey(x => x.OrganizationUnitId)
                 .OnDelete(DeleteBehavior.Restrict);
 

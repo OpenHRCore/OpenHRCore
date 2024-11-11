@@ -6,6 +6,7 @@ using OpenHRCore.Application.Workforce.Interfaces;
 using OpenHRCore.Domain.Workforce.Entities;
 using OpenHRCore.Domain.Workforce.Interfaces;
 using OpenHRCore.SharedKernel.Utilities;
+using System.Security.Cryptography.X509Certificates;
 
 namespace OpenHRCore.Application.Workforce.Services
 {
@@ -47,7 +48,7 @@ namespace OpenHRCore.Application.Workforce.Services
         /// <returns>Response containing the created job position details if successful, or error information if failed</returns>
         public async Task<OpenHRCoreServiceResponse<GetJobPositionResponse>> CreateJobPositionAsync(CreateJobPositionRequest request)
         {
-            _logger.LogLayerInfo("Beginning job position creation process for: {Title}", request.Title);
+            _logger.LogLayerInfo("Beginning job position creation process for: {JobTitle}", request.JobTitle);
 
             try
             {
@@ -67,8 +68,8 @@ namespace OpenHRCore.Application.Workforce.Services
             }
             catch (Exception ex)
             {
-                _logger.LogLayerError(ex, "Job position creation failed for: {Title}. Error: {ErrorMessage}", 
-                    request.Title, ex.Message);
+                _logger.LogLayerError(ex, "Job position creation failed for: {JobTitle}. Error: {ErrorMessage}", 
+                    request.JobTitle, ex.Message);
                 return OpenHRCoreServiceResponse<GetJobPositionResponse>.CreateFailure(
                     ex,
                     "An error occurred while creating the Job Position.");
@@ -168,8 +169,6 @@ namespace OpenHRCore.Application.Workforce.Services
                 _logger.LogLayerInfo("Initiating retrieval of job position with ID: {JobPositionId}", id);
 
                 var jobPosition = await _jobPositionRepository.GetFirstOrDefaultAsync(x => x.Id == id,
-                    x => x.JobLevel!,
-                    x => x.JobGrade!,
                     x => x.OrganizationUnit!);
 
                 if (jobPosition == null)
@@ -206,7 +205,7 @@ namespace OpenHRCore.Application.Workforce.Services
             {
                 _logger.LogLayerInfo("Initiating retrieval of all job positions");
 
-                var jobPositions = await _jobPositionRepository.GetAllAsync();
+                var jobPositions = await _jobPositionRepository.GetAllAsync(x => x.OrganizationUnit!);
 
                 var response = _mapper.Map<IEnumerable<GetJobPositionResponse>>(jobPositions);
 
@@ -229,8 +228,6 @@ namespace OpenHRCore.Application.Workforce.Services
         private async Task<GetJobPositionResponse> GetJobPositionResponseById(Guid id)
         {
             var jobPosition = await _jobPositionRepository.GetFirstOrDefaultAsync(x => x.Id == id,
-                x => x.JobLevel!,
-                x => x.JobGrade!,
                 x => x.OrganizationUnit!);
 
             return _mapper.Map<GetJobPositionResponse>(jobPosition);

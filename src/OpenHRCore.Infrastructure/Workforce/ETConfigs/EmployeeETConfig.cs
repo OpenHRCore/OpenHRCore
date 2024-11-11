@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace OpenHRCore.Infrastructure.Workforce.ETConfigs
+﻿namespace OpenHRCore.Infrastructure.Workforce.ETConfigs
 {
     public class EmployeeETConfig : IEntityTypeConfiguration<Employee>
     {
@@ -19,6 +17,16 @@ namespace OpenHRCore.Infrastructure.Workforce.ETConfigs
             builder.Property(x => x.Email).IsRequired();
 
             builder.Property(x => x.Phone).IsRequired();
+
+            builder.HasOne(x => x.JobLevel)
+                .WithMany()
+                .HasForeignKey(x => x.JobLevelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.JobGrade)
+                .WithMany()
+                .HasForeignKey(x => x.JobGradeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.JobPosition)
                 .WithMany()

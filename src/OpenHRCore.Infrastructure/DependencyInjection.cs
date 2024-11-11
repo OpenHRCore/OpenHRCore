@@ -13,9 +13,9 @@ namespace OpenHRCore.Infrastructure
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<OpenHRCoreDbContext>(options => options.UseNpgsql(connectionString));
-                        //.LogTo(message => _logger.LogLayerInfo(message), LogLevel.Information)
-                        //.EnableSensitiveDataLogging()
-                        //.EnableDetailedErrors());
+            //.LogTo(message => _logger.LogLayerInfo(message), LogLevel.Information)
+            //.EnableSensitiveDataLogging()
+            //.EnableDetailedErrors());
 
             return services;
         }
@@ -28,6 +28,7 @@ namespace OpenHRCore.Infrastructure
             services.AddScoped<IJobLevelRepository, JobLevelRepository>();
             services.AddScoped<IJobGradeRepository, JobGradeRepository>();
             services.AddScoped<IJobPositionRepository, JobPositionRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             return services;
         }

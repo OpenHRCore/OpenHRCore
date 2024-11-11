@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using OpenHRCore.Infrastructure.Data.SeedData;
+using System.Reflection;
 
 namespace OpenHRCore.Infrastructure.Data
 {
@@ -36,6 +37,13 @@ namespace OpenHRCore.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            // Seed Data
+            modelBuilder.Entity<OrganizationUnit>().HasData(OpenHRCoreSeedData.OrganizationUnits);
+            modelBuilder.Entity<JobLevel>().HasData(OpenHRCoreSeedData.JobLevels);
+            modelBuilder.Entity<JobGrade>().HasData(OpenHRCoreSeedData.JobGrades);
+            modelBuilder.Entity<JobPosition>().HasData(OpenHRCoreSeedData.JobPositions);
+            modelBuilder.Entity<Employee>().HasData(OpenHRCoreSeedData.Employees);
         }
     }
 }

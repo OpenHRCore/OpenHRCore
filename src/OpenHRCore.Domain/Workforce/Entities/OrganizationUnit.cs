@@ -7,8 +7,10 @@
         public string? Description { get; set; }
         public string? Location { get; set; }
         public Guid? ParentOrganizationUnitId { get; set; }
-        public virtual OrganizationUnit? ParentOrganizationUnit { get; set; } 
-        public virtual ICollection<OrganizationUnit> SubOrganizationUnits { get; set; } = new List<OrganizationUnit>();
+        public virtual OrganizationUnit? ParentOrganizationUnit { get; set; }
         public required int SortOrder { get; set; }
+        public virtual ICollection<OrganizationUnit> SubOrganizationUnits { get; set; } = new List<OrganizationUnit>();
+        public virtual ICollection<JobPosition> JobPositions { get; set; } = new List<JobPosition>();
+
     }
 }

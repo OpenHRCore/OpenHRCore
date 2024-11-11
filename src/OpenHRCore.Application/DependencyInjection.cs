@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using OpenHRCore.Application.Workforce.DTOs.EmployeeDtos;
 using OpenHRCore.Application.Workforce.DTOs.JobGradeDtos;
 using OpenHRCore.Application.Workforce.DTOs.JobLevelDtos;
 using OpenHRCore.Application.Workforce.DTOs.JobPositionDtos;
@@ -18,12 +19,14 @@ namespace OpenHRCore.Application
             services.AddAutoMapper(typeof(JobLevelMappingProfile));
             services.AddAutoMapper(typeof(JobGradeMappingProfile));
             services.AddAutoMapper(typeof(JobPositionMappingProfile));
+            services.AddAutoMapper(typeof(EmployeeMappingProfile));
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddScoped<IOrganizationUnitService, OrganizationUnitService>();
             services.AddScoped<IJobPositionService, JobPositionService>();
             services.AddScoped<IJobGradeService, JobGradeService>();
             services.AddScoped<IJobLevelService, JobLevelService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
 
             return services;
         }

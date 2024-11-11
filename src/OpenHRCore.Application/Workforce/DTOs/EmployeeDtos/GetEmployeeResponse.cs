@@ -1,7 +1,10 @@
-﻿namespace OpenHRCore.Domain.Workforce.Entities
+﻿using OpenHRCore.Domain.Workforce.Enums;
+
+namespace OpenHRCore.Application.Workforce.DTOs.EmployeeDtos
 {
-    public class Employee : OpenHRCoreBaseEntity
+    public class GetEmployeeResponse
     {
+        public required Guid Id { get; set; }
         public required string Code { get; set; }
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
@@ -11,12 +14,12 @@
         public required string Phone { get; set; }
         public string? Address { get; set; }
         public required Guid JobLevelId { get; set; }
-        public virtual JobLevel? JobLevel { get; set; }
+        public required string JobLevelName { get; set; }
         public required Guid JobGradeId { get; set; }
-        public virtual JobGrade? JobGrade { get; set; }
+        public required string JobGradeName { get; set; }
         public required Guid JobPositionId { get; set; }
-        public virtual JobPosition? JobPosition { get; set; }
+        public required string JobTitleName { get; set; }
         public required Guid OrganizationUnitId { get; set; }
-        public virtual OrganizationUnit? OrganizationUnit { get; set; }
+        public required string OrganizationUnitName { get; set; }
     }
 }

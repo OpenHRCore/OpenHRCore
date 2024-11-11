@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpenHRCore.SharedKernel.Domain" Version="1.0.2-beta" />
+    <PackageReference Include="OpenHRCore.SharedKernel.Domain" Version="1.0.3-beta" />
   </ItemGroup>
 
   <ItemGroup>
