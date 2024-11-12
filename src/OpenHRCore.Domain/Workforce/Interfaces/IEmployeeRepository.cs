@@ -2,5 +2,6 @@
 {
     public interface IEmployeeRepository : IOpenHRCoreBaseRepository<Employee>
     {
+        IQueryable<Employee> GetQueryable();
     }
 }

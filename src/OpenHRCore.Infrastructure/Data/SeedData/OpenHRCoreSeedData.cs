@@ -1,4 +1,3 @@
-using OpenHRCore.Domain.Workforce.Entities;
 using OpenHRCore.Domain.Workforce.Enums;
 
 namespace OpenHRCore.Infrastructure.Data.SeedData;
@@ -10,6 +9,8 @@ public static class OpenHRCoreSeedData
     public static readonly Guid HeadOfficeId = Guid.Parse("71c7e3fc-664a-4c1f-8d45-9e6c99f25316");
     public static readonly Guid HrDepartmentId = Guid.Parse("72c7e3fc-664b-4c1f-8d45-9e6c99f25317");
     public static readonly Guid ItDepartmentId = Guid.Parse("73c7e3fc-664c-4c1f-8d45-9e6c99f25318");
+    public static readonly Guid FinanceDepartmentId = Guid.Parse("74c7e3fc-664d-4c1f-8d45-9e6c99f25319");
+    public static readonly Guid MarketingDepartmentId = Guid.Parse("75c7e3fc-664e-4c1f-8d45-9e6c99f25320");
     
     public static readonly Guid EntryLevelId = Guid.Parse("81c7e3fc-664d-4c1f-8d45-9e6c99f25316");
     public static readonly Guid JuniorLevelId = Guid.Parse("82c7e3fc-664e-4c1f-8d45-9e6c99f25317");
@@ -21,6 +22,10 @@ public static class OpenHRCoreSeedData
     
     public static readonly Guid HrManagerPositionId = Guid.Parse("a1c7e3fc-6644-4c1f-8d45-9e6c99f25316");
     public static readonly Guid SoftwareEngineerPositionId = Guid.Parse("a2c7e3fc-6645-4c1f-8d45-9e6c99f25317");
+    public static readonly Guid FinanceManagerPositionId = Guid.Parse("a3c7e3fc-6646-4c1f-8d45-9e6c99f25318");
+    public static readonly Guid AccountantPositionId = Guid.Parse("a4c7e3fc-6647-4c1f-8d45-9e6c99f25319");
+    public static readonly Guid MarketingManagerPositionId = Guid.Parse("a5c7e3fc-6648-4c1f-8d45-9e6c99f25320");
+    public static readonly Guid MarketingSpecialistPositionId = Guid.Parse("a6c7e3fc-6649-4c1f-8d45-9e6c99f25321");
     
     public static IEnumerable<OrganizationUnit> OrganizationUnits => new[]
     {
@@ -52,11 +57,35 @@ public static class OpenHRCoreSeedData
         {
             Id = ItDepartmentId,
             Code = "IT",
-            Name = "Information Technology",
+            Name = "Information Technology", 
             Description = "IT Department",
             Location = "New York",
             ParentOrganizationUnitId = HeadOfficeId,
             SortOrder = 3,
+            CreatedAt = _utcNow,
+            UpdatedAt = _utcNow
+        },
+        new OrganizationUnit
+        {
+            Id = FinanceDepartmentId,
+            Code = "FIN",
+            Name = "Finance",
+            Description = "Finance Department",
+            Location = "New York",
+            ParentOrganizationUnitId = HeadOfficeId,
+            SortOrder = 4,
+            CreatedAt = _utcNow,
+            UpdatedAt = _utcNow
+        },
+        new OrganizationUnit
+        {
+            Id = MarketingDepartmentId,
+            Code = "MKT",
+            Name = "Marketing",
+            Description = "Marketing Department",
+            Location = "New York",
+            ParentOrganizationUnitId = HeadOfficeId,
+            SortOrder = 5,
             CreatedAt = _utcNow,
             UpdatedAt = _utcNow
         }
@@ -157,46 +186,93 @@ public static class OpenHRCoreSeedData
             OrganizationUnitId = ItDepartmentId,
             CreatedAt = _utcNow,
             UpdatedAt = _utcNow
-        }
-    };
-
-    public static IEnumerable<Employee> Employees => new[]
-    {
-        new Employee
+        },
+        new JobPosition
         {
-            Id = Guid.Parse("b1c7e3fc-6646-4c1f-8d45-9e6c99f25316"),
-            Code = "EMP001",
-            FirstName = "John",
-            LastName = "Doe",
-            DateOfBirth = new DateOnly(1985, 5, 15),
-            Gender = Gender.Male,
-            Email = "john.doe@example.com",
-            Phone = "1234567890",
-            Address = "123 Main St, New York",
-            JobLevelId = SeniorLevelId,
-            JobGradeId = Grade3Id,
-            JobPositionId = HrManagerPositionId,
-            OrganizationUnitId = HrDepartmentId,
+            Id = FinanceManagerPositionId,
+            Code = "FNM",
+            JobTitle = "Finance Manager",
+            Description = "Finance Department Manager",
+            OrganizationUnitId = FinanceDepartmentId,
             CreatedAt = _utcNow,
             UpdatedAt = _utcNow
         },
-        new Employee
+        new JobPosition
         {
-            Id = Guid.Parse("b2c7e3fc-6647-4c1f-8d45-9e6c99f25317"),
-            Code = "EMP002",
-            FirstName = "Jane",
-            LastName = "Smith",
-            DateOfBirth = new DateOnly(1990, 8, 20),
-            Gender = Gender.Female,
-            Email = "jane.smith@example.com",
-            Phone = "0987654321",
-            Address = "456 Oak St, New York",
-            JobLevelId = JuniorLevelId,
-            JobGradeId = Grade2Id,
-            JobPositionId = SoftwareEngineerPositionId,
-            OrganizationUnitId = ItDepartmentId,
+            Id = AccountantPositionId,
+            Code = "ACC",
+            JobTitle = "Accountant",
+            Description = "Accountant",
+            OrganizationUnitId = FinanceDepartmentId,
+            CreatedAt = _utcNow,
+            UpdatedAt = _utcNow
+        },
+        new JobPosition
+        {
+            Id = MarketingManagerPositionId,
+            Code = "MKM",
+            JobTitle = "Marketing Manager",
+            Description = "Marketing Department Manager",
+            OrganizationUnitId = MarketingDepartmentId,
+            CreatedAt = _utcNow,
+            UpdatedAt = _utcNow
+        },
+        new JobPosition
+        {
+            Id = MarketingSpecialistPositionId,
+            Code = "MKS",
+            JobTitle = "Marketing Specialist",
+            Description = "Marketing Specialist",
+            OrganizationUnitId = MarketingDepartmentId,
             CreatedAt = _utcNow,
             UpdatedAt = _utcNow
         }
     };
-} 
+
+    public static IEnumerable<Employee> Employees => Enumerable.Range(1, 100).Select(i =>
+    {
+        var departmentIndex = i % 4;
+        (Guid departmentId, Guid positionId) department = departmentIndex switch
+        {
+            0 => (HrDepartmentId, HrManagerPositionId),
+            1 => (ItDepartmentId, SoftwareEngineerPositionId),
+            2 => (FinanceDepartmentId, i % 2 == 0 ? FinanceManagerPositionId : AccountantPositionId),
+            _ => (MarketingDepartmentId, i % 2 == 0 ? MarketingManagerPositionId : MarketingSpecialistPositionId)
+        };
+
+        var levelIndex = i % 3;
+        var level = levelIndex switch
+        {
+            0 => EntryLevelId,
+            1 => JuniorLevelId,
+            _ => SeniorLevelId
+        };
+
+        var gradeIndex = i % 3;
+        var grade = gradeIndex switch
+        {
+            0 => Grade1Id,
+            1 => Grade2Id,
+            _ => Grade3Id
+        };
+
+        return new Employee
+        {
+            Id = Guid.NewGuid(),
+            Code = $"EMP{i:D3}",
+            FirstName = $"FirstName{i}",
+            LastName = $"LastName{i}",
+            DateOfBirth = new DateOnly(1980 + (i % 20), 1 + (i % 12), 1 + (i % 28)),
+            Gender = i % 2 == 0 ? Gender.Male : Gender.Female,
+            Email = $"employee{i}@example.com",
+            Phone = $"{i:D10}",
+            Address = $"{i} Main St, New York",
+            JobLevelId = level,
+            JobGradeId = grade,
+            JobPositionId = department.positionId,
+            OrganizationUnitId = department.departmentId,
+            CreatedAt = _utcNow,
+            UpdatedAt = _utcNow
+        };
+    }).ToArray();
+}

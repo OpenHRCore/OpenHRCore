@@ -13,9 +13,6 @@ namespace OpenHRCore.Infrastructure
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<OpenHRCoreDbContext>(options => options.UseNpgsql(connectionString));
-            //.LogTo(message => _logger.LogLayerInfo(message), LogLevel.Information)
-            //.EnableSensitiveDataLogging()
-            //.EnableDetailedErrors());
 
             return services;
         }

@@ -36,6 +36,42 @@ namespace OpenHRCore.API.Common
         }
 
         /// <summary>
+        /// Creates a successful paginated API response.
+        /// </summary>
+        /// <typeparam name="T">The type of the response data.</typeparam>
+        /// <param name="data">The data to be returned.</param>
+        /// <param name="totalRecords">Total number of records.</param>
+        /// <param name="currentPage">Current page number.</param>
+        /// <param name="pageSize">Number of records per page.</param>
+        /// <param name="searchCriteria">Search criteria used for filtering.</param>
+        /// <param name="orderBy">Field used for ordering.</param>
+        /// <param name="isAscending">Direction of ordering.</param>
+        /// <param name="message">Success message.</param>
+        /// <returns>An IActionResult with HTTP 200 OK status code and pagination details.</returns>
+        public static IActionResult CreatePaginatedSuccessResponse<T>(
+            T data,
+            int totalRecords,
+            int currentPage,
+            int pageSize,
+            Dictionary<string, string>? searchCriteria,
+            string? orderBy,
+            bool isAscending,
+            string message) where T : class
+        {
+            var response = OpenHRCorePaginatedResponse<T>.CreateSuccess(
+                data,
+                totalRecords,
+                currentPage,
+                pageSize,
+                searchCriteria,
+                orderBy,
+                isAscending,
+                message);
+
+            return new ObjectResult(response) { StatusCode = (int)HttpStatusCode.OK };
+        }
+
+        /// <summary>
         /// Creates a failure API response with HTTP 400 Bad Request status code.
         /// </summary>
         /// <typeparam name="T">The type of the response data.</typeparam>
@@ -43,6 +79,19 @@ namespace OpenHRCore.API.Common
         /// <returns>An IActionResult with HTTP 400 Bad Request status code.</returns>
         public static IActionResult CreateFailureResponse<T>(OpenHRCoreServiceResponse<T> response) where T : class
         {
+            return new ObjectResult(response) { StatusCode = (int)HttpStatusCode.BadRequest };
+        }
+
+        /// <summary>
+        /// Creates a failure paginated API response.
+        /// </summary>
+        /// <typeparam name="T">The type of the response data.</typeparam>
+        /// <param name="exception">The exception that caused the failure.</param>
+        /// <param name="errorMessage">The error message describing the failure.</param>
+        /// <returns>An IActionResult with HTTP 400 Bad Request status code.</returns>
+        public static IActionResult CreatePaginatedFailureResponse<T>(Exception exception, string errorMessage) where T : class
+        {
+            var response = OpenHRCorePaginatedResponse<T>.CreateFailure(exception, errorMessage);
             return new ObjectResult(response) { StatusCode = (int)HttpStatusCode.BadRequest };
         }
 

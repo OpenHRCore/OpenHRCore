@@ -3,8 +3,10 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using OpenHRCore.API.Common;
+using OpenHRCore.Application.Common;
 using OpenHRCore.Application.Workforce.DTOs.EmployeeDtos;
 using OpenHRCore.Application.Workforce.Interfaces;
+using OpenHRCore.SharedKernel.Application;
 
 namespace OpenHRCore.API.Controllers
 {
@@ -12,9 +14,19 @@ namespace OpenHRCore.API.Controllers
     /// REST API controller for managing employees in the system.
     /// Provides endpoints for CRUD operations on employee resources.
     /// </summary>
+    /// <remarks>
+    /// REST API Conventions:
+    /// - Uses standard HTTP methods (GET, POST, PUT, DELETE)
+    /// - Returns appropriate HTTP status codes
+    /// - Uses plural nouns for resource endpoints
+    /// - Supports pagination, filtering and sorting
+    /// - Provides consistent error responses
+    /// - Uses proper content negotiation
+    /// </remarks>
     [ApiController]
     [Route("api/v1/employees")]
     [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public class EmployeesController : ControllerBase
     {
         private readonly IValidator<CreateEmployeeRequest> _createEmployeeRequestValidator;
@@ -52,10 +64,20 @@ namespace OpenHRCore.API.Controllers
         /// - 400 Bad Request if validation fails or request is invalid
         /// - 500 Internal Server Error if processing fails
         /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// POST /api/v1/employees
+        /// {
+        ///     "firstName": "John",
+        ///     "lastName": "Doe",
+        ///     "email": "john.doe@example.com",
+        ///     "departmentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        ///     "jobPositionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+        /// }
+        /// </remarks>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(OpenHRCoreServiceResponse<CreateEmployeeRequest>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(OpenHRCoreServiceResponse<object>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateAsync([FromBody] CreateEmployeeRequest request)
         {
             _logger.LogLayerInfo("Creating new employee. Request: {@Request}", request);
@@ -87,42 +109,19 @@ namespace OpenHRCore.API.Controllers
         }
 
         /// <summary>
-        /// Retrieves all employees.
+        /// Updates a specific employee resource.
         /// </summary>
-        /// <returns>
-        /// ActionResult containing:
-        /// - 200 OK with list of all employees
-        /// - 500 Internal Server Error if retrieval fails
-        /// </returns>
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAllAsync()
-        {
-            _logger.LogLayerInfo("Retrieving all employees");
-
-            try
-            {
-                var response = await _employeeService.GetAllEmployeesAsync();
-                if (!response.IsSuccess)
-                {
-                    _logger.LogLayerWarning("Employees retrieval failed. Error: {Error}", response.ErrorMessage ?? "Unknown error");
-                    return OpenHRCoreApiResponseHelper.CreateFailureResponse(response);
-                }
-
-                _logger.LogLayerInfo("Employees retrieved successfully. Count: {Count}", response.Data?.Count() ?? 0);
-                return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogLayerError(ex, "Error retrieving employees");
-                return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
-            }
-        }
-
-        /// <summary>
-        /// Updates a specific employee.
-        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     PUT /api/v1/employees/{id}
+        ///     {
+        ///         "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        ///         "firstName": "John",
+        ///         "lastName": "Doe",
+        ///         "email": "john.doe@example.com"
+        ///     }
+        /// </remarks>
         /// <param name="id">The unique identifier of the employee to update</param>
         /// <param name="request">The employee update request containing modified information</param>
         /// <returns>
@@ -133,10 +132,9 @@ namespace OpenHRCore.API.Controllers
         /// - 500 Internal Server Error if update fails
         /// </returns>
         [HttpPut("{id:guid}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(OpenHRCoreServiceResponse<UpdateEmployeeRequest>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(OpenHRCoreServiceResponse<object>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UpdateEmployeeRequest request)
         {
             _logger.LogLayerInfo("Updating employee {Id}", id);
@@ -166,8 +164,13 @@ namespace OpenHRCore.API.Controllers
         }
 
         /// <summary>
-        /// Deletes a specific employee.
+        /// Deletes a specific employee resource.
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     DELETE /api/v1/employees/{id}
+        /// </remarks>
         /// <param name="id">The unique identifier of the employee to delete</param>
         /// <returns>
         /// ActionResult containing:
@@ -178,7 +181,6 @@ namespace OpenHRCore.API.Controllers
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             _logger.LogLayerInfo("Deleting employee {Id}", id);
@@ -193,7 +195,7 @@ namespace OpenHRCore.API.Controllers
                 }
 
                 _logger.LogLayerInfo("Employee {Id} deleted successfully", id);
-                return OpenHRCoreApiResponseHelper.CreateSuccessResponse(response);
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -203,8 +205,13 @@ namespace OpenHRCore.API.Controllers
         }
 
         /// <summary>
-        /// Retrieves a specific employee by ID.
+        /// Retrieves a specific employee resource by ID.
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/v1/employees/{id}
+        /// </remarks>
         /// <param name="id">The unique identifier of the employee to retrieve</param>
         /// <returns>
         /// ActionResult containing:
@@ -213,9 +220,8 @@ namespace OpenHRCore.API.Controllers
         /// - 500 Internal Server Error if retrieval fails
         /// </returns>
         [HttpGet("{id:guid}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(OpenHRCoreServiceResponse<GetEmployeeResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {
             _logger.LogLayerInfo("Retrieving employee {Id}", id);
@@ -236,6 +242,62 @@ namespace OpenHRCore.API.Controllers
             {
                 _logger.LogLayerError(ex, "Error retrieving employee {Id}", id);
                 return OpenHRCoreApiResponseHelper.CreateErrorResponse(ex);
+            }
+        }
+
+        /// <summary>
+        /// Retrieves all employees with optional filtering, sorting, and pagination.
+        /// </summary>
+        /// <param name="request">The search request containing filtering, sorting, and pagination parameters</param>
+        /// <returns>
+        /// ActionResult containing:
+        /// - 200 OK with paginated list of employees
+        /// - 400 Bad Request if search parameters are invalid
+        /// - 500 Internal Server Error if retrieval fails
+        /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// POST /api/v1/employees/search
+        /// {
+        ///     "pagination": {
+        ///         "pageNumber": 1,
+        ///         "pageSize": 10
+        ///     },
+        ///     "filters": [
+        ///         {
+        ///             "field": "firstName",
+        ///             "operator": "Contains",
+        ///             "value": "John"
+        ///         }
+        ///     ],
+        ///     "sorts": [
+        ///         {
+        ///             "field": "lastName",
+        ///             "direction": "Ascending"
+        ///         }
+        ///     ]
+        /// }
+        /// </remarks>
+        [HttpPost("search")]
+        [ProducesResponseType(typeof(OpenHRCorePaginatedResponse<IEnumerable<GetEmployeeResponse>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(OpenHRCoreServiceResponse<object>), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<OpenHRCorePaginatedResponse<IEnumerable<GetEmployeeResponse>>>> SearchAsync(
+            [FromBody] SearchRequest request)
+        {
+            try
+            {
+                _logger.LogLayerInfo("Searching employees with filters: {@Request}", request);
+                var result = await _employeeService.SearchEmployeesAsync(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogLayerError(ex, "Error searching employees");
+                return BadRequest(new OpenHRCoreServiceResponse<object>
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "Error searching employees"
+                });
             }
         }
     }
