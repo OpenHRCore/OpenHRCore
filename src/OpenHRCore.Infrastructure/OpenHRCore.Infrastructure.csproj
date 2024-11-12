@@ -14,7 +14,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
-    <PackageReference Include="OpenHRCore.SharedKernel.Infrastructure" Version="1.0.7-beta" />
+    <PackageReference Include="OpenHRCore.SharedKernel.Infrastructure" Version="1.0.8-beta" />
     <PackageReference Include="OpenHRCore.SharedKernel.Utilities" Version="1.0.2-beta" />
   </ItemGroup>
 

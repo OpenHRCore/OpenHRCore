@@ -258,25 +258,29 @@ namespace OpenHRCore.API.Controllers
         /// <remarks>
         /// Sample request:
         /// POST /api/v1/employees/search
-        /// {
-        ///     "pagination": {
-        ///         "pageNumber": 1,
-        ///         "pageSize": 10
-        ///     },
-        ///     "filters": [
-        ///         {
-        ///             "field": "firstName",
-        ///             "operator": "Contains",
-        ///             "value": "John"
-        ///         }
-        ///     ],
-        ///     "sorts": [
-        ///         {
-        ///             "field": "lastName",
-        ///             "direction": "Ascending"
-        ///         }
-        ///     ]
-        /// }
+        //{
+        //  "pagination": {
+        //    "pageNumber": 1,
+        //    "pageSize": 10
+        //  },
+        //  "filters": [
+        //    {
+        //      "field": "firstName",
+        //      "operator": {
+        //        "value": "contains"
+        //      },
+        //      "value": "Stephen"
+        //    }
+        //  ],
+        //  "sorts": [
+        //    {
+        //      "field": "lastName",
+        //      "direction": {
+        //        "value": "ascending"
+        //      }
+        //    }
+        //  ]
+        //}
         /// </remarks>
         [HttpPost("search")]
         [ProducesResponseType(typeof(OpenHRCorePaginatedResponse<IEnumerable<GetEmployeeResponse>>), StatusCodes.Status200OK)]
