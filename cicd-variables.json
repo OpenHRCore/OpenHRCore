@@ -2,7 +2,7 @@
     "APP_TYPE": "api",
     "APP_URL": "https://api.openhrcore.com",
     "PROJECT_DIR": "src/",
-    "BUILD_PLATFORMS": "linux/arm64",
+    "BUILD_PLATFORMS": "linux/amd64,linux/arm64",
     "DEPLOY_TARGET": "ec2",
     "PR_REVIEWERS": "aung-myatkyaw"
 }
