@@ -1,0 +1,7 @@
+{
+    "APP_TYPE": "api",
+    "APP_URL": "https://api.openhrcore.com",
+    "PROJECT_DIR": "src/",
+    "DEPLOY_TARGET": "ec2",
+    "PR_REVIEWERS": "aung-myatkyaw"
+}

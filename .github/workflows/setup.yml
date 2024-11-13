@@ -1,0 +1,14 @@
+name: Pipeline Setup
+
+on:
+  push:
+    branches:
+    - "pipeline-setup"
+
+permissions:
+  contents: read
+
+jobs:
+  setup:
+    uses: OpenHRCore/remote-workflows/.github/workflows/pipeline-setup.yml@main
+    secrets: inherit
