@@ -1,0 +1,20 @@
+name: Build and deploy on aws
+
+on:
+  push:
+    branches:
+    - "main"
+    - "master"
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read
+  pull-requests: write
+  issues: write
+  repository-projects: read
+
+jobs:
+  build-deploy:
+    if: ${{ vars.ENABLE_WORKFLOWS == 'true' }}
+    uses: OpenHRCore/remote-workflows/.github/workflows/build-deploy.yml@main
+    secrets: inherit

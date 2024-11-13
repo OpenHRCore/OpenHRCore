@@ -1,0 +1,16 @@
+name: Code Test
+
+on:
+  pull_request:
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  code-test:
+    if: ${{ vars.ENABLE_WORKFLOWS == 'true' }}
+    uses: OpenHRCore/remote-workflows/.github/workflows/code-test.yml@main
+    secrets: inherit
