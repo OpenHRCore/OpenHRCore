@@ -1,30 +1,40 @@
-**/.classpath
-**/.dockerignore
-**/.env
-**/.git
-**/.gitignore
-**/.project
-**/.settings
-**/.toolstarget
-**/.vs
-**/.vscode
-**/*.*proj.user
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Development
+**/bin/
+**/obj/
+**/node_modules/
+**/.vs/
+**/.vscode/
+**/TestResults/
+
+# Docker
+Dockerfile*
+docker-compose*
+.docker/
+
+# Documentation
+README.md
+LICENSE
+*.md
+
+# Build artifacts
+**/dist/
+**/coverage/
+**/publish/
+
+# Environment files
+**/*.env
+**/*.env.*
+**/appsettings.*.json
+!**/appsettings.json
+
+# Misc
+**/*.log
+**/*.user
+**/*.userosscache
 **/*.dbmdl
 **/*.jfm
-**/azds.yaml
-**/bin
-**/charts
-**/docker-compose*
-**/Dockerfile*
-**/node_modules
-**/npm-debug.log
-**/obj
-**/secrets.dev.yaml
-**/values.dev.yaml
-LICENSE
-README.md
-!**/.gitignore
-!.git/HEAD
-!.git/config
-!.git/packed-refs
-!.git/refs/heads/**
