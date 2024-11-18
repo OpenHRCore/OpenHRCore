@@ -1,0 +1,17 @@
+name: DAST
+
+on:
+  push:
+    branches:
+    - "main"
+    - "master"
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  scan:
+    if: ${{ vars.ENABLE_WORKFLOWS == 'true' }}
+    uses: OpenHRCore/remote-workflows/.github/workflows/dast.yml@main
+    secrets: inherit
