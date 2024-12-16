@@ -1,6 +1,5 @@
 namespace OpenHRCore.Domain.CareerConnect.Enums
 {
-
     public enum ApplicationStatus
     {
         // Applied Stage
