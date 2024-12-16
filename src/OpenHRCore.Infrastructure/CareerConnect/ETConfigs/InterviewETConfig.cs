@@ -14,7 +14,8 @@
             builder.HasOne(x => x.JobApplication)
                     .WithMany()
                     .HasForeignKey(x => x.JobApplicationId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasPrincipalKey(x => x.Id);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OpenHRCore.Infrastructure.Data;
@@ -11,9 +12,11 @@ using OpenHRCore.Infrastructure.Data;
 namespace OpenHRCore.Infrastructure.Migrations
 {
     [DbContext(typeof(OpenHRCoreDbContext))]
-    partial class OpenHRCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241216072400_CareerConnect_Migrate_V1")]
+    partial class CareerConnect_Migrate_V1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

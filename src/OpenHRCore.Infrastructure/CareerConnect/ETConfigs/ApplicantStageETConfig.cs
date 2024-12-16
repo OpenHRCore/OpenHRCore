@@ -10,9 +10,11 @@
             builder.Property(x => x.JobApplicationId).IsRequired();
 
             builder.HasOne(x => x.JobApplication)
-                .WithMany()
+                .WithMany(x => x.ApplicantStages)
                 .HasForeignKey(x => x.JobApplicationId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasPrincipalKey(x => x.Id);
+              
 
             builder.Property(x => x.Status).IsRequired().HasConversion<string>();
             builder.Property(x => x.Stage).IsRequired().HasConversion<string>();

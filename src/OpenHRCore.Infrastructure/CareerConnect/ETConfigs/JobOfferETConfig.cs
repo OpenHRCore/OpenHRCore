@@ -7,7 +7,10 @@
             builder.HasKey(x => x.Id);
             builder.HasQueryFilter(x => x.IsActive == true && x.IsDeleted == false);
 
-            builder.HasOne(x => x.JobApplication).WithOne(x => x.JobOffer).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne<JobApplication>()
+                .WithOne(x => x.JobOffer)
+                .HasForeignKey<JobOffer>(x => x.JobApplicationId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

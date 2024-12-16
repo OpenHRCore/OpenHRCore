@@ -2,8 +2,8 @@
 {
     public class ApplicantStage : OpenHRCoreBaseEntity
     {
-        public required string JobApplicationId { get; set; }
-        public required virtual JobApplication JobApplication { get; set; }
+        public required Guid JobApplicationId { get; set; }
+        public virtual JobApplication? JobApplication { get; set; }
         public ApplicationStage Stage { get; set; }
         public ApplicationStatus Status { get; set; }
         public DateTime? DateMovedToStage { get; set; }
