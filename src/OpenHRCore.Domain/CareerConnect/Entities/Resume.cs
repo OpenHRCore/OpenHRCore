@@ -3,7 +3,7 @@
     public class Resume : OpenHRCoreBaseEntity
     {
         public required string JobApplicationId { get; set; }
-        public required virtual JobApplication JobApplication { get; set; }
+        public virtual JobApplication? JobApplication { get; set; }
         public required string FilePath { get; set; }
         public required string FileType { get; set; }
     }

@@ -1,6 +1,4 @@
-﻿using OpenHRCore.Domain.CareerConnect.Enums;
-
-namespace OpenHRCore.Domain.CareerConnect.Entities
+﻿namespace OpenHRCore.Domain.CareerConnect.Entities
 {
     public class JobPost : OpenHRCoreBaseEntity
     {

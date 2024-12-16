@@ -26,6 +26,15 @@ namespace OpenHRCore.Infrastructure.Data
         public DbSet<JobPosition> JobPositions { get; set; }
         public DbSet<OrganizationUnit> OrganizationUnits { get; set; }
 
+        //Career Connect Module
+        public DbSet<Applicant> Applicants { get; set; }
+        public DbSet<ApplicantStage> ApplicantStages { get; set; }
+        public DbSet<CoverLetter> CoverLetters { get; set; }
+        public DbSet<Interview> Interviews { get; set; }
+        public DbSet<JobApplication> JobApplications { get; set; }
+        public DbSet<JobOffer> JobOffers { get; set; }
+        public DbSet<JobPost> JobPosts { get; set; }
+        public DbSet<Resume> Resumes { get; set; }
 
         /// <summary>
         /// Configures the model that was discovered by convention from the entity types

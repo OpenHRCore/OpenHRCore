@@ -23,4 +23,8 @@
     <ProjectReference Include="..\OpenHRCore.Domain\OpenHRCore.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CareerConnect\Repositories\" />
+  </ItemGroup>
+
 </Project>
