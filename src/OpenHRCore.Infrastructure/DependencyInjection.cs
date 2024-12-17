@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using OpenHRCore.Application.UnitOfWork;
+using OpenHRCore.Infrastructure.CareerConnect.Repositories;
 using OpenHRCore.Infrastructure.UnitOfWork;
 using OpenHRCore.SharedKernel.Domain;
 
@@ -26,6 +26,15 @@ namespace OpenHRCore.Infrastructure
             services.AddScoped<IJobGradeRepository, JobGradeRepository>();
             services.AddScoped<IJobPositionRepository, JobPositionRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+            services.AddScoped<IApplicantRepository, ApplicantRepository>();
+            services.AddScoped<IApplicantStageRepository, ApplicantStageRepository>();
+            services.AddScoped<ICoverLetterRepository, CoverLetterRepository>();
+            services.AddScoped<IInterviewRepository, InterviewRepository>();
+            services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
+            services.AddScoped<IJobOfferRepository, JobOfferRepository>();
+            services.AddScoped<IJobPostRepository, JobPostRepository>();
+            services.AddScoped<IResumeRepository, ResumeRepository>();
 
             return services;
         }
