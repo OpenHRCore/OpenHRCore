@@ -25,7 +25,7 @@
                     .HasPrincipalKey(x => x.Id);
                     
 
-            builder.Property(x => x.Status).IsRequired().HasConversion<string>();
+            //builder.Property(x => x.Status).IsRequired().HasConversion<string>();
 
             builder.Property(x => x.ResumeId).IsRequired();
 

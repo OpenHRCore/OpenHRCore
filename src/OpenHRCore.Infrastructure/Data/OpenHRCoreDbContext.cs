@@ -28,7 +28,7 @@ namespace OpenHRCore.Infrastructure.Data
 
         //Career Connect Module
         public DbSet<Applicant> Applicants { get; set; }
-        public DbSet<ApplicantStage> ApplicantStages { get; set; }
+        public DbSet<ApplicationStage> ApplicationStages { get; set; }
         public DbSet<CoverLetter> CoverLetters { get; set; }
         public DbSet<Interview> Interviews { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }

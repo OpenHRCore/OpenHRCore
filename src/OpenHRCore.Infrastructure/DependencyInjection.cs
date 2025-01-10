@@ -28,7 +28,7 @@ namespace OpenHRCore.Infrastructure
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             services.AddScoped<IApplicantRepository, ApplicantRepository>();
-            services.AddScoped<IApplicantStageRepository, ApplicantStageRepository>();
+            //services.AddScoped<IApplicantStageRepository, ApplicantStageRepository>();
             services.AddScoped<ICoverLetterRepository, CoverLetterRepository>();
             services.AddScoped<IInterviewRepository, InterviewRepository>();
             services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
