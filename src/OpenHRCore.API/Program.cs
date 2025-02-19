@@ -99,12 +99,8 @@ namespace OpenHRCore.API
         /// <param name="app">The WebApplication to configure.</param>
         private static void ConfigureMiddleware(WebApplication app)
         {
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseRequestLocalization();
             app.UseHttpsRedirection();
             app.MapControllers();
