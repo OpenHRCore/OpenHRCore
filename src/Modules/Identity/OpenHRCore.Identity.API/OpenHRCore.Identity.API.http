@@ -1,0 +1,6 @@
+@OpenHRCore.Identity.API_HostAddress = http://localhost:5259
+
+GET {{OpenHRCore.Identity.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,6 @@
+@OpenHRCore.Recruitment.API_HostAddress = http://localhost:5058
+
+GET {{OpenHRCore.Recruitment.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
