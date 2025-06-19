@@ -10,5 +10,6 @@
         public JobType? JobType { get; set; }
         public required string Description { get; set; }
         public JobPostingStatus Status { get; set; } = JobPostingStatus.Draft;
+        public virtual ICollection<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
     }
 }
