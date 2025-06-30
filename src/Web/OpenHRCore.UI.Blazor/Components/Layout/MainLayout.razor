@@ -5,15 +5,32 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 <MudLayout>
-    <MudAppBar Fixed=true Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+    <MudAppBar Elevation="1" Color="Color.Inherit"  Fixed=true>
+        <MudIconButton Icon="@Icons.Material.Outlined.MenuOpen" Color=Color.Inherit Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        <MudText Typo="Typo.h6">OpenHRCore</MudText>
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Href="https://github.com/MudBlazor/MudBlazor" Target="_blank" />
+        <MudIconButton Icon="@Icons.Material.Outlined.Notifications" Color="Color.Inherit" aria-label="notifications" />
+        <MudIconButton Icon="@Icons.Material.Outlined.Mail" Color="Color.Inherit" aria-label="messages" />
+        <MudMenu>
+            <ActivatorContent>
+              
+                <MudBadge Color="Color.Success" Overlap="true" Bordered="true">
+                    <MudAvatar Color="Color.Inherit">SK</MudAvatar>
+                </MudBadge>
+            </ActivatorContent>
+            <ChildContent>
+               <div style="padding:1rem;">
+                    <MudText Typo="Typo.subtitle2">Stephen Kyaw</MudText>
+                    <MudText Typo="Typo.body2" Class="text-secondary">admin@openhrcore.com</MudText>
+                    <MudDivider Class="my-2" />
+                    <MudMenuItem Icon="@Icons.Material.Outlined.People" Href="/profile">Profile</MudMenuItem>
+                    <MudMenuItem Icon="@Icons.Material.Outlined.Settings" Href="/settings">Settings</MudMenuItem>
+                    <MudMenuItem Icon="@Icons.Material.Outlined.Logout" Href="/logout">Logout</MudMenuItem>
+                </div>
+            </ChildContent>
+        </MudMenu>
     </MudAppBar>
-    <MudDrawer @bind-Open="@_open" Elevation="1">
-        <MudDrawerHeader>
-            <MudText Typo="Typo.h6">OpenHRCore</MudText>
-        </MudDrawerHeader>
+    <MudDrawer @bind-Open="@_open">
         <MudDrawerContainer>
             <NavMenu />
         </MudDrawerContainer>
@@ -27,7 +44,6 @@
 
 @code {
     private bool _open = true;
-
     private void ToggleDrawer()
     {
         _open = !_open;
