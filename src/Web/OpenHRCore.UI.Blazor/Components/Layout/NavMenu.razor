@@ -1,10 +1,13 @@
-﻿
-<MudNavMenu>
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
-    
-    <MudNavLink Href="weather" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Weather</MudNavLink>
-
+﻿<MudNavMenu Margin="Margin.Normal" Rounded=true Bordered=true>
+    <MudNavLink Href="dashboard" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
+    <MudNavGroup title="Recruitment" Icon="@Icons.Material.Filled.Work" Expanded="true">
+        <MudNavLink Href="" Match="NavLinkMatch.All">Job Posting</MudNavLink>
+        <MudNavLink Href="counter" Match="NavLinkMatch.Prefix">Candidates</MudNavLink>
+        <MudNavLink Href="weather" Match="NavLinkMatch.Prefix">Job Applications</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup title="Employees" Icon="@Icons.Material.Filled.SupervisedUserCircle" Expanded="true">
+        <MudNavLink Href="employee" Match="NavLinkMatch.All">Employee Information</MudNavLink>
+        <MudNavLink Href="movement" Match="NavLinkMatch.Prefix">Employee Movement</MudNavLink>
+        <MudNavLink Href="aa" Match="NavLinkMatch.Prefix">Job Applications</MudNavLink>
+    </MudNavGroup>
 </MudNavMenu>
-
-
