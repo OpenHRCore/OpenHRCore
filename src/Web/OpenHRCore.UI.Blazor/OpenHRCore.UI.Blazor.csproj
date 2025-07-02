@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="MudBlazor" Version="8.*" />
+    <PackageReference Include="MudBlazor.ThemeManager" Version="3.0.0" />
   </ItemGroup>
 
 
