@@ -1,8 +1,64 @@
-﻿<MudNavMenu >
-    <MudNavLink Href="dashboard" Class="pa-2" IconColor=Color.Primary Icon="@Icons.Material.Outlined.Dashboard">Dashboard</MudNavLink>
-    <MudDivider/>
-    <MudNavGroup title="Administration" IconColor=Color.Primary Icon="@Icons.Material.Outlined.Settings" Expanded="true">
-        <MudNavLink Href="users">Users</MudNavLink>
+﻿<MudNavMenu>
+    <MudTooltip Text="Dashboard" Inline=false Arrow=true Placement="Placement.Right">
+        <MudNavLink Match=NavLinkMatch.All Icon="@Icons.Material.Outlined.Dashboard" Href="">
+            Dashboard
+        </MudNavLink>
+
+    </MudTooltip>
+    @if (IsShowMenuTitle)
+    {
+        <MudNavGroup title="Settings" Icon="@Icons.Material.Outlined.Settings" Expanded=true>
+            <MudNavLink Icon="@Icons.Material.Outlined.People" Href="/admin/users">Users</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Outlined.AdminPanelSettings" Href="/admin/roles">Roles</MudNavLink>
+        </MudNavGroup>
+
+        <MudNavGroup title="Recruitment" Icon="@Icons.Material.Outlined.WorkHistory" Expanded=true>
+            <MudNavLink Icon="@Icons.Material.Outlined.People" Href="/admin/users">Users</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Outlined.AdminPanelSettings" Href="/admin/roles">Roles</MudNavLink>
+        </MudNavGroup>
+    }
+    else
+    {
+
+        <MudMenu Variant="Variant.Filled">
+            <ActivatorContent>
+
+                <MudTooltip Text="Settings" Inline=false Arrow=true Placement="Placement.Right">
+                    <MudNavLink Icon="@Icons.Material.Outlined.Settings">Settings</MudNavLink>
+                </MudTooltip>
+            </ActivatorContent>
+            <ChildContent>
+                <MudMenuItem>
+                    <MudText Typo="Typo.subtitle2" Style="font-weight:bold;">Settings</MudText>
+                    <MudText Typo="Typo.body2" Class="text-secondary">Manage Application Settings</MudText>
+                </MudMenuItem>
+                <MudDivider />
+                <MudMenuItem Icon="@Icons.Material.Outlined.People" Href="/admin/users">Users</MudMenuItem>
+                <MudMenuItem Icon="@Icons.Material.Outlined.Lock" Href="/admin/roles">Roles</MudMenuItem>
+            </ChildContent>
+        </MudMenu>
+
+        <MudMenu Variant="Variant.Filled">
+            <ActivatorContent>
+
+                <MudTooltip Text="Recruitment" Inline=false Arrow=true Placement="Placement.Right">
+                    <MudNavLink Icon="@Icons.Material.Outlined.WorkHistory">Recruitment</MudNavLink>
+                </MudTooltip>
+            </ActivatorContent>
+            <ChildContent>
+                <MudMenuItem>
+                    <MudText Typo="Typo.subtitle2" Style="font-weight:bold;">Recruitment</MudText>
+                    <MudText Typo="Typo.body2" Class="text-secondary">Manage Recruitment Module</MudText>
+                </MudMenuItem>
+                <MudDivider />
+                <MudMenuItem Icon="@Icons.Material.Outlined.People" Href="/admin/users">Users</MudMenuItem>
+                <MudMenuItem Icon="@Icons.Material.Outlined.Lock" Href="/admin/roles">Roles</MudMenuItem>
+            </ChildContent>
+        </MudMenu>
+    }
+
+    @* <MudNavGroup title="Administration"  Icon="@Icons.Material.Outlined.Settings" Expanded="IsExpanded">
+        <MudNavLink Href="admin/users">Users</MudNavLink>
         <MudNavLink Href="roles">Roles</MudNavLink>
         <MudNavLink Href="counter" Match="NavLinkMatch.Prefix">Recruitment</MudNavLink>
         <MudNavLink Href="weather" Match="NavLinkMatch.Prefix">Employees</MudNavLink>
@@ -11,34 +67,44 @@
         <MudNavLink Href="weather" Match="NavLinkMatch.Prefix">Payroll</MudNavLink>
     </MudNavGroup>
     <MudDivider Class="mx-2" />
-    <MudNavGroup title="Recruitment" IconColor=Color.Primary Icon="@Icons.Material.Outlined.WorkHistory" Expanded="true">
+    <MudNavGroup title="Recruitment" Icon="@Icons.Material.Outlined.WorkHistory" Expanded="IsExpanded">
         <MudNavLink Href="" Match="NavLinkMatch.All">Job Posting</MudNavLink>
         <MudNavLink Href="counter" Match="NavLinkMatch.Prefix">Candidates</MudNavLink>
         <MudNavLink Href="weather" Match="NavLinkMatch.Prefix">Job Applications</MudNavLink>
     </MudNavGroup>
-    <MudNavGroup title="Employees" IconColor=Color.Primary Icon="@Icons.Material.Outlined.People" Expanded="true">
+    <MudDivider Class="mx-2" />
+    <MudNavGroup title="Employees" Icon="@Icons.Material.Outlined.People" Expanded="IsExpanded">
         <MudNavLink Href="employee" Match="NavLinkMatch.All">Employee Information</MudNavLink>
         <MudNavLink Href="movement" Match="NavLinkMatch.Prefix">Employee Movement</MudNavLink>
         <MudNavLink Href="aa" Match="NavLinkMatch.Prefix">Job Applications</MudNavLink>
     </MudNavGroup>
-    <MudNavGroup title="Attendance" IconColor=Color.Primary Icon="@Icons.Material.Outlined.AccessAlarm" Expanded="true">
+    <MudDivider Class="mx-2" />
+    <MudNavGroup title="Attendance" Icon="@Icons.Material.Outlined.AccessAlarm" Expanded="IsExpanded">
         <MudNavLink Href="employee" Match="NavLinkMatch.All">Employee Information</MudNavLink>
         <MudNavLink Href="movement" Match="NavLinkMatch.Prefix">Employee Movement</MudNavLink>
         <MudNavLink Href="aa" Match="NavLinkMatch.Prefix">Job Applications</MudNavLink>
     </MudNavGroup>
-    <MudNavGroup title="Leave" IconColor=Color.Primary Icon="@Icons.Material.Outlined.WorkOff" Expanded="true">
+    <MudDivider Class="mx-2" />
+    <MudNavGroup title="Leave" Icon="@Icons.Material.Outlined.WorkOff" Expanded="IsExpanded">
         <MudNavLink Href="employee" Match="NavLinkMatch.All">Employee Information</MudNavLink>
         <MudNavLink Href="movement" Match="NavLinkMatch.Prefix">Employee Movement</MudNavLink>
         <MudNavLink Href="aa" Match="NavLinkMatch.Prefix">Job Applications</MudNavLink>
     </MudNavGroup>
-    <MudNavGroup title="Payroll" IconColor=Color.Primary Icon="@Icons.Material.Outlined.CurrencyExchange" Expanded="true">
+    <MudDivider Class="mx-2" />
+    <MudNavGroup title="Payroll" Icon="@Icons.Material.Outlined.CurrencyExchange" Expanded="IsExpanded">
         <MudNavLink Href="employee" Match="NavLinkMatch.All">Employee Information</MudNavLink>
         <MudNavLink Href="movement" Match="NavLinkMatch.Prefix">Employee Movement</MudNavLink>
         <MudNavLink Href="aa" Match="NavLinkMatch.Prefix">Job Applications</MudNavLink>
     </MudNavGroup>
-    <MudNavGroup title="Reporting" IconColor=Color.Primary Icon="@Icons.Material.Outlined.DocumentScanner" Expanded="true">
+    <MudDivider Class="mx-2" />
+    <MudNavGroup title="Reporting" Icon="@Icons.Material.Outlined.DocumentScanner" Expanded="IsExpanded">
         <MudNavLink Href="employee" Match="NavLinkMatch.All">Employee Information</MudNavLink>
         <MudNavLink Href="movement" Match="NavLinkMatch.Prefix">Employee Movement</MudNavLink>
         <MudNavLink Href="aa" Match="NavLinkMatch.Prefix">Job Applications</MudNavLink>
-    </MudNavGroup>
+    </MudNavGroup> *@
 </MudNavMenu>
+
+@code {
+    [Parameter]
+    public bool IsShowMenuTitle { get; set; } = false;
+}

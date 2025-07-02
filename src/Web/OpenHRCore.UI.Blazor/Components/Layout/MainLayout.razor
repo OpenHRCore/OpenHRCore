@@ -1,18 +1,17 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
+<MudThemeProvider Theme="_theme" IsDarkMode="_isDarkMode" />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 <MudLayout>
-    <MudThemeManagerButton OnClick="@((e) => OpenThemeManager(true))" />
-    <MudThemeManager Open="_themeManagerOpen" OpenChanged="OpenThemeManager" Theme="_themeManager" ThemeChanged="UpdateTheme" />
 
-    <MudAppBar Elevation="1" Fixed=true>
-        <MudIconButton Icon="@Icons.Material.Outlined.MenuOpen" Color=Color.Inherit Edge="Edge.Start" OnClick="@ToggleDrawer" />
-        <MudText Typo="Typo.h6">OpenHRCore</MudText>
+    <MudAppBar  Elevation="0">
+        <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color=Color.Inherit Edge="Edge.Start" OnClick="@ToggleDrawer" />
+    
+        <MudText Typo="Typo.h6" Style="font-weight:bold;">OpenHRCore</MudText>
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Outlined.AutoAwesome" Color="Color.Inherit" aria-label="chat" />
+        <MudIconButton Icon="@Icons.Material.Outlined.AutoAwesome" Color="Color.Primary" aria-label="chat" />
         <MudIconButton Icon="@Icons.Material.Outlined.Notifications" Color="Color.Inherit" aria-label="notifications" />
         <MudIconButton Icon="@Icons.Material.Outlined.Mail" Color="Color.Inherit" aria-label="messages" />
         <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
@@ -24,24 +23,25 @@
                 </MudBadge>
             </ActivatorContent>
             <ChildContent>
-               <div style="padding:1rem;">
-                    <MudText Typo="Typo.subtitle2">Stephen Kyaw</MudText>
+                <MudMenuItem>
+                    <MudText Typo="Typo.subtitle2" Style="font-weight:bold;">Stephen Kyaw</MudText>
                     <MudText Typo="Typo.body2" Class="text-secondary">admin@openhrcore.com</MudText>
-                    <MudDivider Class="my-2" />
-                    <MudMenuItem Icon="@Icons.Material.Outlined.People" Href="/profile">Profile</MudMenuItem>
-                    <MudMenuItem Icon="@Icons.Material.Outlined.Settings" Href="/settings">Settings</MudMenuItem>
-                    <MudMenuItem Icon="@Icons.Material.Outlined.Logout" Href="/logout">Logout</MudMenuItem>
-                </div>
+                </MudMenuItem>
+                <MudDivider />
+                <MudMenuItem Icon="@Icons.Material.Outlined.People" Href="/profile">Profile</MudMenuItem>
+                <MudMenuItem Icon="@Icons.Material.Outlined.Settings" Href="/settings">Settings</MudMenuItem>
+                <MudMenuItem Icon="@Icons.Material.Outlined.Logout" Href="/logout">Logout</MudMenuItem>
             </ChildContent>
         </MudMenu>
     </MudAppBar>
-    <MudDrawer @bind-Open="@_open"  Elevation="2">
-        <MudDrawerContainer>
-            <NavMenu />
-        </MudDrawerContainer>
+
+    <MudDrawer Class="rounded-tr-xl overflow-hidden" Style="@($"border:1px solid {Colors.Gray.Lighten2}")" @bind-Open="@_open" Elevation="1" ClipMode="@DrawerClipMode.Always" Variant="@DrawerVariant.Mini">
+        <NavMenu IsShowMenuTitle=_open />
     </MudDrawer>
+   
     <MudMainContent Elevation="2">
         <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="p-2">
+           
             @Body
         </MudContainer>
     </MudMainContent>
@@ -49,13 +49,17 @@
 
 @code {
 
-    private bool _open = true;
+   
+
+    private bool _isExpanded = true;
+    private bool _open = false;
     private void ToggleDrawer()
     {
         _open = !_open;
+        _isExpanded = !_isExpanded;
     }
 
-    private bool _isDarkMode = true;
+    private bool _isDarkMode = false;
     private MudTheme? _theme = null;
 
     protected override void OnInitialized()
@@ -64,12 +68,12 @@
 
         StateHasChanged();
 
-        _theme = new();
-        // {
-        //     PaletteLight = _lightPalette,
-        //     PaletteDark = _darkPalette,
-        //     LayoutProperties = new LayoutProperties()
-        // };
+        _theme = new()
+        {
+            PaletteLight = _lightPalette,
+            PaletteDark = _darkPalette,
+            LayoutProperties = new LayoutProperties()
+        };
     }
     private void DarkModeToggle()
     {
@@ -117,23 +121,7 @@
 
     public string DarkLightModeButtonIcon => _isDarkMode switch
     {
-        true => Icons.Material.Rounded.AutoMode,
+        true => Icons.Material.Rounded.LightMode,
         false => Icons.Material.Outlined.DarkMode,
     };
-
-    private ThemeManagerTheme _themeManager = new ThemeManagerTheme();
-    public bool _themeManagerOpen = false;
-
-    void OpenThemeManager(bool value)
-    {
-        _themeManagerOpen = value;
-    }
-
-    void UpdateTheme(ThemeManagerTheme value)
-    {
-        _themeManager = value;
-        StateHasChanged();
-    }
-
-   
 }

@@ -7,7 +7,7 @@
 
 <MudGrid>
     <MudItem lg="3" md="3" sm="6" xs="12">
-        <MudCard Class="mb-4">
+        <MudCard Class="mb-4 rounded-lg" Elevation="2">
             <MudCardHeader>
                 <MudText Typo="Typo.subtitle1">Total Users</MudText>
             </MudCardHeader>
@@ -17,7 +17,7 @@
         </MudCard>
     </MudItem>
     <MudItem lg="3" md="3" sm="6" xs="12">
-        <MudCard Class="mb-4">
+        <MudCard Class="mb-4 rounded-lg">
             <MudCardHeader>
                 <MudText Typo="Typo.subtitle1">Active Users</MudText>
             </MudCardHeader>
@@ -27,7 +27,7 @@
         </MudCard>
     </MudItem>
     <MudItem lg="3" md="3" sm="6" xs="12">
-        <MudCard Class="mb-4">
+        <MudCard Class="mb-4 rounded-lg">
             <MudCardHeader>
                 <MudText Typo="Typo.subtitle1">Inactive Users</MudText>
             </MudCardHeader>
@@ -37,7 +37,7 @@
         </MudCard>
     </MudItem>
     <MudItem lg="3" md="3" sm="6" xs="12">
-        <MudCard Class="mb-4">
+        <MudCard Class="mb-4 rounded-lg">
             <MudCardHeader>
                 <MudText Typo="Typo.subtitle1">Pending Requests</MudText>
             </MudCardHeader>
@@ -48,15 +48,10 @@
     </MudItem>
 </MudGrid>
 
-<MudGrid>
-    <MudItem lg="6" md="6" sm="12" xs="12">
-       <MudCard Class="mb-4">
-           
-        </MudCard>
-    </MudItem>
-    <MudItem lg="6" md="6" sm="12" xs="12">
-
-    </MudItem>
-</MudGrid>
-
+@code{
+    private List<BreadcrumbItem> _items =
+  [
+        new("Dashboard", href: null, disabled: true)
+  ];
+}
 
