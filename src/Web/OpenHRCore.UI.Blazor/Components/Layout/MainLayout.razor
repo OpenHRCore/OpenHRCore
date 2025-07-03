@@ -34,7 +34,7 @@
         </MudMenu>
     </MudAppBar>
     
-    <MudDrawer Class=" overflow-hidden" Style="@($"border:1px solid {Colors.Gray.Lighten2}")" @bind-Open="@_open" Elevation="1" ClipMode="@DrawerClipMode.Never" Variant="@DrawerVariant.Mini">
+    <MudDrawer Class="rounded overflow-hidden" Style="@($"border:1px solid {Colors.Gray.Lighten2}")" @bind-Open="@_open" Elevation="1" ClipMode="@DrawerClipMode.Never" Variant="@DrawerVariant.Mini">
         <NavMenu IsShowMenuTitle=_open />
     </MudDrawer>
 
