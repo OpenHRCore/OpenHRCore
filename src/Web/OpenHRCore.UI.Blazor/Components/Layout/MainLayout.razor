@@ -6,9 +6,9 @@
 <MudSnackbarProvider />
 <MudLayout>
 
-    <MudAppBar  Elevation="0">
+    <MudAppBar Elevation="0" Fixed=true>
         <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color=Color.Inherit Edge="Edge.Start" OnClick="@ToggleDrawer" />
-    
+
         <MudText Typo="Typo.h6" Style="font-weight:bold;">OpenHRCore</MudText>
         <MudSpacer />
         <MudIconButton Icon="@Icons.Material.Outlined.AutoAwesome" Color="Color.Primary" aria-label="chat" />
@@ -17,9 +17,8 @@
         <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
         <MudMenu>
             <ActivatorContent>
-              
                 <MudBadge Color="Color.Success" Overlap="true" Bordered="true">
-                    <MudAvatar Color="Color.Inherit">SK</MudAvatar>
+                    <MudAvatar Color="Color.Primary">SK</MudAvatar>
                 </MudBadge>
             </ActivatorContent>
             <ChildContent>
@@ -34,25 +33,21 @@
             </ChildContent>
         </MudMenu>
     </MudAppBar>
-
-    <MudDrawer Class="rounded-tr-xl overflow-hidden" Style="@($"border:1px solid {Colors.Gray.Lighten2}")" @bind-Open="@_open" Elevation="1" ClipMode="@DrawerClipMode.Always" Variant="@DrawerVariant.Mini">
+    
+    <MudDrawer Class=" overflow-hidden" Style="@($"border:1px solid {Colors.Gray.Lighten2}")" @bind-Open="@_open" Elevation="1" ClipMode="@DrawerClipMode.Never" Variant="@DrawerVariant.Mini">
         <NavMenu IsShowMenuTitle=_open />
     </MudDrawer>
-   
+
     <MudMainContent Elevation="2">
-        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="p-2">
-           
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="p-2">
             @Body
         </MudContainer>
     </MudMainContent>
 </MudLayout>
 
 @code {
-
-   
-
     private bool _isExpanded = true;
-    private bool _open = false;
+    private bool _open = true;
     private void ToggleDrawer()
     {
         _open = !_open;

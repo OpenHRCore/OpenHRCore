@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -22,5 +22,17 @@
     <Folder Include="Modules\Admin\Users\Components\" />
     <Folder Include="Modules\Admin\Users\Models\" />
     <Folder Include="Modules\Admin\Users\Services\" />
+    <Folder Include="Modules\Recruitment\JobApplication\Components\" />
+    <Folder Include="Modules\Recruitment\JobApplication\Models\" />
+    <Folder Include="Modules\Recruitment\JobApplication\Services\" />
+    <Folder Include="Modules\Recruitment\Candidates\Components\" />
+    <Folder Include="Modules\Recruitment\Candidates\Models\" />
+    <Folder Include="Modules\Recruitment\Candidates\Services\" />
+    <Folder Include="Modules\Recruitment\Settings\Components\" />
+    <Folder Include="Modules\Recruitment\Settings\Models\" />
+    <Folder Include="Modules\Recruitment\Settings\Services\" />
+    <Folder Include="Modules\Recruitment\JobPosting\Components\" />
+    <Folder Include="Modules\Recruitment\JobPosting\Models\" />
+    <Folder Include="Modules\Recruitment\JobPosting\Services\" />
   </ItemGroup>
 </Project>

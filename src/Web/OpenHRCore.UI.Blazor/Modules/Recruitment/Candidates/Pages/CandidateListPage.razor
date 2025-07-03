@@ -1,0 +1,56 @@
+﻿@page "/recruitment/candidates"
+
+<PageTitle>JobPosting</PageTitle>
+<MudBreadcrumbs Items="_items" Separator=">"></MudBreadcrumbs>
+
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1rem;flex-wrap:wrap;">
+    <div>
+        <MudText Typo="Typo.h6" Style="font-weight:bold;" Class="my-4">Candidates Listing</MudText>
+        <MudText Typo="Typo.body2" Class="mb-4">This page is job post information listing page.</MudText>
+    </div>
+    <div>
+        <MudButton Class="mr-2 rounded-lg" Variant="Variant.Filled" Color="@Color.Default" EndIcon="@Icons.Material.Outlined.Download">Import</MudButton>
+        <MudButton Class="rounded-lg" Variant="Variant.Filled" Color="@Color.Dark" EndIcon="@Icons.Material.Outlined.Create">Create</MudButton>
+    </div>
+</div>
+
+
+
+<MudDataGrid Elevation="1" Items="@GetUserList" Filterable="true" FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity">
+    <Columns>
+        <PropertyColumn Property="x => x.Name" Title="Name" />
+        <PropertyColumn Property="x => x.Email" Title="Email" />
+        <PropertyColumn Property="x => x.Role" Title="Role" />
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="User" />
+    </PagerContent>
+</MudDataGrid>
+@code {
+
+    private List<BreadcrumbItem> _items =
+   [
+       new("Recruitment", href: null, disabled:true),
+        new("Candidates List", href: null, disabled: true)
+   ];
+    DataGridFilterMode _filterMode = DataGridFilterMode.Simple;
+    DataGridFilterCaseSensitivity _caseSensitivity = DataGridFilterCaseSensitivity.Default;
+
+    class User
+    {
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+        public string? Role { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    private List<User> GetUserList = new List<User>
+    {
+        new User { Name = "John Doe", Email = "johndoe@gmail.com", IsActive = true, Role = "Admin" },
+        new User { Name = "Jane Smith", Email = "jane@gmail.com", IsActive = true, Role = "User" },
+        new User { Name = "John Doe", Email = "johndoe@gmail.com", IsActive = true, Role = "Admin" },
+        new User { Name = "Jane Smith", Email = "jane@gmail.com", IsActive = true, Role = "User" },
+        new User { Name = "John Doe", Email = "johndoe@gmail.com", IsActive = true, Role = "Admin" },
+        new User { Name = "Jane Smith", Email = "jane@gmail.com", IsActive = true, Role = "User" },
+    };
+}
