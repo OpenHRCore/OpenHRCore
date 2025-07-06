@@ -1,0 +1,75 @@
+﻿
+<MudNavMenu>
+
+    <CompanySwitcherMenu IsMiniView="@IsMiniView" />
+    
+
+    <MudTooltip Text="Dashboard" Inline="false" Arrow="true" Placement="Placement.Right">
+        <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Dashboard" Href="">
+            Dashboard
+        </MudNavLink>
+    </MudTooltip>
+
+    @if (IsMiniView)
+    {
+        <MudMenu Variant="Variant.Filled">
+            <ActivatorContent>
+                <MudTooltip Text="Settings" Inline="false" Arrow="true" Placement="Placement.Right">
+                    <MudNavLink Icon="@Icons.Material.Outlined.Settings">Settings</MudNavLink>
+                </MudTooltip>
+            </ActivatorContent>
+            <ChildContent>
+                <MudMenuItem>
+                    <MudText Typo="Typo.subtitle2" Style="font-weight:bold;">Settings</MudText>
+                    <MudText Typo="Typo.body2" Class="text-secondary">Manage Application Settings</MudText>
+                </MudMenuItem>
+                <MudDivider />
+                <MudMenuItem Icon="@Icons.Material.Outlined.People" Href="/admin/users">Users</MudMenuItem>
+                <MudMenuItem Icon="@Icons.Material.Outlined.Lock" Href="/admin/roles">Roles</MudMenuItem>
+            </ChildContent>
+        </MudMenu>
+
+        <MudMenu Variant="Variant.Filled">
+            <ActivatorContent>
+                <MudTooltip Text="Recruitment" Inline="false" Arrow="true" Placement="Placement.Right">
+                    <MudNavLink Icon="@Icons.Material.Outlined.WorkHistory">Recruitment</MudNavLink>
+                </MudTooltip>
+            </ActivatorContent>
+            <ChildContent>
+                <MudMenuItem>
+                    <MudText Typo="Typo.subtitle2" Style="font-weight:bold;">Recruitment</MudText>
+                    <MudText Typo="Typo.body2" Class="text-secondary">Manage Recruitment Module</MudText>
+                </MudMenuItem>
+                <MudDivider />
+                <MudMenuItem Icon="@Icons.Material.Outlined.SettingsSuggest" Href="/recruitment/settings">Settings</MudMenuItem>
+                <MudMenuItem Icon="@Icons.Material.Outlined.Draw" Href="/recruitment/pipeline">Pipeline</MudMenuItem>
+                <MudMenuItem Icon="@Icons.Material.Outlined.Work" Href="/recruitment/job-posting">Job Posting</MudMenuItem>
+                <MudMenuItem Icon="@Icons.Material.Outlined.ContactPage" Href="/recruitment/candidates">Candidates</MudMenuItem>
+                <MudMenuItem Icon="@Icons.Material.Outlined.FindInPage" Href="/recruitment/job-application">Job Applications</MudMenuItem>
+            </ChildContent>
+        </MudMenu>
+    }
+    else
+    {
+        <MudNavGroup Title="Settings" Icon="@Icons.Material.Outlined.Settings" Expanded="true">
+            <MudNavLink Icon="@Icons.Material.Outlined.People" Href="/admin/users">Users</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Outlined.AdminPanelSettings" Href="/admin/roles">Roles</MudNavLink>
+        </MudNavGroup>
+
+        <MudNavGroup Title="Recruitment" Icon="@Icons.Material.Outlined.WorkHistory" Expanded="true">
+            <MudNavLink Icon="@Icons.Material.Outlined.SettingsSuggest" Href="/recruitment/settings">Settings</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Outlined.Draw" Href="/recruitment/pipeline">Pipeline</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Outlined.Work" Href="/recruitment/job-posting">Job Posting</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Outlined.ContactPage" Href="/recruitment/candidates">Candidates</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Outlined.FindInPage" Href="/recruitment/job-application">Job Applications</MudNavLink>
+        </MudNavGroup>
+    }
+
+</MudNavMenu>
+
+<UserSidebarMenu />
+
+@code {
+    [Parameter]
+    public bool IsMiniView { get; set; } = false;
+}

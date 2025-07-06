@@ -1,0 +1,47 @@
+﻿<MudPaper Class="mt-auto" Elevation="0">
+    <MudDivider />
+    <MudTooltip Text="User Info" Inline="false" Arrow="true" Placement="Placement.Right">
+        <MudMenu>
+            <ActivatorContent>
+                <MudPaper Elevation=0 class="d-flex justify-space-between align-center pl-2 py-4 pr-2">
+                    <MudAvatar Color="Color.Inherit">@NameHelper.GetInitials(User.Name)</MudAvatar>
+                    <MudPaper Elevation=0 class="pl-2">
+                        <MudText Typo="Typo.subtitle2" Style="font-weight:bold;">@User.Name</MudText>
+                        <MudText Typo="Typo.body2" Class="text-secondary">@User.Email</MudText>
+                    </MudPaper>
+                </MudPaper>
+            </ActivatorContent>
+            <ChildContent>
+                <MudMenuItem>
+                    <MudText Typo="Typo.subtitle2" Style="font-weight:bold;">@User.Name</MudText>
+                    <MudText Typo="Typo.body2" Class="text-secondary">@User.Email</MudText>
+                </MudMenuItem>
+                <MudDivider />
+                <MudMenuItem Icon="@Icons.Material.Outlined.People" Href="/profile">Profile</MudMenuItem>
+                <MudMenuItem Icon="@Icons.Material.Outlined.Settings" Href="/settings">Settings</MudMenuItem>
+                <MudMenuItem Icon="@Icons.Material.Outlined.Logout" Href="/logout">Logout</MudMenuItem>
+            </ChildContent>
+        </MudMenu>
+    </MudTooltip>
+</MudPaper>
+
+@code {
+
+    private class UserInfo
+    {
+        public string Name { get; set; } = default!;
+        public string Email { get; set; } = default!;
+    }
+    private UserInfo User { get; set; } = new UserInfo()
+    {
+        Name = "Stephen Kyaw",
+        Email = "stephenkyaw@gmail.com"
+    };
+
+    private string GetAvatarString(string userName)
+    {
+        return userName.Length > 2 ? userName.Substring(0, 2).ToUpper() : userName.ToUpper();
+    }
+
+    
+}

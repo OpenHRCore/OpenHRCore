@@ -16,6 +16,7 @@
   <ItemGroup>
     <Folder Include="Components\Buttons\" />
     <Folder Include="Components\Modals\" />
+    <Folder Include="Components\Pages\" />
     <Folder Include="Components\Tables\" />
     <Folder Include="Modules\Admin\Roles\Components\" />
     <Folder Include="Modules\Admin\Roles\Models\" />

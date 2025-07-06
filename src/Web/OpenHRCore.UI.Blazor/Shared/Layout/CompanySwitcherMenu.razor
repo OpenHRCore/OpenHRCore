@@ -1,0 +1,83 @@
+﻿
+<MudTooltip Text="Company Info" Inline="false" Arrow="true" Placement="Placement.Right">
+    <MudMenu Style="width:100%;" AnchorOrigin="@(IsMiniView? Origin.BottomLeft: Origin.BottomCenter)" TransformOrigin="@(IsMiniView? Origin.BottomLeft: Origin.TopLeft)">
+        <ActivatorContent>
+            <MudPaper Elevation="0" class="d-flex justify-space-between align-center pl-2 py-4 pr-2" Style="width:100%;">
+                <MudAvatar Color="Color.Primary">@NameHelper.GetInitials(ActiveCompany.Name)</MudAvatar>
+                <MudPaper class="pl-2" Elevation="0">
+                    <MudText Typo="Typo.subtitle2" Style="font-weight:bold;">@ActiveCompany.Name</MudText>
+                    <MudText Typo="Typo.body2" Class="text-secondary">@ActiveCompany.Email</MudText>
+                </MudPaper>
+                <MudIcon Class="ml-auto" Icon="@Icons.Material.Outlined.UnfoldMore" />
+            </MudPaper>
+        </ActivatorContent>
+        <ChildContent>
+            <MudMenuItem>
+                <MudText Typo="Typo.subtitle2" Style="font-weight:bold;">Company Information</MudText>
+                <MudText Typo="Typo.body2" Class="text-secondary">Switch Company</MudText>
+            </MudMenuItem>
+            <MudDivider />
+
+            @foreach (var company in Companies)
+            {
+                <MudMenuItem @onclick="() => SwitchCompany(company.Id)" Disabled="@(ActiveCompany.Id == company.Id ? true : false)">
+                    <div class="d-flex justify-start align-center px-2">
+                        <MudAvatar Color="@(ActiveCompany.Id == company.Id ? Color.Default : Color.Primary)">@GetAvatarString(company.Name)</MudAvatar>
+                        <div class="pl-2">
+                            <MudText Typo="Typo.subtitle2" Style="font-weight:bold;">@company.Name</MudText>
+                            <MudText Typo="Typo.body2" Class="text-secondary">@company.Email</MudText>
+                        </div>
+                    </div>
+                </MudMenuItem>
+            }
+
+            <MudDivider />
+            <MudMenuItem>
+                <div class="d-flex justify-center align-center">
+                    <MudIcon Icon="@Icons.Material.Filled.Add" />
+                    <MudText Class="text-secondary ml-2" Typo="Typo.body2">Add company</MudText>
+                </div>
+            </MudMenuItem>
+        </ChildContent>
+    </MudMenu>
+</MudTooltip>
+<MudDivider />
+
+@code {
+    [Parameter]
+    public bool IsMiniView { get; set; } = false;
+
+    private CompanyInfo ActiveCompany { get; set; } = default!;
+
+    private class CompanyInfo
+    {
+        public string Id { get; set; } = default!;
+        public string Name { get; set; } = default!;
+        public string Email { get; set; } = default!;
+        public bool Active { get; set; } = false;
+    }
+
+    private List<CompanyInfo> Companies { get; set; } = new()
+    {
+        new CompanyInfo { Id = "open", Name = "OpenHRCore", Email = "admin@openhrcore.com", Active =true },
+        new CompanyInfo { Id = "abc", Name = "ABC Corp", Email = "admin@abc.com" },
+        new CompanyInfo { Id = "xyz", Name = "XYZ Ltd", Email = "info@xyz.com" },
+
+    };
+    private string GetAvatarString(string companyName)
+    {
+        return companyName.Length > 2 ? companyName.Substring(0, 2).ToUpper() : companyName.ToUpper();
+    }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ActiveCompany = Companies.FirstOrDefault(c => c.Active) ?? Companies.First();
+    }
+
+    private void SwitchCompany(string companyId)
+    {
+        ActiveCompany = Companies.FirstOrDefault(x => x.Id == companyId) ?? Companies.First();
+
+    }
+}

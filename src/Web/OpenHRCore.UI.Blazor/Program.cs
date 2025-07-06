@@ -1,6 +1,5 @@
 using MudBlazor.Services;
-using OpenHRCore.UI.Blazor.Components;
-
+using OpenHRCore.UI.Blazor.Shared;
 namespace OpenHRCore.UI.Blazor
 {
     public class Program
