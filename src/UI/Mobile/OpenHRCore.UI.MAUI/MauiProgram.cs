@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Toolkit.Hosting;
 
 namespace OpenHRCore.UI.MAUI
 {
@@ -8,6 +9,7 @@ namespace OpenHRCore.UI.MAUI
         {
             var builder = MauiApp.CreateBuilder();
             builder
+                .ConfigureSyncfusionToolkit()
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
