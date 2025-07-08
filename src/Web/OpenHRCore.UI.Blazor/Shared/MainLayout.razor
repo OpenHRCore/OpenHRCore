@@ -1,12 +1,12 @@
 ﻿@inherits LayoutComponentBase
-
+@using MudBlazor
 <MudThemeProvider Theme="_theme" IsDarkMode="_isDarkMode" />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 <MudLayout>
 
-    <MudAppBar Elevation="0" Fixed=true>
+    <MudAppBar Elevation="0" Color="Color.Transparent">
         <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color=Color.Inherit Edge="Edge.Start" OnClick="@ToggleDrawer" />
 
         <MudText Typo="Typo.h6" Style="font-weight:bold;">OpenHRCore</MudText>
@@ -32,14 +32,14 @@
                 <MudMenuItem Icon="@Icons.Material.Outlined.Logout" Href="/logout">Logout</MudMenuItem>
             </ChildContent>
         </MudMenu>
-    </MudAppBar>
 
-    <MudDrawer Class="rounded overflow-hidden" Style="@($"border:1px solid {Colors.Gray.Lighten2}")" @bind-Open="@_open" Elevation="1" ClipMode="@DrawerClipMode.Never" Variant="@DrawerVariant.Mini">
+    </MudAppBar>
+    <MudDrawer Elevation="2" Height="98%" Class="rounded-lg mt-2 ml-2  overflow-hidden" Style="@($"border:1px solid {Colors.Gray.Lighten2}")" @bind-Open="@_open" ClipMode="@DrawerClipMode.Never" Variant="@DrawerVariant.Mini">
         <NavMenu IsMiniView=!_open />
     </MudDrawer>
 
-    <MudMainContent Elevation="2">
-        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="p-2">
+    <MudMainContent Elevation="2" Style="height:100%;">
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="px-10 py-5">
             @Body
         </MudContainer>
     </MudMainContent>
@@ -63,6 +63,7 @@
 
         StateHasChanged();
 
+
         _theme = new()
         {
             PaletteLight = _lightPalette,
@@ -77,41 +78,34 @@
 
     private readonly PaletteLight _lightPalette = new()
     {
-        Black = "#110e2d",
-        AppbarText = "#424242",
-        AppbarBackground = "rgba(255,255,255,0.8)",
-        DrawerBackground = "#ffffff",
-        GrayLight = "#e8e8e8",
-        GrayLighter = "#f9f9f9",
+        Primary = Colors.Indigo.Darken2,         // #4338CA Indigo 700
+        Secondary = Colors.Teal.Darken1,          // #00897B Teal 600
+        Background = Colors.Gray.Lighten5,        // #F9FAFB Gray 50
+        Surface = Colors.Gray.Lighten5,             // #FFFFFF
+        AppbarBackground = Colors.Shades.White,
+        AppbarText = Colors.Gray.Darken4,          // #111827 Gray 900
+        DrawerBackground = Colors.Gray.Lighten5,
+        DrawerText = Colors.Gray.Darken4,
+        TextPrimary = Colors.Gray.Darken4,         // #111827
+        TextSecondary = Colors.Gray.Darken1,       // #6B7280
+        LinesDefault = Colors.Gray.Lighten2,       // #E5E7EB
+        ActionDefault = Colors.Indigo.Darken2      // #4338CA
     };
 
     private readonly PaletteDark _darkPalette = new()
     {
-        Primary = "#7e6fff",
-        Surface = "#1e1e2d",
-        Background = "#1a1a27",
-        BackgroundGray = "#151521",
-        AppbarText = "#92929f",
-        AppbarBackground = "rgba(26,26,39,0.8)",
-        DrawerBackground = "#1a1a27",
-        ActionDefault = "#74718e",
-        ActionDisabled = "#9999994d",
-        ActionDisabledBackground = "#605f6d4d",
-        TextPrimary = "#b2b0bf",
-        TextSecondary = "#92929f",
-        TextDisabled = "#ffffff33",
-        DrawerIcon = "#92929f",
-        DrawerText = "#92929f",
-        GrayLight = "#2a2833",
-        GrayLighter = "#1e1e2d",
-        Info = "#4a86ff",
-        Success = "#3dcb6c",
-        Warning = "#ffb545",
-        Error = "#ff3f5f",
-        LinesDefault = "#33323e",
-        TableLines = "#33323e",
-        Divider = "#292838",
-        OverlayLight = "#1e1e2d80",
+        Primary = Colors.Blue.Darken2, // Medium Blue – calm, trustworthy accent 4F83CC
+        Secondary = "#6FB3B8",         // Soft Teal – subtle supporting color
+        Background = "#0D1117",        // Almost black with a slight blue tint
+        Surface = "#161B22",           // Dark gray with blue undertones
+        AppbarBackground = "#1B222D",  // Slightly lighter for subtle separation 1B222D
+        AppbarText = "#C9D1D9",        // Soft light gray text
+        DrawerBackground = "#161B22",  // Matches surface for consistency
+        DrawerText = "#8B949E",        // Muted blue-gray text for sidebar
+        TextPrimary = "#C9D1D9",       // Main text, soft white
+        TextSecondary = "#6E7681",     // Secondary text, medium gray-blue
+        LinesDefault = "#30363D",      // Subtle dividing lines
+        ActionDefault = "#4F83CC"      // Accent for interactive elements
     };
 
     public string DarkLightModeButtonIcon => _isDarkMode switch

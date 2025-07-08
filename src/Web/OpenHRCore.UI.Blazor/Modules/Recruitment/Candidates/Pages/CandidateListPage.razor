@@ -1,7 +1,7 @@
 ﻿@page "/recruitment/candidates"
 
 <PageTitle>JobPosting</PageTitle>
-<MudBreadcrumbs Items="_items" Separator=">"></MudBreadcrumbs>
+<MudBreadcrumbs Class="pa-0 ma-0" Items="_items" Separator=">"></MudBreadcrumbs>
 
 <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1rem;flex-wrap:wrap;">
     <div>
@@ -16,7 +16,7 @@
 
 
 
-<MudDataGrid Elevation="1" Items="@GetUserList" Filterable="true" FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity">
+<MudDataGrid Elevation="0" Style="@($"border:1px solid {Colors.Gray.Lighten2}")" Items="@GetUserList" Filterable="true" FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity">
     <Columns>
         <PropertyColumn Property="x => x.Name" Title="Name" />
         <PropertyColumn Property="x => x.Email" Title="Email" />

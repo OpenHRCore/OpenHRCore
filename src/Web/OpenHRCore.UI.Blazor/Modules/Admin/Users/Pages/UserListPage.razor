@@ -1,7 +1,7 @@
 ﻿@page "/admin/users"
 
 <PageTitle>UserListing</PageTitle>
-<MudBreadcrumbs Items="_items" Separator=">"></MudBreadcrumbs>
+<MudBreadcrumbs Class="ma-0 pa-0" Items="_items" Separator=">"></MudBreadcrumbs>
 
 <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1rem;flex-wrap:wrap;">
     <div>
@@ -10,13 +10,13 @@
     </div>
     <div>
         <MudButton Class="mr-2 rounded-lg" Variant="Variant.Filled" Color="@Color.Default" EndIcon="@Icons.Material.Outlined.Download">Import</MudButton>
-        <MudButton Class="rounded-lg" Variant="Variant.Filled" Color="@Color.Dark" EndIcon="@Icons.Material.Outlined.Create">Create</MudButton>
+        <MudButton Class="rounded-lg" Variant="Variant.Filled" Color="@Color.Primary" EndIcon="@Icons.Material.Outlined.Create">Create</MudButton>
     </div>
 </div>
 
 
 
-<MudDataGrid Elevation="1" Items="@GetUserList" Filterable="true" FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity">
+<MudDataGrid Elevation="0" Style="@($"border:1px solid {Colors.Gray.Lighten2}")" Items="@GetUserList" Filterable="true" FilterMode="@_filterMode" FilterCaseSensitivity="@_caseSensitivity">
     <Columns>
         <PropertyColumn Property="x => x.Name" Title="Name" />
         <PropertyColumn Property="x => x.Email" Title="Email" />
