@@ -1,0 +1,31 @@
+﻿<MudMenu>
+    <ActivatorContent>
+        <MudBadge Color="Color.Success" Overlap="true" Bordered="true">
+            <MudAvatar Color="Color.Primary">@NameHelper.GetInitials(User.Name)</MudAvatar>
+        </MudBadge>
+    </ActivatorContent>
+    <ChildContent>
+        <MudMenuItem>
+            <MudText Typo="Typo.subtitle2" Style="font-weight:bold;">@User.Name</MudText>
+            <MudText Typo="Typo.body2" Class="text-secondary">@User.Email</MudText>
+        </MudMenuItem>
+        <MudDivider />
+        <MudMenuItem Icon="@Icons.Material.Outlined.People" Href="/profile">Profile</MudMenuItem>
+        <MudMenuItem Icon="@Icons.Material.Outlined.Settings" Href="/settings">Settings</MudMenuItem>
+        <MudMenuItem Icon="@Icons.Material.Outlined.Logout" Href="/logout">Logout</MudMenuItem>
+    </ChildContent>
+</MudMenu>
+
+@code{
+    private class UserInfo
+    {
+        public string Name { get; set; } = default!;
+        public string Email { get; set; } = default!;
+    }
+    private UserInfo User { get; set; } = new UserInfo()
+    {
+        Name = "Stephen Kyaw",
+        Email = "stephenkyaw@gmail.com"
+    };
+
+}

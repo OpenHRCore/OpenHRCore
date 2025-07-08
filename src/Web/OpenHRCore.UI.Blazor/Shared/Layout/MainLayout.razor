@@ -1,0 +1,91 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="_theme" IsDarkMode="_isDarkMode" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="0" Color="Color.Transparent">
+        <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        <MudText Typo="Typo.h6" Style="font-weight:bold;">OpenHRCore</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Outlined.AutoAwesome" Color="Color.Primary" aria-label="chat" />
+        <MudIconButton Icon="@Icons.Material.Outlined.Notifications" Color="Color.Inherit" aria-label="notifications" />
+        <MudIconButton Icon="@Icons.Material.Outlined.Mail" Color="Color.Inherit" aria-label="messages" />
+        <MudIconButton Icon="@DarkLightModeButtonIcon" Color="Color.Inherit" OnClick="@ToggleDarkMode" />
+        <UserHeaderMenu />
+    </MudAppBar>
+
+    <MudDrawer Elevation="2"
+               Height="98%"
+               Class="rounded-lg mt-2 ml-2 overflow-hidden"
+               Style="@($"border:1px solid {Colors.Gray.Lighten2}")"
+               @bind-Open="_isDrawerOpen"
+               ClipMode="DrawerClipMode.Never"
+               Variant="DrawerVariant.Mini">
+        <NavMenu IsMiniView="!_isDrawerOpen" />
+    </MudDrawer>
+
+    <MudMainContent Elevation="2" Style="height:100%;">
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="px-10 py-5">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private bool _isDarkMode = false;
+    private bool _isDrawerOpen = true;
+    private MudTheme? _theme;
+
+    private void ToggleDrawer() => _isDrawerOpen = !_isDrawerOpen;
+    private void ToggleDarkMode() => _isDarkMode = !_isDarkMode;
+
+    public string DarkLightModeButtonIcon => _isDarkMode
+        ? Icons.Material.Rounded.LightMode
+        : Icons.Material.Outlined.DarkMode;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _theme = new MudTheme
+        {
+            PaletteLight = _lightPalette,
+            PaletteDark = _darkPalette,
+            LayoutProperties = new LayoutProperties()
+        };
+    }
+
+    private readonly PaletteLight _lightPalette = new()
+    {
+        Primary = Colors.Indigo.Darken2,         // #4338CA Indigo 700
+        Secondary = Colors.Teal.Darken1,         // #00897B Teal 600
+        Background = Colors.Gray.Lighten5,       // #F9FAFB Gray 50
+        Surface = Colors.Gray.Lighten5,          // #FFFFFF
+        AppbarBackground = Colors.Shades.White,
+        AppbarText = Colors.Gray.Darken4,        // #111827 Gray 900
+        DrawerBackground = Colors.Gray.Lighten5,
+        DrawerText = Colors.Gray.Darken4,
+        TextPrimary = Colors.Gray.Darken4,       // #111827
+        TextSecondary = Colors.Gray.Darken1,     // #6B7280
+        LinesDefault = Colors.Gray.Lighten2,     // #E5E7EB
+        ActionDefault = Colors.Indigo.Darken2    // #4338CA
+    };
+
+    private readonly PaletteDark _darkPalette = new()
+    {
+        Primary = Colors.Blue.Darken2,   // #4F83CC
+        Secondary = "#6FB3B8",           // Soft Teal
+        Background = "#0D1117",          // Almost black
+        Surface = "#161B22",             // Dark gray
+        AppbarBackground = "#1B222D",    // Slightly lighter
+        AppbarText = "#C9D1D9",          // Soft light gray
+        DrawerBackground = "#161B22",    // Matches surface
+        DrawerText = "#8B949E",          // Muted blue-gray
+        TextPrimary = "#C9D1D9",         // Main text
+        TextSecondary = "#6E7681",       // Secondary text
+        LinesDefault = "#30363D",        // Dividing lines
+        ActionDefault = "#4F83CC"        // Accent
+    };
+}
