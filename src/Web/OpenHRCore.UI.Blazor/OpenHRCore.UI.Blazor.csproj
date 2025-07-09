@@ -8,8 +8,12 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.AI" Version="9.6.0" />
     <PackageReference Include="MudBlazor" Version="8.*" />
+    <PackageReference Include="MudBlazor.Markdown" Version="8.9.0" />
     <PackageReference Include="MudBlazor.ThemeManager" Version="3.0.0" />
+    <PackageReference Include="OllamaSharp" Version="5.2.7" />
   </ItemGroup>
 
 
@@ -23,6 +27,8 @@
     <Folder Include="Modules\Admin\Users\Components\" />
     <Folder Include="Modules\Admin\Users\Models\" />
     <Folder Include="Modules\Admin\Users\Services\" />
+    <Folder Include="Modules\AIAgents\Components\" />
+    <Folder Include="Modules\AIAgents\Models\" />
     <Folder Include="Modules\Recruitment\JobApplication\Components\" />
     <Folder Include="Modules\Recruitment\JobApplication\Models\" />
     <Folder Include="Modules\Recruitment\JobApplication\Services\" />

@@ -1,0 +1,122 @@
+﻿@page "/chat"
+@using Microsoft.AspNetCore.SignalR.Client
+@using System.Net.Http
+@inject NavigationManager Navigation
+@implements IAsyncDisposable
+
+<PageTitle>AI Chat</PageTitle>
+
+<MudText Typo="Typo.h6" Style="font-weight:bold;">AI Agents</MudText>
+<MudText Typo="Typo.body2" Class="mb-4">This page is an AI agent chat page.</MudText>
+
+<MudPaper Class="d-flex flex-column" Style="height: 75vh;" Elevation="0">
+
+    <!-- Scrollable Chat Message Area -->
+    <MudPaper Class="flex-grow-1 overflow-y-auto pa-10 mb-5" Elevation="1">
+        @foreach (var msg in messages)
+        {
+            <MudChat Variant="Variant.Text" 
+                     Color="@(msg.IsAgent ? Color.Dark : Color.Primary)"
+                     ArrowPosition="ChatArrowPosition.Middle"
+                     ChatPosition="@(msg.IsAgent ? ChatBubblePosition.Start : ChatBubblePosition.End)">
+                <MudAvatar Color="@(msg.IsAgent? Color.Error: Color.Primary)">
+                    @NameHelper.GetInitials(msg.User)
+                </MudAvatar>
+                <MudChatBubble>
+                    <MudMarkdown  Value="@msg.Text" />
+                </MudChatBubble>
+            </MudChat>
+        }
+    </MudPaper>
+
+    <!-- Input Box Area -->
+    <MudPaper Class="pa-2" Elevation="0">
+        <MudTextField T="string"
+                      @bind-Value="messageInput"
+                      Placeholder="Type your message..."
+                      Variant="Variant.Outlined"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@Icons.Material.Outlined.Chat"
+                      OnAdornmentClick="Send"
+                      Immediate="true"
+                      InputType="InputType.Text"
+                      Clearable="true"
+                      AutoFocus="true"
+                      FullWidth="true"
+                      Class="rounded-lg" />
+    </MudPaper>
+
+</MudPaper>
+
+
+
+@code {
+    private HubConnection? hubConnection;
+    private string userInput = "StephenKyaw";
+    private string messageInput { get; set; } = string.Empty;
+
+    private List<ChatMessage> messages = new();
+
+    private class ChatMessage
+    {
+        public string User { get; set; } = string.Empty;
+        public string Text { get; set; } = string.Empty;
+        public bool IsAgent => User == "AI";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/chathub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        {
+            messages.Add(new ChatMessage { User = user, Text = message });
+            InvokeAsync(StateHasChanged);
+        });
+
+        hubConnection.On<string, string>("ReceiveStreamedToken", (user, token) =>
+        {
+            var last = messages.LastOrDefault();
+
+            if (last != null && last.User == user && last.IsAgent)
+            {
+                last.Text += token;
+            }
+            else
+            {
+                messages.Add(new ChatMessage { User = user, Text = token });
+            }
+
+            InvokeAsync(StateHasChanged);
+        });
+
+        await hubConnection.StartAsync();
+    }
+    private async Task Send()
+    {
+        if (string.IsNullOrWhiteSpace(messageInput))
+            return;
+
+        if (hubConnection is not null && hubConnection.State == HubConnectionState.Connected)
+        {
+            await hubConnection.SendAsync("SendMessage", userInput, messageInput);
+            messageInput = string.Empty;
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+        {
+            messages.Add(new ChatMessage { User = "System", Text = "⚠️ Connection not established." });
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

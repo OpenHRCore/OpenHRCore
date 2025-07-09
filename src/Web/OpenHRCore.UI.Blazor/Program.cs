@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.ResponseCompression;
+using MudBlazor;
 using MudBlazor.Services;
 using OpenHRCore.UI.Blazor.Shared;
 namespace OpenHRCore.UI.Blazor
@@ -10,12 +12,26 @@ namespace OpenHRCore.UI.Blazor
 
             // Add MudBlazor services
             builder.Services.AddMudServices();
+            builder.Services.AddMudMarkdownServices();
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            builder.Services.AddSignalR();
+
+            builder.Services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    ["application/octet-stream"]);
+            });
             var app = builder.Build();
+            
+            app.UseResponseCompression();
+
+            app.UseRouting();
+
+            app.MapHub<ChatHub>("/chathub");
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

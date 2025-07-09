@@ -1,0 +1,39 @@
+﻿@page "/test"
+@using Microsoft.AspNetCore.Components.Forms
+@using MudBlazor
+@using MudBlazor.Components
+
+<h1>Bind Get Set Examples</h1>
+
+<h2>Elements</h2>
+
+<input type="text" @bind:get="text" @bind:set="(value) => { text = value; }" />
+<input type="text" @bind:get="text" @bind:set="Set" />
+<input type="text" @bind:get="text" @bind:set="SetAsync" />
+
+<h2>Components</h2>
+
+<InputText style="border:1px solid red;" @bind-Value:get="text" @bind-Value:set="(value) => { text = value; }" />
+<InputText style="border:1px solid red;" @bind-Value:get="text" @bind-Value:set="Set" />
+<InputText style="border:1px solid red;" @bind-Value:get="text" @bind-Value:set="SetAsync" />
+
+<MudTextField style="border:1px solid red;" @bind-Value:get="Name" @bind-Value:set="(value) => { Name = value; }" />
+
+<hr />
+<h1>@Name</h1>
+<InputTextArea @bind-Value:get="Name" @bind-Value:set="(value) => { Name = value;}"></InputTextArea>
+@code {
+    private string Name { get; set; } = string.Empty;
+    private string text = "";
+
+    private void Set(string value)
+    {
+        text = value;
+    }
+
+    private Task SetAsync(string value)
+    {
+        text = value;
+        return Task.CompletedTask;
+    }
+}
