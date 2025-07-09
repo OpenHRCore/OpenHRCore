@@ -20,10 +20,30 @@
                      ArrowPosition="ChatArrowPosition.Middle"
                      ChatPosition="@(msg.IsAgent ? ChatBubblePosition.Start : ChatBubblePosition.End)">
                 <MudAvatar Color="@(msg.IsAgent? Color.Error: Color.Primary)">
-                    @NameHelper.GetInitials(msg.User)
+                    @if (msg.IsAgent)
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.SmartToy" />
+                    }
+                    else
+                    {
+                        @NameHelper.GetInitials(msg.User)
+                    }
+                   
                 </MudAvatar>
                 <MudChatBubble>
                     <MudMarkdown  Value="@msg.Text" />
+                </MudChatBubble>
+            </MudChat>
+        }
+
+        @if(isLoading)
+        {
+            <MudChat Variant="Variant.Text" Color="Color.Dark" ArrowPosition="ChatArrowPosition.Middle" ChatPosition="ChatBubblePosition.Start">
+                <MudAvatar Color="Color.Error">
+                    <MudIcon Icon="@Icons.Material.Filled.SmartToy" />
+                </MudAvatar>
+                <MudChatBubble>
+                    <MudText Typo="Typo.body2">AI is typing...</MudText>
                 </MudChatBubble>
             </MudChat>
         }
@@ -51,6 +71,7 @@
 
 
 @code {
+    private bool isLoading = false;
     private HubConnection? hubConnection;
     private string userInput = "StephenKyaw";
     private string messageInput { get; set; } = string.Empty;
@@ -83,6 +104,7 @@
 
             if (last != null && last.User == user && last.IsAgent)
             {
+                isLoading = false;
                 last.Text += token;
             }
             else
@@ -97,6 +119,7 @@
     }
     private async Task Send()
     {
+        isLoading = true;
         if (string.IsNullOrWhiteSpace(messageInput))
             return;
 
