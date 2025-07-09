@@ -13,9 +13,9 @@
 
     <!-- Scrollable Chat Message Area -->
     <MudPaper Class="flex-grow-1 overflow-y-auto pa-10 mb-5" Elevation="1">
-        @foreach (var msg in messages)
+        @foreach (var msg in ChatMessages)
         {
-            <MudChat Variant="Variant.Text" 
+            <MudChat Variant="Variant.Text"
                      Color="@(msg.IsAgent ? Color.Dark : Color.Primary)"
                      ArrowPosition="ChatArrowPosition.Middle"
                      ChatPosition="@(msg.IsAgent ? ChatBubblePosition.Start : ChatBubblePosition.End)">
@@ -28,15 +28,15 @@
                     {
                         @NameHelper.GetInitials(msg.User)
                     }
-                   
+
                 </MudAvatar>
                 <MudChatBubble>
-                    <MudMarkdown  Value="@msg.Text" />
+                    <MudMarkdown Value="@msg.Text" />
                 </MudChatBubble>
             </MudChat>
         }
 
-        @if(isLoading)
+        @if (isLoading)
         {
             <MudChat Variant="Variant.Text" Color="Color.Dark" ArrowPosition="ChatArrowPosition.Middle" ChatPosition="ChatBubblePosition.Start">
                 <MudAvatar Color="Color.Error">
@@ -52,13 +52,16 @@
     <!-- Input Box Area -->
     <MudPaper Class="pa-2" Elevation="0">
         <MudTextField T="string"
-                      @bind-Value="messageInput"
+                      @bind-Value="_chatMessage"
                       Placeholder="Type your message..."
                       Variant="Variant.Outlined"
                       Adornment="Adornment.End"
                       AdornmentIcon="@Icons.Material.Outlined.Chat"
-                      OnAdornmentClick="Send"
+                      KeyDownPreventDefault="_keyDownPreventDefault"
+                      OnKeyDown="OnKeyDownAsync"
+                      OnAdornmentClick="OnAdornmentClick"
                       Immediate="true"
+                      TextUpdateSuppression=false
                       InputType="InputType.Text"
                       Clearable="true"
                       AutoFocus="true"
@@ -72,11 +75,11 @@
 
 @code {
     private bool isLoading = false;
-    private HubConnection? hubConnection;
-    private string userInput = "StephenKyaw";
-    private string messageInput { get; set; } = string.Empty;
-
-    private List<ChatMessage> messages = new();
+    private bool _keyDownPreventDefault = true;
+    private string _userName { get; set; } = "Stephen Kyaw";
+    private string _chatMessage { get; set; } = string.Empty;
+    private HubConnection? _hubConnection = null;
+    private List<ChatMessage> ChatMessages { get; set; } = new List<ChatMessage>();
 
     private class ChatMessage
     {
@@ -85,22 +88,44 @@
         public bool IsAgent => User == "AI";
     }
 
+    private async Task OnAdornmentClick()
+    {
+        await SendMessageToHubAsync(_userName, _chatMessage);
+    }
+
+    private async Task OnKeyDownAsync(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            isLoading = true;
+            _keyDownPreventDefault = true;
+            await SendMessageToHubAsync(_userName, _chatMessage);
+
+            _chatMessage = string.Empty;
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+        {
+            _keyDownPreventDefault = false;
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
-        hubConnection = new HubConnectionBuilder()
+        _hubConnection = new HubConnectionBuilder()
             .WithUrl(Navigation.ToAbsoluteUri("/chathub"))
             .WithAutomaticReconnect()
             .Build();
 
-        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        _hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
         {
-            messages.Add(new ChatMessage { User = user, Text = message });
+            ChatMessages.Add(new ChatMessage { User = user, Text = message });
             InvokeAsync(StateHasChanged);
         });
 
-        hubConnection.On<string, string>("ReceiveStreamedToken", (user, token) =>
+        _hubConnection.On<string, string>("ReceiveStreamedToken", (user, token) =>
         {
-            var last = messages.LastOrDefault();
+            var last = ChatMessages.LastOrDefault();
 
             if (last != null && last.User == user && last.IsAgent)
             {
@@ -109,37 +134,37 @@
             }
             else
             {
-                messages.Add(new ChatMessage { User = user, Text = token });
+                ChatMessages.Add(new ChatMessage { User = user, Text = token });
             }
 
             InvokeAsync(StateHasChanged);
         });
 
-        await hubConnection.StartAsync();
+        await _hubConnection.StartAsync();
     }
-    private async Task Send()
+
+
+    private async Task SendMessageToHubAsync(string userName, string message)
     {
-        isLoading = true;
-        if (string.IsNullOrWhiteSpace(messageInput))
+
+        if (string.IsNullOrWhiteSpace(message))
             return;
 
-        if (hubConnection is not null && hubConnection.State == HubConnectionState.Connected)
+        if (_hubConnection is not null && _hubConnection.State == HubConnectionState.Connected)
         {
-            await hubConnection.SendAsync("SendMessage", userInput, messageInput);
-            messageInput = string.Empty;
-            await InvokeAsync(StateHasChanged);
+            await _hubConnection.SendAsync("SendMessage", userName, message);
         }
         else
         {
-            messages.Add(new ChatMessage { User = "System", Text = "⚠️ Connection not established." });
+            ChatMessages.Add(new ChatMessage { User = "System", Text = "⚠️ Connection not established." });
         }
     }
 
     public async ValueTask DisposeAsync()
     {
-        if (hubConnection is not null)
+        if (_hubConnection is not null)
         {
-            await hubConnection.DisposeAsync();
+            await _hubConnection.DisposeAsync();
         }
     }
 }
