@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.SemanticKernel;
 using MudBlazor;
 using MudBlazor.Services;
-using OllamaSharp;
 using OpenHRCore.UI.Blazor.Shared;
 
 namespace OpenHRCore.UI.Blazor
@@ -11,13 +11,33 @@ namespace OpenHRCore.UI.Blazor
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var openAIConfig = builder.Configuration.GetSection("OpenAI");
 
-            builder.Services.AddChatClient(service =>
-                new OllamaApiClient("http://localhost:11434/", "deepseek-r1:14b"));
+            // Validate configuration values to avoid null reference issues
+            var modelId = openAIConfig["ModelId"];
+            var apiKey = openAIConfig["ApiKey"];
+
+            if (string.IsNullOrEmpty(modelId))
+            {
+                throw new InvalidOperationException("OpenAI ModelId is not configured.");
+            }
+
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                throw new InvalidOperationException("OpenAI ApiKey is not configured.");
+            }
+
+            // Add OpenAI Chat Completion Service
+            builder.Services.AddKernel();
+            builder.Services.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey);
+            builder.Services.AddScoped(sp => KernelPluginFactory.CreateFromType<EmployeeInformationPlugin>(serviceProvider: sp));
+           
 
             // Add MudBlazor services
             builder.Services.AddMudServices();
             builder.Services.AddMudMarkdownServices();
+
+           
 
             // Add services to the container.
             builder.Services.AddRazorComponents()

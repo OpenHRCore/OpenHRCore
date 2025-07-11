@@ -11,35 +11,35 @@
 <MudPaper Class="d-flex flex-column" Style="height: 75vh;" Elevation="0">
     <!-- Chat Scroll Area -->
     <MudPaper Class="flex-grow-1 overflow-y-auto pa-10 mb-5" Elevation="1">
-        @foreach (var msg in _chatMessages)
+        @foreach (var message in _messages)
         {
             <MudChat Variant="Variant.Text"
-                     Color="@(msg.IsAgent ? Color.Dark : Color.Primary)"
+                     Color="@(message.IsAgent ? Color.Dark : Color.Primary)"
                      ArrowPosition="ChatArrowPosition.Middle"
-                     ChatPosition="@(msg.IsAgent ? ChatBubblePosition.Start : ChatBubblePosition.End)">
-                <MudAvatar Color="@(msg.IsAgent? Color.Error: Color.Primary)">
-                    @if (msg.IsAgent)
+                     ChatPosition="@(message.IsAgent ? ChatBubblePosition.Start : ChatBubblePosition.End)">
+                <MudAvatar Color="@(message.IsAgent? Color.Error: Color.Primary)">
+                    @if (message.IsAgent)
                     {
                         <MudIcon Icon="@Icons.Material.Filled.SmartToy" />
                     }
                     else
                     {
-                        @NameHelper.GetInitials(msg.User)
+                        @NameHelper.GetInitials(message.User)
                     }
                 </MudAvatar>
                 <MudChatBubble>
-                    <MudMarkdown Value="@msg.Text" />
+                    <MudMarkdown Value="@message.Text" />
 
-                    @if (!string.IsNullOrWhiteSpace(msg.ThinkText))
+                    @if (!string.IsNullOrWhiteSpace(message.ThinkText))
                     {
                         <MudButton Variant="Variant.Text" Size="Size.Small" Color="Color.Secondary"
-                                   OnClick="@(() => ToggleThink(msg))">
-                            @(msg.ShowThink ? "Hide 🧠 Reasoning" : "Show 🧠 Reasoning")
+                                   OnClick="@(() => ToggleThink(message))">
+                            @(message.ShowThink ? "Hide 🧠 Reasoning" : "Show 🧠 Reasoning")
                         </MudButton>
 
-                        <MudCollapse Expanded="msg.ShowThink">
+                        <MudCollapse Expanded="message.ShowThink">
                             <MudPaper Class="mt-1 p-2" Style="background-color: #f5f5f5;">
-                                <em><strong>&lt;think&gt;</strong> @msg.ThinkText <strong>&lt;/think&gt;</strong></em>
+                                <em><strong>&lt;think&gt;</strong> @message.ThinkText <strong>&lt;/think&gt;</strong></em>
                             </MudPaper>
                         </MudCollapse>
                     }
@@ -63,7 +63,7 @@
     <!-- Input Area -->
     <MudPaper Class="pa-2" Elevation="0">
         <MudTextField T="string"
-                      @bind-Value="_currentMessage"
+                      @bind-Value="_input"
                       Placeholder="Type your message..."
                       Variant="Variant.Outlined"
                       Adornment="Adornment.End"
@@ -82,19 +82,13 @@
 
 @code {
     private readonly string _userName = "Stephen Kyaw";
-    private List<ChatMessage> _chatMessages = new();
-    private string _currentMessage = string.Empty;
+    private List<ChatMessage> _messages = new();
+    private string _input = string.Empty;
     private bool _isLoading;
     private HubConnection? _hubConnection;
 
-    private class ChatMessage
-    {
-        public string User { get; set; } = string.Empty;
-        public string Text { get; set; } = string.Empty;
-        public string? ThinkText { get; set; }
-        public bool ShowThink { get; set; } = false;
-        public bool IsAgent => User == "AI";
-    }
+    private const string AI_USER = "AI";
+    private const string SYSTEM_USER = "System";
 
     protected override async Task OnInitializedAsync()
     {
@@ -106,20 +100,19 @@
         _hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
         {
             var parsed = ParseMessage(user, message);
-            _chatMessages.Add(parsed);
+            _messages.Add(parsed);
             InvokeAsync(StateHasChanged);
         });
 
         _hubConnection.On<string, string>("ReceiveStreamedToken", (user, token) =>
         {
-            var last = _chatMessages.LastOrDefault();
+            var last = _messages.LastOrDefault();
 
             if (last != null && last.User == user && last.IsAgent)
             {
                 _isLoading = false;
                 last.Text += token;
 
-                // Try to extract <think> if message is complete (end of stream)
                 if (token.Contains("</think>"))
                 {
                     var parsed = ParseMessage(user, last.Text);
@@ -129,7 +122,7 @@
             }
             else
             {
-                _chatMessages.Add(new ChatMessage { User = user, Text = token });
+                _messages.Add(new ChatMessage { User = user, Text = token });
             }
 
             InvokeAsync(StateHasChanged);
@@ -140,18 +133,21 @@
 
     private ChatMessage ParseMessage(string user, string rawText)
     {
-        var msg = new ChatMessage { User = user, Text = rawText };
+        var message = new ChatMessage { User = user, Text = rawText };
 
-        int start = rawText.IndexOf("<think>", StringComparison.OrdinalIgnoreCase);
-        int end = rawText.IndexOf("</think>", StringComparison.OrdinalIgnoreCase);
+        const string startTag = "<think>";
+        const string endTag = "</think>";
+
+        int start = rawText.IndexOf(startTag, StringComparison.OrdinalIgnoreCase);
+        int end = rawText.IndexOf(endTag, StringComparison.OrdinalIgnoreCase);
 
         if (start >= 0 && end > start)
         {
-            msg.ThinkText = rawText.Substring(start + 7, end - start - 7).Trim();
-            msg.Text = rawText.Remove(start, end + 8 - start).Trim();
+            message.ThinkText = rawText.Substring(start + startTag.Length, end - start - startTag.Length).Trim();
+            message.Text = rawText.Remove(start, (end + endTag.Length) - start).Trim();
         }
 
-        return msg;
+        return message;
     }
 
     private async Task OnInputKeyDownAsync(KeyboardEventArgs e)
@@ -164,13 +160,13 @@
 
     private async Task SendAsync()
     {
-        var message = _currentMessage?.Trim();
+        var message = _input?.Trim();
 
         if (string.IsNullOrWhiteSpace(message))
             return;
 
         _isLoading = true;
-        _currentMessage = string.Empty;
+        _input = string.Empty;
 
         if (_hubConnection is not null && _hubConnection.State == HubConnectionState.Connected)
         {
@@ -178,9 +174,9 @@
         }
         else
         {
-            _chatMessages.Add(new ChatMessage
+            _messages.Add(new ChatMessage
             {
-                User = "System",
+                User = SYSTEM_USER,
                 Text = "⚠️ Connection not established."
             });
         }
@@ -188,9 +184,9 @@
         await InvokeAsync(StateHasChanged);
     }
 
-    private void ToggleThink(ChatMessage msg)
+    private void ToggleThink(ChatMessage message)
     {
-        msg.ShowThink = !msg.ShowThink;
+        message.ShowThink = !message.ShowThink;
     }
 
     public async ValueTask DisposeAsync()
