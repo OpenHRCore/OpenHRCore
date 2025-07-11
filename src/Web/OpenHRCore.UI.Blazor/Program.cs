@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using MudBlazor;
 using MudBlazor.Services;
+using OllamaSharp;
 using OpenHRCore.UI.Blazor.Shared;
+
 namespace OpenHRCore.UI.Blazor
 {
     public class Program
@@ -9,6 +11,9 @@ namespace OpenHRCore.UI.Blazor
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddChatClient(service =>
+                new OllamaApiClient("http://localhost:11434/", "deepseek-r1:14b"));
 
             // Add MudBlazor services
             builder.Services.AddMudServices();
@@ -26,7 +31,7 @@ namespace OpenHRCore.UI.Blazor
                     ["application/octet-stream"]);
             });
             var app = builder.Build();
-            
+
             app.UseResponseCompression();
 
             app.UseRouting();
