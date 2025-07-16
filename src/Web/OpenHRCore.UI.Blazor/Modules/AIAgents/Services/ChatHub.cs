@@ -33,6 +33,9 @@ public class EmployeeInformationPlugin
             new Employee { Name = "Alice Johnson", Position = "UX Designer", Age = 28 }
         };
     }
+
+    [KernelFunction, Description("Retrieves the current time in UTC.")]
+    public DateTime CurrentDate() => DateTime.UtcNow;
 }
 
 
@@ -98,6 +101,8 @@ public class ChatHub : Hub
         UserSessions.TryRemove(Context.ConnectionId, out _);
         return base.OnDisconnectedAsync(exception);
     }
+
+   
 }
 
 
