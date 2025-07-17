@@ -2,6 +2,10 @@
 
 namespace OpenHRCore.SharedKernel.Domain
 {
+    /// <summary>
+    /// Generic repository interface for OpenHR Core entities.
+    /// </summary>
+    /// <typeparam name="TEntity">Entity type.</typeparam>
     public interface IOpenHRCoreBaseRepository<TEntity>
         where TEntity : OpenHRCoreBaseEntity
     {
@@ -11,18 +15,28 @@ namespace OpenHRCore.SharedKernel.Domain
         Task AddRangeAsync(IEnumerable<TEntity> entities);
 
         Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate);
-        Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate, string includeProperties);
-        Task<TEntity> GetByIdAsync(object id);
-        Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
-        Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, string includeProperties);
+        Task<IEnumerable<TEntity>> GetWhereAsync(
+            Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> GetWhereAsync(
+            Expression<Func<TEntity, bool>> predicate, 
+            params Expression<Func<TEntity, object>>[] includeProperties);
 
-        void Update(TEntity entity);
-        void UpdateRange(IEnumerable<TEntity> entities);
+        Task<TEntity> GetByIdAsync(Guid entityId);
+        Task<TEntity> GetFirstOrDefaultAsync(
+            Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> GetFirstOrDefaultAsync(
+            Expression<Func<TEntity, bool>> predicate, 
+            params Expression<Func<TEntity, object>>[] includeProperties);
 
-        void Remove(TEntity entity);
-        void Remove(object id);
+        Task<bool> UpdateAsync(TEntity entity);
+        Task<bool> UpdateRangeAsync(IEnumerable<TEntity> entities);
+
+        void Remove(TEntity entity);    
+        void Remove(Guid entityId);
         void RemoveRange(IEnumerable<TEntity> entities);
+        Task<bool> RemoveAsync(TEntity entity);
+        Task<bool> RemoveAsync(Guid entityId);
+        Task<bool> RemoveRangeAsync(IEnumerable<TEntity> entities);
 
         TResult Max<TResult>(Expression<Func<TEntity, TResult>> selector);
         Task<TResult> MaxAsync<TResult>(Expression<Func<TEntity, TResult>> selector);

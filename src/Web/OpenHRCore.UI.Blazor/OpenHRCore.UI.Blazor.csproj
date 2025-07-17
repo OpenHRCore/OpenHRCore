@@ -10,14 +10,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.6" />
-    <PackageReference Include="Microsoft.Extensions.AI" Version="9.6.0" />
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.60.0" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.60.0-alpha" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.60.0" />
     <PackageReference Include="MudBlazor" Version="8.*" />
     <PackageReference Include="MudBlazor.Markdown" Version="8.9.0" />
     <PackageReference Include="MudBlazor.ThemeManager" Version="3.0.0" />
-    <PackageReference Include="OllamaSharp" Version="5.2.7" />
+    <PackageReference Include="OllamaSharp" Version="5.2.10" />
     <PackageReference Include="OpenAI" Version="2.2.0" />
   </ItemGroup>
 

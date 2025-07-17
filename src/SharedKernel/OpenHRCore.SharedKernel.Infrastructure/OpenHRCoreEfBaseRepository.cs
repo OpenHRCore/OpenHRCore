@@ -4,184 +4,227 @@ using System.Linq.Expressions;
 
 namespace OpenHRCore.SharedKernel.Infrastructure
 {
+    /// <summary>
+    /// Entity Framework Core base repository implementation for OpenHR Core entities.
+    /// </summary>
+    /// <typeparam name="TEntity">Entity type.</typeparam>
     public class OpenHRCoreEfBaseRepository<TEntity> : IOpenHRCoreBaseRepository<TEntity>
         where TEntity : OpenHRCoreBaseEntity
     {
-        protected DbContext _dbContext;
+        protected readonly DbContext dbContext;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpenHRCoreEfBaseRepository{TEntity}"/> class.
+        /// </summary>
+        /// <param name="dbContext">The database context.</param>
         public OpenHRCoreEfBaseRepository(DbContext dbContext)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
+        /// <inheritdoc/>
         public void Add(TEntity entity)
         {
             ValidateEntity(entity);
-            _dbContext.Set<TEntity>().Add(entity);
+            dbContext.Set<TEntity>().Add(entity);
         }
 
+        /// <inheritdoc/>
         public void AddRange(IEnumerable<TEntity> entities)
         {
             ValidateEntities(entities);
-            _dbContext.Set<TEntity>().AddRange(entities);
+            dbContext.Set<TEntity>().AddRange(entities);
         }
 
+        /// <inheritdoc/>
         public async Task AddAsync(TEntity entity)
         {
             ValidateEntity(entity);
-            await _dbContext.Set<TEntity>().AddAsync(entity);
+            await dbContext.Set<TEntity>().AddAsync(entity);
         }
 
+        /// <inheritdoc/>
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             ValidateEntities(entities);
-            await _dbContext.Set<TEntity>().AddRangeAsync(entities);
+            await dbContext.Set<TEntity>().AddRangeAsync(entities);
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await _dbContext.Set<TEntity>().ToListAsync();
+            return await dbContext.Set<TEntity>().ToListAsync();
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate)
         {
             ValidatePredicate(predicate);
-            return await _dbContext.Set<TEntity>().Where(predicate).ToListAsync();
+            return await dbContext.Set<TEntity>().Where(predicate).ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate, string includeProperties)
+        /// <inheritdoc/>
+        public async Task<IEnumerable<TEntity>> GetWhereAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            params Expression<Func<TEntity, object>>[] includeProperties)
         {
             ValidatePredicate(predicate);
             var query = BuildQueryWithIncludes(includeProperties);
             return await query.Where(predicate).ToListAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(object id)
+        /// <inheritdoc/>
+        public async Task<TEntity> GetByIdAsync(Guid entityId)
         {
-            ValidateId(id);
-            return await _dbContext.Set<TEntity>().FindAsync(id)
-                ?? throw new InvalidOperationException($"Entity with id {id} not found.");
+            var entity = await dbContext.Set<TEntity>().FindAsync(entityId);
+            return entity ?? throw new EntityNotFoundException<TEntity>(entityId);
         }
 
+        /// <inheritdoc/>
         public async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
             ValidatePredicate(predicate);
-            return await _dbContext.Set<TEntity>().FirstOrDefaultAsync(predicate)
-                ?? throw new InvalidOperationException("Entity not found.");
+            var entity = await dbContext.Set<TEntity>().FirstOrDefaultAsync(predicate);
+            return entity ?? throw new EntityNotFoundException<TEntity>();
         }
 
-        public async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, string includeProperties)
+        /// <inheritdoc/>
+        public async Task<TEntity> GetFirstOrDefaultAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            params Expression<Func<TEntity, object>>[] includeProperties)
         {
             ValidatePredicate(predicate);
             var query = BuildQueryWithIncludes(includeProperties);
-            return await query.FirstOrDefaultAsync(predicate)
-                ?? throw new InvalidOperationException("Entity not found.");
+            var entity = await query.FirstOrDefaultAsync(predicate);
+            return entity ?? throw new EntityNotFoundException<TEntity>();
         }
 
-        public void Update(TEntity entity)
+        /// <inheritdoc/>
+        public async Task<bool> UpdateAsync(TEntity entity)
         {
             ValidateEntity(entity);
-            _dbContext.Set<TEntity>().Update(entity);
+            dbContext.Set<TEntity>().Update(entity);
+            return await dbContext.SaveChangesAsync() > 0;
         }
 
-        public void UpdateRange(IEnumerable<TEntity> entities)
+        /// <inheritdoc/>
+        public async Task<bool> UpdateRangeAsync(IEnumerable<TEntity> entities)
         {
             ValidateEntities(entities);
-            _dbContext.Set<TEntity>().UpdateRange(entities);
+            dbContext.Set<TEntity>().UpdateRange(entities);
+            return await dbContext.SaveChangesAsync() > 0;
         }
 
+        /// <inheritdoc/>
         public void Remove(TEntity entity)
         {
             ValidateEntity(entity);
-            _dbContext.Set<TEntity>().Remove(entity);
+            dbContext.Set<TEntity>().Remove(entity);
         }
 
-        public void Remove(object id)
+        /// <inheritdoc/>
+        public void Remove(Guid entityId)
         {
-            ValidateId(id);
-            var entity = _dbContext.Set<TEntity>().Find(id);
+            var entity = dbContext.Set<TEntity>().Find(entityId);
             if (entity != null)
             {
                 Remove(entity);
             }
         }
 
+        /// <inheritdoc/>
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
             ValidateEntities(entities);
-            _dbContext.Set<TEntity>().RemoveRange(entities);
+            dbContext.Set<TEntity>().RemoveRange(entities);
         }
 
+        /// <inheritdoc/>
+        public async Task<bool> RemoveAsync(TEntity entity)
+        {
+            ValidateEntity(entity);
+            dbContext.Set<TEntity>().Remove(entity);
+            return await dbContext.SaveChangesAsync() > 0;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> RemoveAsync(Guid entityId)
+        {
+            var entity = await dbContext.Set<TEntity>().FindAsync(entityId);
+            if (entity == null)
+            {
+                return false;
+            }
+            return await RemoveAsync(entity);
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> RemoveRangeAsync(IEnumerable<TEntity> entities)
+        {
+            ValidateEntities(entities);
+            dbContext.Set<TEntity>().RemoveRange(entities);
+            return await dbContext.SaveChangesAsync() > 0;
+        }
+
+        /// <inheritdoc/>
         public TResult Max<TResult>(Expression<Func<TEntity, TResult>> selector)
         {
             ValidateSelector(selector);
-
-            var maxValue = default(TResult);
-
-            bool hasValues = _dbContext.Set<TEntity>().Select(selector).Any();
-
-            if (hasValues)
-            {
-                maxValue = _dbContext.Set<TEntity>().Select(selector).Max();
-            }
-
-            return maxValue ?? default!;
+            var query = dbContext.Set<TEntity>();
+            return query.Max(selector) ?? default!;
         }
 
+        /// <inheritdoc/>
         public async Task<TResult> MaxAsync<TResult>(Expression<Func<TEntity, TResult>> selector)
         {
             ValidateSelector(selector);
-
-            var maxValue = default(TResult);
-
-            bool hasValues = await _dbContext.Set<TEntity>().Select(selector).AnyAsync();
-
-            if (hasValues)
-            {
-                maxValue = await _dbContext.Set<TEntity>().Select(selector).MaxAsync();
-            }
-
-            return maxValue!;
+            var query = dbContext.Set<TEntity>();
+            return !await query.AnyAsync() ? default! : await query.MaxAsync(selector);
         }
 
-        protected void ValidateEntity(TEntity entity)
+        protected virtual void ValidateEntity(TEntity entity)
         {
             if (entity == null) throw new ArgumentNullException(nameof(entity));
         }
 
-        protected void ValidateEntities(IEnumerable<TEntity> entities)
+        protected virtual void ValidateEntities(IEnumerable<TEntity> entities)
         {
             if (entities == null || !entities.Any()) throw new ArgumentNullException(nameof(entities));
         }
 
-        protected void ValidatePredicate(Expression<Func<TEntity, bool>> predicate)
+        protected virtual void ValidatePredicate(Expression<Func<TEntity, bool>> predicate)
         {
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
         }
 
-        protected void ValidateId(object id)
-        {
-            if (id == null) throw new ArgumentNullException(nameof(id));
-        }
-
-        protected void ValidateSelector<TResult>(Expression<Func<TEntity, TResult>> selector)
+        protected virtual void ValidateSelector<TResult>(Expression<Func<TEntity, TResult>> selector)
         {
             if (selector == null) throw new ArgumentNullException(nameof(selector));
         }
 
-        protected IQueryable<TEntity> BuildQueryWithIncludes(string includeProperties)
+        protected virtual IQueryable<TEntity> BuildQueryWithIncludes(
+            params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = _dbContext.Set<TEntity>().AsQueryable();
+            var query = dbContext.Set<TEntity>().AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(includeProperties))
+            if (includeProperties != null)
             {
-                foreach (var includeProperty in includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProperty.Trim());
-                }
+                query = includeProperties.Aggregate(query, (current, include) => current.Include(include));
             }
 
             return query;
         }
+    }
+
+    /// <summary>
+    /// Exception thrown when an entity is not found.
+    /// </summary>
+    public class EntityNotFoundException<T> : Exception
+    {
+        public EntityNotFoundException()
+            : base($"Entity of type {typeof(T).Name} was not found.") { }
+
+        public EntityNotFoundException(Guid id)
+            : base($"Entity of type {typeof(T).Name} with id {id} was not found.") { }
     }
 }

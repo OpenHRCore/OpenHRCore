@@ -9,7 +9,7 @@
         public required ApplicationChannel ApplicationChannel { get; set; }
         public required string ResumeFilePath { get; set; }
         public string? CoverLetterFilePath { get; set; }
-        public DateTime ApplicationDate { get; set; } = DateTime.UtcNow;
+        public DateTimeOffset ApplicationDate { get; set; } = DateTimeOffset.UtcNow;
         public required Guid CurrentStageId { get; set; }
         public virtual ApplicationStage? CurrentStage { get; set; }
         public required StageStatus CurrentStageStatus { get; set; } = StageStatus.Applied;

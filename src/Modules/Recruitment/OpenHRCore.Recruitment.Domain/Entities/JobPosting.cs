@@ -4,11 +4,11 @@
     {
         public required string Code { get; set; }
         public required string Title { get; set; }
+        public required string Description { get; set; }
         public string? Company { get; set; }
         public WorkplaceType? WorkplaceType { get; set; }
         public string? JobLocation { get; set; }
         public JobType? JobType { get; set; }
-        public required string Description { get; set; }
         public JobPostingStatus Status { get; set; } = JobPostingStatus.Draft;
         public virtual ICollection<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
     }
