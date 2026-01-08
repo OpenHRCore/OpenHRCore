@@ -1,26 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.10" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
-    <PackageReference Include="OpenHRCore.SharedKernel.Infrastructure" Version="1.0.8-beta" />
-    <PackageReference Include="OpenHRCore.SharedKernel.Utilities" Version="1.0.2-beta" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\OpenHRCore.Application\OpenHRCore.Application.csproj" />
-    <ProjectReference Include="..\OpenHRCore.Domain\OpenHRCore.Domain.csproj" />
-  </ItemGroup>
 
 </Project>

@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="src/OpenHRCore.API/OpenHRCore.API.csproj" Id="3b271194-330a-4d53-9820-14663da849fa" />
+  <Project Path="src/OpenHRCore.Application/OpenHRCore.Application.csproj" Id="c800a3e5-d83f-4338-b0dd-145c72d2b74f" />
+  <Project Path="src/OpenHRCore.Domain/OpenHRCore.Domain.csproj" Id="dfa04b8e-07e0-41bf-9b41-f3ba589e84b9" />
+  <Project Path="src/OpenHRCore.Infrastructure/OpenHRCore.Infrastructure.csproj" Id="09a8fa2e-eef7-4514-a1e6-e3d0babf1d56" />
+  <Project Path="src/OpenHRCore.WebUI/OpenHRCore.WebUI.csproj" Id="220e5384-60b4-4706-b692-d585f1bccf73" />
+</Solution>

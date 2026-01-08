@@ -1,29 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Identity\**" />
-    <EmbeddedResource Remove="Identity\**" />
-    <None Remove="Identity\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="OpenHRCore.SharedKernel.Domain" Version="1.0.4-beta" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ControlCenter\Enums\" />
-    <Folder Include="ControlCenter\Interfaces\" />
-    <Folder Include="FlexiLeave\Enums\" />
-    <Folder Include="FlexiLeave\Interfaces\" />
-    <Folder Include="PayStream\Interfaces\" />
-    <Folder Include="TimeTrack\Enums\" />
-    <Folder Include="TimeTrack\Interfaces\" />
-  </ItemGroup>
 
 </Project>
